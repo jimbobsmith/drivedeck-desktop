@@ -1,23 +1,31 @@
-// Opt-in cross-repository validation of the actual packaged app + explicitly selected Android emulator.
-// Synthetic IDs/keys only; never uses personal profiles or installs on a physical device.
+// Opt-in packaged-app validation: dedicated emulator by default; fresh phone through the approved wrapper.
+// Synthetic IDs/keys and isolated profiles only. Phone mode requires a private fresh-install permit.
 const fs = require('node:fs'), path = require('node:path'), {spawn, spawnSync} = require('node:child_process');
 const {pathToFileURL} = require('node:url');
 const [executableArg, outputArg, enrollmentArg, platformArg, adb, serial] = process.argv.slice(2);
 const executable = path.resolve(executableArg || ''), output = path.resolve(outputArg || ''), enrollment = path.resolve(enrollmentArg || '');
+const phonePermit = process.env.DD_SYNC_FRESH_PHONE_PERMIT;
+const phone = /^[a-f0-9]{64}$/.test(phonePermit || '');
 const prefix = path.resolve('D:/tmp/dd').toLowerCase() + path.sep;
-if (process.argv.length !== 8 || !output.toLowerCase().startsWith(prefix) || !enrollment.toLowerCase().startsWith(prefix) || path.basename(executable).toLowerCase() !== 'freetube.exe' || !/^emulator-\d+$/.test(serial)) throw Error('ExplicitDisposableArgumentsRequired');
+if (process.argv.length !== 8 || !output.toLowerCase().startsWith(prefix) || !enrollment.toLowerCase().startsWith(prefix) || path.basename(executable).toLowerCase() !== 'freetube.exe' || !(phone ? serial && !/^emulator-/.test(serial) : /^emulator-\d+$/.test(serial))) throw Error('ExplicitDisposableArgumentsRequired');
 function android(args, input) {
  const r = spawnSync(adb, ['-s', serial, ...args], {encoding: 'utf8', input, timeout: 90000, maxBuffer: 1048576});
  if (r.status !== 0) throw Error('AndroidCommandFailed'); return r.stdout;
 }
-if (!android(['emu','avd','name']).includes('DD_Player_Foundation_API36') || !['ranchu','goldfish'].includes(android(['shell','getprop','ro.hardware']).trim())) throw Error('DedicatedPlayerEmulatorRequired');
+if (phone) {
+ if (['ranchu','goldfish'].includes(android(['shell','getprop','ro.hardware']).trim()) ||
+     android(['shell','run-as','com.drivedeck.player.test','cat','no_backup/media-sync-phone-validation.permit']).trim() !== phonePermit) throw Error('FreshPhonePermitRequired');
+} else {
+ if (!android(['emu','avd','name']).includes('DD_Player_Foundation_API36') || !['ranchu','goldfish'].includes(android(['shell','getprop','ro.hardware']).trim())) throw Error('DedicatedPlayerEmulatorRequired');
+}
+if (android(['reverse','--list']).split('\n').some(line => /\btcp:8789\b/.test(line))) throw Error('ExistingReverseMustRemainUntouched');
 fs.mkdirSync(output); const profile = path.join(output, 'profile');
 for (const name of ['', 'session', 'logs', 'crashes', 'roaming', 'local', 'temp']) fs.mkdirSync(path.join(profile, name), {recursive: true});
 fs.writeFileSync(path.join(profile, 'settings.db'), Object.entries({checkForUpdates: false, backendFallback: false, backendPreference: 'local', landingPage: 'settings'}).map(([_id,value]) => JSON.stringify({_id,value})).join('\n')+'\n');
 const env = {...process.env, APPDATA: path.join(profile,'roaming'), LOCALAPPDATA: path.join(profile,'local'), TEMP: path.join(profile,'temp'), TMP: path.join(profile,'temp')}; delete env.ELECTRON_RUN_AS_NODE; delete env.NODE_OPTIONS;
 let cdp, child, server, store, exitCode = null, inspectorResolve;
 const inspector = new Promise(resolve => { inspectorResolve = resolve; });
-const report = {schema: 'drivedeck.media-sync.actual-apps.v1', result: 'failed', syntheticDataOnly: true, actualPackagedDesktop: true, actualAndroidAppDatabase: true, physicalDeviceTouched: false, deployed: false, playbackQualification: false};
+const report = {schema: 'drivedeck.media-sync.actual-apps.v1', result: 'failed', syntheticDataOnly: true, actualPackagedDesktop: true, actualAndroidAppDatabase: true, physicalDeviceTouched: phone, formFactor: phone ? (process.env.DD_SYNC_VALIDATION_FORM_FACTOR || 'phone') : 'emulator', deployed: false, playbackQualification: false};
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function deadline(p, ms, code) { let timer; try { return await Promise.race([p, new Promise((_, reject) => { timer = setTimeout(() => reject(Error(code)), ms); })]); } finally { clearTimeout(timer); } }
 async function connect(url) {
@@ -35,10 +43,20 @@ async function renderer(expression) { return evaluate(`(async()=>{const w=__ddEl
 async function capture(name) { await evaluate(`(async()=>{const w=__ddElectron.BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().startsWith('app://bundle/'));w.showInactive();await new Promise(r=>setTimeout(r,400));const img=await w.webContents.capturePage();process.getBuiltinModule('fs').writeFileSync(${JSON.stringify(path.join(output,name))},img.toPNG());return true})()`); }
 function requireTrue(v, code) { if (!v) throw Error(code); }
 async function instrument(phase, reset = false) {
- const args = ['-s',serial,'shell','am','instrument','-w','-e','disableAnalytics','true','-e','class','org.schabi.newpipe.mediasync.MediaSyncIntegrationTest'+(reset?(phase==='ui'?'#settingsExposeManualControlsInBothOrientations':'#actualAppCrossClientFlow'):''),'-e','phase',phase,'com.drivedeck.player.test.test/androidx.test.runner.AndroidJUnitRunner'];
- const text = await deadline(new Promise((resolve,reject)=>{const p=spawn(adb,args,{windowsHide:true,stdio:['ignore','pipe','pipe']});let out='';for(const stream of [p.stdout,p.stderr])stream.on('data',chunk=>{if(out.length<1048576)out+=chunk.toString()});p.on('error',reject);p.on('exit',code=>code===0?resolve(out):reject(Error('AndroidCommandFailed')))}),90000,'AndroidDeadline');
+ const method = phone ? (phase === 'reset' ? 'freshInstallIsEmpty' : phase === 'enroll' ? 'protectedEnrollmentThroughNativeSettings' : phase === 'ui' ? 'settingsExposeManualControlsInBothOrientations' : phase === 'secrets' ? 'enrollmentTamperingFailsAndKeysStayOutsideRoomState' : phase === 'disconnect' ? 'disconnectPreservesLocalLibrary' : 'actualAppCrossClientFlow') : null;
+ const testClass = phone ? 'MediaSyncPhoneValidationTest#' + method : 'MediaSyncIntegrationTest'+(reset?(phase==='ui'?'#settingsExposeManualControlsInBothOrientations':'#actualAppCrossClientFlow'):'');
+ const args = ['-s',serial,'shell','am','instrument','-w','-e','disableAnalytics','true','-e','class','org.schabi.newpipe.mediasync.'+testClass,'-e','phase',phase,...(phone?['-e','freshPhonePermit',phonePermit]:[]),'com.drivedeck.player.test.test/androidx.test.runner.AndroidJUnitRunner'];
+ let androidProcess;
+ let text;
+ try {
+  text = await deadline(new Promise((resolve,reject)=>{androidProcess=spawn(adb,args,{windowsHide:true,stdio:['ignore','pipe','pipe']});let out='';for(const stream of [androidProcess.stdout,androidProcess.stderr])stream.on('data',chunk=>{if(out.length<1048576)out+=chunk.toString()});androidProcess.on('error',reject);androidProcess.on('exit',code=>code===0?resolve(out):reject(Error('AndroidCommandFailed')))}),90000,'AndroidDeadline');
+ } catch (error) {
+  androidProcess?.kill();
+  android(['shell','am','force-stop','com.drivedeck.player.test']);
+  throw error;
+ }
  fs.writeFileSync(path.join(output,`android-${phase}.log`),text);
- requireTrue((reset?/OK \(1 test\)/:/OK \(4 tests\)/).test(text) && !/FAILURES|INSTRUMENTATION_FAILED/.test(text), 'AndroidPhaseFailed');
+ requireTrue(((phone || reset)?/OK \(1 test\)/:/OK \(4 tests\)/).test(text) && !/FAILURES|INSTRUMENTATION_FAILED/.test(text), 'AndroidPhaseFailed');
 }
 
 (async () => {
@@ -63,11 +81,18 @@ report.desktopEnrollment=enrolled;requireTrue(enrolled.enabled,'DesktopEnrollmen
   // Writes use the shipped renderer bridge and production main-process handlers, not fixture databases.
   requireTrue(await renderer(`(async()=>{const a=window.ftElectron;let p=(await a.dbProfiles(1)).find(p=>p._id==='allChannels');p.subscriptions.push({id:'UC'+'a'.repeat(22),name:'Desktop local title',thumbnail:''});await a.dbProfiles(2,p);await a.dbHistory(2,{videoId:'aBcDeFgH123',title:'Desktop local video',author:'',authorId:'',watchProgress:90,timeWatched:0,lengthSeconds:600,type:'video'});return true})()`),'DesktopModelWriteFailed');
   let synced=await renderer("window.ftElectron.mediaSync('sync')");report.initialDesktopSync=synced;requireTrue(synced.code==='synced','InitialDesktopSyncFailed');
+  if(phone){await instrument('enroll');report.androidNativeEnrollmentDialogAndSyncButton=true;report.androidFileChoiceIntercepted=true;}
   await instrument('receive');report.androidReceiveAndPublish=true;
   synced=await renderer("window.ftElectron.mediaSync('sync')");requireTrue(synced.code==='synced','DesktopPullFailed');
   requireTrue(await renderer(`(async()=>{const a=window.ftElectron;const p=(await a.dbProfiles(1)).find(p=>p._id==='allChannels');const h=await a.dbHistory(1);return p.subscriptions.some(c=>c.id==='UC'+'b'.repeat(22))&&h.some(v=>v.videoId==='bBcDeFgH123'&&v.watchProgress===20)})()`),'AndroidToDesktopModelsMissing');report.bidirectionalAppModels=true;
   await renderer(`(async()=>{const a=window.ftElectron;await a.dbProfiles(21,{channelId:'UC'+'a'.repeat(22),profileIds:['allChannels']});await a.dbHistory(20,{videoId:'aBcDeFgH123',watchProgress:15});return a.mediaSync('sync')})()`);
   await instrument('rewind');report.subscriptionRemovalAndDeliberateRewind=true;
+  if(phone){
+   await instrument('readd');
+   requireTrue((await renderer("window.ftElectron.mediaSync('sync')")).code==='synced','DesktopReaddPullFailed');
+   requireTrue(await renderer("window.ftElectron.dbProfiles(1).then(p=>p.find(p=>p._id==='allChannels').subscriptions.some(c=>c.id==='UC'+'a'.repeat(22)))"),'ReaddedSubscriptionMissing');
+   report.acknowledgedSubscriptionReadd=true;
+  }
   await service.stop(server);server=null;store.close();store=null;
   await renderer("window.ftElectron.dbHistory(20,{videoId:'aBcDeFgH123',watchProgress:12})");
   await renderer("(()=>{[...document.querySelectorAll('button')].find(b=>b.innerText.trim()==='Sync now').click();return true})()");
@@ -79,6 +104,7 @@ report.desktopEnrollment=enrolled;requireTrue(enrolled.enabled,'DesktopEnrollmen
   requireTrue(await renderer("window.ftElectron.dbHistory(1).then(h=>h.some(v=>v.videoId==='bBcDeFgH123'&&v.watchProgress===8))"),'RecoveredCheckpointMissing');report.offlineRestartRecovery=true;
   await instrument('conflict');requireTrue((await renderer("window.ftElectron.mediaSync('sync')")).code==='synced','DesktopConflictPullFailed');
   requireTrue(await renderer("window.ftElectron.dbHistory(1).then(h=>h.some(v=>v.videoId==='aBcDeFgH123'&&v.watchProgress===7))"),'ExplicitResolutionMissing');report.explicitConcurrentResumeResolution=true;
+  if(phone)await instrument('secrets');
   await instrument('ui',true);
   // Refresh the real settings view, then use its actual Sync now button.
   await sleep(500);
@@ -86,6 +112,7 @@ report.desktopEnrollment=enrolled;requireTrue(enrolled.enabled,'DesktopEnrollmen
   requireTrue(await renderer("document.body.innerText.includes('Sync complete.') && !document.querySelector('video')"),'SettingsStatusOrAutoplayFailure');
   report.desktopSyncButtonPassed=true;await capture('desktop-settings-synced.png');
   for(const name of ['portrait','landscape']){const r=spawnSync(adb,['-s',serial,'exec-out','run-as','com.drivedeck.player.test','cat','cache/media-sync-'+name+'.png'],{maxBuffer:10485760});requireTrue(r.status===0,'AndroidScreenshotFailed');fs.writeFileSync(path.join(output,'android-settings-'+name+'.png'),r.stdout)}report.androidSettingsBothOrientations=true;report.desktopSettingsButtonAndStatus=true;report.noDesktopAutoplay=true;
+  if(phone){await instrument('disconnect');report.androidDisconnectedWithoutLibraryLoss=true;}
   report.runtime=await evaluate('({electron:process.versions.electron,node:process.versions.node,protocolGuard:__ddProtocol})');report.result='passed';
  } catch(error) { report.errorCode=/^[A-Za-z]+$/.test(error.message)?error.message:'ValidationFailed'; }
  finally {
