@@ -25,7 +25,7 @@ fs.writeFileSync(path.join(profile, 'settings.db'), Object.entries({checkForUpda
 const env = {...process.env, APPDATA: path.join(profile,'roaming'), LOCALAPPDATA: path.join(profile,'local'), TEMP: path.join(profile,'temp'), TMP: path.join(profile,'temp')}; delete env.ELECTRON_RUN_AS_NODE; delete env.NODE_OPTIONS;
 let cdp, child, server, store, exitCode = null, inspectorResolve;
 const inspector = new Promise(resolve => { inspectorResolve = resolve; });
-const report = {schema: 'drivedeck.media-sync.actual-apps.v1', result: 'failed', syntheticDataOnly: true, actualPackagedDesktop: true, actualAndroidAppDatabase: true, physicalDeviceTouched: phone, deployed: false, playbackQualification: false};
+const report = {schema: 'drivedeck.media-sync.actual-apps.v1', result: 'failed', syntheticDataOnly: true, actualPackagedDesktop: true, actualAndroidAppDatabase: true, physicalDeviceTouched: phone, formFactor: phone ? (process.env.DD_SYNC_VALIDATION_FORM_FACTOR || 'phone') : 'emulator', deployed: false, playbackQualification: false};
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function deadline(p, ms, code) { let timer; try { return await Promise.race([p, new Promise((_, reject) => { timer = setTimeout(() => reject(Error(code)), ms); })]); } finally { clearTimeout(timer); } }
 async function connect(url) {

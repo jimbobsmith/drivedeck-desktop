@@ -1,11 +1,11 @@
-// Explicitly authorized fresh-phone validation. Refuses existing app/test packages.
+// Explicitly authorized fresh phone/tablet validation. Refuses existing app/test packages.
 // No uninstall, clear-data, emulator guard bypass, OS setting changes or personal profile use.
 const fs = require('node:fs');
 const path = require('node:path');
 const {randomBytes} = require('node:crypto');
 const {spawnSync} = require('node:child_process');
 const [exe, output, enrollment, platform, adb, serial, appApk, testApk, confirmation] = process.argv.slice(2);
-if (process.argv.length !== 11 || confirmation !== '--approved-fresh-phone' || !serial || /^emulator-/.test(serial)) throw Error('ExplicitFreshPhoneApprovalRequired');
+if (process.argv.length !== 11 || !['--approved-fresh-phone','--approved-fresh-tablet'].includes(confirmation) || !serial || /^emulator-/.test(serial)) throw Error('ExplicitFreshDeviceApprovalRequired');
 const scratch = path.resolve('D:/tmp/dd').toLowerCase()+path.sep;
 for(const value of [output,enrollment]) if(!path.resolve(value).toLowerCase().startsWith(scratch)) throw Error('PrivateScratchRequired');
 if(fs.existsSync(path.resolve(output)))throw Error('FreshEvidenceDirectoryRequired');
@@ -27,7 +27,7 @@ try {
  if(!android(['install','-r',appApk]).includes('Success'))throw Error('AppInstallFailed');
  if(!android(['install','-r',testApk]).includes('Success'))throw Error('TestInstallFailed');
  android(['shell',"run-as com.drivedeck.player.test sh -c 'mkdir -p no_backup && cat > no_backup/media-sync-phone-validation.permit'"],permit);
- result=spawnSync(process.execPath,[path.join(__dirname,'validate-media-sync.cjs'),exe,output,enrollment,platform,adb,serial],{env:{...process.env,DD_SYNC_FRESH_PHONE_PERMIT:permit},stdio:'inherit',windowsHide:true,timeout:900000});
+ result=spawnSync(process.execPath,[path.join(__dirname,'validate-media-sync.cjs'),exe,output,enrollment,platform,adb,serial],{env:{...process.env,DD_SYNC_FRESH_PHONE_PERMIT:permit,DD_SYNC_VALIDATION_FORM_FACTOR:confirmation.endsWith('tablet')?'tablet':'phone'},stdio:'inherit',windowsHide:true,timeout:900000});
  if(result.error)throw Error('ValidationProcessFailed');
 } finally {
  // Only disposable files owned by this run. Keep the installed app and its local library.

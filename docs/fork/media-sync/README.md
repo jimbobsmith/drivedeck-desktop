@@ -67,3 +67,12 @@ and [phone-evidence.json](phone-evidence.json) for the guarded helper, exact
 scope and remaining provider/hosting gates. The Test app is left disconnected;
 the normal synthetic library remains local. An existing personal app/profile
 is never reset by the fresh-phone helper.
+
+For an explicitly approved fresh physical tablet, use the same guarded helper
+with --approved-fresh-tablet, a separate enrollment/evidence directory and the
+matching ARM64 Test APKs. Both approval flags preserve existing-package refusal;
+the raw report identifies phone versus tablet. Obtain a device handoff from any
+other active device-testing chat before installing/launching. The historical
+MediaSyncPhoneValidationTest class supports physical ARM64 tablets on API29+;
+the product's sync minimum remains Android26. The Fire API30 import compatibility
+fix and pending display proof are tracked in player #17 / PR #19.
