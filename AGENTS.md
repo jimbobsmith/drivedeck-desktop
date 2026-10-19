@@ -1,0 +1,14 @@
+# DriveDeck Desktop fork guidelines
+
+Read `docs/fork/BASELINE.md` and the linked issue before changing scope. This is the FreeTube-derived desktop client; the PipePipe-derived Android/DD client lives in jimbobsmith/drivedeck-player. The optional shared metadata service is tracked in jimbobsmith/drivedeck-platform#27, parent jimbobsmith/drivedeckg#244.
+
+- `main` is the integrated fork line. The unchanged baseline is upstream FreeTube `v0.25.3-beta`, commit `ff510f8f6c4a0da2602f90336c555f75c75bfa47`; `upstream/development` is a reference, not an alternate product trunk. Do not silently update the pin or lockfile.
+- Use issue -> current origin/main -> codex/issue-<number>-<scope> -> evidence -> fork-local PR. Merge only with explicit maintainer authority. No upstream pull request is authorized; respect upstream's contribution policy and do not submit AI-authored work to its maintainers.
+- The baseline preserves upstream application source, scripts, dependencies/lockfile, identity, player and UI. Add fork documentation/evidence and opt-in validation tools separately. Future sync adapters must retain existing playback rather than introduce a new media engine.
+- Preserve AGPL-3.0-or-later licensing, upstream attribution, LICENSE and third-party notices. Baseline builds are local unsigned development artifacts, not official FreeTube releases. Rebranding, dependency migration, release signing, publication and installer execution need separate scope/authority.
+- Use D:/tmp/dd for scratch, caches, disposable profiles, captures and raw diagnostics; never C:/tmp. Keep those and generated build outputs out of Git. Portable evidence excludes provider URLs, credentials, response payloads, private profile paths and device identifiers.
+- Use the upstream Node 24 / pnpm 10 baseline with a frozen lockfile. Record exact tool and source/artifact hashes. Do not resolve a new dependency set to make a baseline build pass.
+- Runtime checks use a fresh isolated profile, never an existing FreeTube profile. Keep protocol registration and existing OS integration untouched during automated smoke checks. Never disable the browser sandbox or security policy for a test.
+- Separate source/build, desktop UI, actual provider playback, audible output, source A/V alignment, network recovery, local-media, TV and OS-integration gates. Do not claim a successful build proves all playback or sync.
+- Sync is optional and local-first, for subscriptions/history/resume/library data and portable preferences. No provider credentials/stream URLs, autoplay, hosted media proxy or DD live-control authority belongs in metadata sync. Keep output devices, OS settings and device-local paths local.
+- No shared sync implementation or service deployment is part of baseline issue #1. Later sync implementation must start with its own reviewed contract and issue.
