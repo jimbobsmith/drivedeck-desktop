@@ -116,6 +116,10 @@ class History {
     await db.history.insertAsync(records)
   }
 
+  static clearWatchProgress(videoId) {
+    return db.history.updateAsync({ videoId }, { $unset: { watchProgress: true } })
+  }
+
   static updateWatchProgress(videoId, watchProgress) {
     return db.history.updateAsync({ videoId }, { $set: { watchProgress } }, { upsert: true })
   }

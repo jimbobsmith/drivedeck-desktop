@@ -1,3 +1,4 @@
+import { installMediaSync } from './media-sync/electron.mjs'
 import {
   app, BrowserWindow, dialog, Menu, ipcMain,
   powerSaveBlocker, screen, session, shell,
@@ -1709,8 +1710,10 @@ function runApp() {
   })
 
   // *********** //
+  const mediaSync = installMediaSync(baseHandlers, isFreeTubeUrl, IpcChannels, SyncEvents)
+
   // History
-  ipcMain.handle(IpcChannels.DB_HISTORY, async (event, { action, data }) => {
+  ipcMain.handle(IpcChannels.DB_HISTORY, mediaSync.wrap(async (event, { action, data }) => {
     if (!isFreeTubeUrl(event.senderFrame.url)) {
       return
     }
@@ -1782,11 +1785,11 @@ function runApp() {
       if (typeof err === 'string') throw err
       else throw err.toString()
     }
-  })
+  }))
 
   // *********** //
   // Profiles
-  ipcMain.handle(IpcChannels.DB_PROFILES, async (event, { action, data }) => {
+  ipcMain.handle(IpcChannels.DB_PROFILES, mediaSync.wrap(async (event, { action, data }) => {
     if (!isFreeTubeUrl(event.senderFrame.url)) {
       return
     }
@@ -1850,7 +1853,7 @@ function runApp() {
       if (typeof err === 'string') throw err
       else throw err.toString()
     }
-  })
+  }))
 
   // *********** //
   // Playlists

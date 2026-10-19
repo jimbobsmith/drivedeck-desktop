@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let currentUpdateSearchInputTextListener
 
 export default {
+  mediaSync: (action, passphrase) => ipcRenderer.invoke('dd-media-sync', action, passphrase),
   /**
    * @returns {Promise<string>}
    */

@@ -1,0 +1,28 @@
+name: Media sync
+on:
+  push:
+    branches: [main, codex/issue-4-media-sync]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  desktop:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      LEFTHOOK: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.18.0"
+      - run: corepack enable
+      - run: corepack prepare pnpm@10.34.7 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run lint:media-sync
+      - run: pnpm run test:media-sync
+      - run: pnpm run pack
