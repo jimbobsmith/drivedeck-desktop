@@ -46,7 +46,7 @@ pnpm exec electron-builder --config _scripts/ebuilder.config.mjs --dir --win --x
 
 Do not invoke electron-builder without that configuration: its default excludes the expected application entry and fails. No installer or release is run/published.
 
-For actual cross-client evidence, build/install only the Test APK and instrumentation APK on a named `DD_Player_Foundation_API36` emulator. The harness rejects physical devices and any other AVD. It touches the Test app's sync state and only its synthetic channel/checkpoint rows; never run it on a personal profile. From this repository, after explicitly installing the matching Android Test builds:
+For the original emulator cross-client evidence, build/install only the Test APK and instrumentation APK on a named `DD_Player_Foundation_API36` emulator. By default the harness rejects physical devices and any other AVD; the separately authorized fresh-phone entry point is documented below. It touches the Test app's sync state and only its synthetic channel/checkpoint rows; never run it on a personal profile. From this repository, after explicitly installing the matching Android Test builds:
 
 ```text
 node tools/fork/setup-media-sync-validation.mjs PLATFORM_CHECKOUT D:/tmp/dd/NEW_ENROLLMENT_DIRECTORY
@@ -54,3 +54,16 @@ node tools/fork/validate-media-sync.cjs build/win-unpacked/FreeTube.exe D:/tmp/d
 ```
 
 The harness uses the actual packaged executable, native protected import/OS vault, production renderer IPC and real Android default Room database/Keystore. The only desktop UI stub selects the synthetic enrollment file in the native chooser; sandbox flags are untouched, and OS protocol registration is suppressed for this test process as in baseline validation. The actual UI import and Sync now controls are exercised. It tests bidirectional subscription/resume, removal/rewind, both clients offline, Android process-stop retry, explicit concurrent-resume resolution, real 901→902 Room migration and Android settings in portrait/landscape. Raw profiles/DBs/credentials/logs/screenshots stay in private scratch; portable allowlisted evidence is recorded separately. This is app metadata evidence, not a new A/V, speaker or provider playback qualification.
+
+
+## Physical-phone follow-up
+
+Approved PR #5 is integrated into main at c3892fc0bb1fd8231b734a85be710660b34154b0;
+player #18 and platform #29 are also merged. The authorized fresh-phone Test
+install now passes actual cross-client subscription/resume, remove/re-add,
+rewind, offline/process-stop recovery, explicit conflict, native enrollment/
+Sync now and disconnect checks. See [PHONE_VALIDATION.md](PHONE_VALIDATION.md)
+and [phone-evidence.json](phone-evidence.json) for the guarded helper, exact
+scope and remaining provider/hosting gates. The Test app is left disconnected;
+the normal synthetic library remains local. An existing personal app/profile
+is never reset by the fresh-phone helper.
