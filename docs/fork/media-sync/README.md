@@ -75,4 +75,9 @@ the raw report identifies phone versus tablet. Obtain a device handoff from any
 other active device-testing chat before installing/launching. The historical
 MediaSyncPhoneValidationTest class supports physical ARM64 tablets on API29+;
 the product's sync minimum remains Android26. The Fire API30 import compatibility
-fix and pending display proof are tracked in player #17 / PR #19.
+fix and successful display-hardware proof are tracked in player #17 / PR #19.
+The coordinated Fire/API30 run passes all eleven invocations (six methods).
+See [TABLET_VALIDATION.md](TABLET_VALIDATION.md) and
+[tablet-evidence.json](tablet-evidence.json). DD Home was restored and handed
+back to the Spotify chat; standalone metadata proof does not qualify embedded
+DD playback/control or three-device simultaneous convergence.
