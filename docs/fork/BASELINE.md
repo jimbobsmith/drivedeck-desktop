@@ -65,3 +65,10 @@ The failed trial is not rewritten as success. Its private Chromium log also cont
 Assess the variable 15..30-second seek delay and presentation in an observed foreground session before making responsiveness claims. Independent audible/source timing, wider providers/network/hardware, normal OS integration, identity/upgrade handling and distribution gates remain separate. The prior PipePipe/VLC provider 403 is neither reproduced nor explained by FreeTube's success.
 
 The next cross-client milestone belongs to the optional shared metadata contract and its Android/FreeTube adapters: subscriptions and a resume checkpoint first. This baseline adds no shared service, sync client, provider proxy or server deployment. No Android or TV client changes are included.
+
+## Subsequent app integration
+
+The unchanged baseline remains recorded above. Desktop issue #4 now adds optional
+manual subscription/resume sync on a separate branch, retaining FreeTube playback.
+See [media-sync/README.md](media-sync/README.md) for the actual app adapters,
+protected enrollment, OS storage, evidence and remaining field/hosting gates.

@@ -442,5 +442,9 @@ export default [
       'unicorn/prefer-date-now': 'error',
       'unicorn/prefer-array-index-of': 'error',
     }
+  },
+  {
+    files: ['src/main/media-sync/*.mjs'],
+    languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   }
 ]

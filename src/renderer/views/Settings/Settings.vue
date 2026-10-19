@@ -64,6 +64,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import MediaSyncSettings from '../../components/MediaSyncSettings.vue'
 import GeneralSettings from '../../components/GeneralSettings/GeneralSettings.vue'
 import ThemeSettings from '../../components/ThemeSettings.vue'
 import PlayerSettings from '../../components/PlayerSettings/PlayerSettings.vue'
@@ -98,6 +99,7 @@ const settingsSectionSortEnabled = computed(() => store.getters.getSettingsSecti
 
 const settingsComponentsData = computed(() => {
   return [
+    ...(USING_ELECTRON ? [{ type: 'media-sync', title: t('MediaSync.Title'), icon: ['fas', 'arrows-rotate'], component: MediaSyncSettings }] : []),
     {
       type: 'theme',
       title: t('Settings.Theme Settings.Theme Settings'),

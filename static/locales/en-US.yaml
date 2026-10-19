@@ -1227,3 +1227,22 @@ KeyboardShortcutPrompt:
   End: Seek to the end of the video
   Skip to Next Video: Skip to the next video in a playlist or next recommended video
   Skip to Previous Video: Skip to the previous video in a playlist
+
+MediaSync:
+  Title: Personal media sync
+  Description: Optional manual sync of YouTube subscriptions and resume positions with your self-hosted service. Playback stays local. Import an owner-created protected enrollment file; keep its recovery copy private.
+  Passphrase: Enrollment passphrase
+  Import: Import protected enrollment
+  Sync: Sync now
+  KeepLocal: Use this device for all conflicts
+  UseRemote: Use service versions for all conflicts
+  Disconnect: Disconnect and forget enrollment
+  Disconnected: Disconnected. Your library remains local.
+  Ready: Enrolled. Select Sync now to exchange subscriptions and resume positions.
+  Synced: Sync complete.
+  Pending: Local changes are waiting. Select Sync now to send them.
+  Conflict: Conflicting changes are retained locally. Choose which versions to keep for all conflicts.
+  Offline: Service unavailable. Local playback and pending changes remain available.
+  Restored: Service restore detected. Uploads are paused and local changes retained; reconciliation is required.
+  Failed: Sync could not finish. Local data is retained. Check enrollment, service availability and storage limits.
+  Confirm: This affects sync enrollment or resolves all current conflicts. Local playback will stay available. Continue?
