@@ -1,0 +1,2749 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "issue": 1,
+  "fork": {
+    "repository": "jimbobsmith/drivedeck-desktop",
+    "upstream": "FreeTubeApp/FreeTube",
+    "tag": "v0.25.3-beta",
+    "commit": "ff510f8f6c4a0da2602f90336c555f75c75bfa47",
+    "tree": "722edcfc18cd133774c2e7afa1d9199db5cf9ec5",
+    "mainStartsAtExactUpstreamRelease": true,
+    "releaseIsBeta": true,
+    "applicationSourceAndLockfileUnchanged": true,
+    "upstreamContributionSubmitted": false
+  },
+  "tools": {
+    "platform": "win32",
+    "architecture": "x64",
+    "node": "24.18.0",
+    "nodeExecutableSha256": "9a4eb5f1c29c6a2e93852ead46b999e284a6a5ca8bab4d4e241d587d025a52de",
+    "npm": "11.16.0",
+    "pnpm": "10.34.7",
+    "pnpmEntrypointSha256": "b276da51dc8ca5b0d3ee3371695b50fc8b3244b281b091c63a3f082a88dadeb9",
+    "upstreamWorkflowNodeMajor": 24,
+    "upstreamWorkflowPnpmMajor": 10
+  },
+  "checks": {
+    "lintExit": 0,
+    "buildExit": 0,
+    "frozenInstallPassed": true,
+    "helperChecks": {
+      "outsideScratchRejected": true,
+      "existingOutputRejected": true,
+      "existingEvidenceUnchanged": true,
+      "helperSyntaxPassed": true,
+      "helpCommandPassed": true
+    },
+    "webpackPerformanceWarnings": 3,
+    "installerExecuted": false,
+    "releasePublished": false,
+    "signingCredentialsUsed": false,
+    "upstreamBuildScriptsUnchanged": true
+  },
+  "checkoutSha256": {
+    "package.json": "4895808f9b38392fc8b856de6136dddb69871b925dd414e70631eeebea8ef0e8",
+    "pnpm-lock.yaml": "cc4f359edfd0bba0ff12fd57485cde82e67a053bf1a648b6e82de3151984dbd7",
+    "pnpm-workspace.yaml": "62d83976798d5b8aeb9e436c96e6a789d8158138c068817e6cbeb0e56fc112a3",
+    "LICENSE": "6f1e622c82a380075843bb084a7ec3b1f1d12a4a02526d75e78b0924a860aa75",
+    "_scripts/build.mjs": "cc8911618ff742bfad4ec996c31c91657a0233acccddb1e573577947cc0b2d46",
+    "_scripts/ebuilder.config.mjs": "07407840381394bf45e9a245f118187d3cd20da212c49a13fd426bda51dbabd1",
+    ".github/workflows/build.yml": "383f28358453d4c245165ca7aa55a77104185ffb33b3f0571250bea66da23735"
+  },
+  "artifacts": [
+    {
+      "name": "FreeTube-0.25.3-win.zip",
+      "bytes": 144814498,
+      "sha256": "ebe6efa269cd471169fa154afd1b2812b39fb9505127bb67ed7d4214cfb548ab",
+      "authenticodeStatus": "not_applicable"
+    },
+    {
+      "name": "FreeTube-0.25.3-win.7z",
+      "bytes": 92633343,
+      "sha256": "231e18a8e990b4cf94bc991a7eabc178f9149c7f38be64a85960542805b315aa",
+      "authenticodeStatus": "not_applicable"
+    },
+    {
+      "name": "FreeTube Setup 0.25.3.exe",
+      "bytes": 112567912,
+      "sha256": "23ef077eddeddbd70a97abdc1778b415ba3d1b63a7120ddc6d3d5338b4584f58",
+      "authenticodeStatus": "NotSigned"
+    },
+    {
+      "name": "FreeTube 0.25.3.exe",
+      "bytes": 112274229,
+      "sha256": "8398561fb234aaa81c869605f8f93a8c4b45ef66739eb10722bd0066998e6a11",
+      "authenticodeStatus": "NotSigned"
+    },
+    {
+      "name": "win-unpacked/FreeTube.exe",
+      "bytes": 232821760,
+      "sha256": "c1ece7d7f9288b6a25597465b0d573117b9a1514c7bccf64fe2537e4a7f8a113",
+      "authenticodeStatus": "NotSigned"
+    },
+    {
+      "name": "win-unpacked/resources/app.asar",
+      "bytes": 4401876,
+      "sha256": "ef71c156ffb1fd3626ba66b6e124f6b7983a3f26a513b54a29cc73b5b3ec447b",
+      "authenticodeStatus": "not_applicable"
+    }
+  ],
+  "packagedResources": {
+    "result": "passed",
+    "resourceFilesCompared": 178,
+    "allPackagedDistFilesMatch": true,
+    "resources": [
+      {
+        "path": "dist/botGuardScript.js",
+        "sha256": "ee84945ecb39014c538726ccd9dec1db063fca44a6232e161daf681f787bd061"
+      },
+      {
+        "path": "dist/index.html",
+        "sha256": "0be9497d375e8c4b14291b20d963d6847a5d62572879b9f2e491c38e3d11937b"
+      },
+      {
+        "path": "dist/main.js",
+        "sha256": "914747e3183e3e8ab80da889b3ef68da366c53050db7d10c72aa7335b4250061"
+      },
+      {
+        "path": "dist/preload.js",
+        "sha256": "a45b9961ce3b0154e7ee48966c03a45ed017444cc2e3e64b7664a3daae61e2c7"
+      },
+      {
+        "path": "dist/renderer.dc0f19cda5c5fee7ccb2.css",
+        "sha256": "551b0ad489af8af1d15d35497767d0a739eb96cf0a35ea9be1b38f5c87e37c40"
+      },
+      {
+        "path": "dist/renderer.js",
+        "sha256": "7ba7c84430d6d63ecec3a405db8c763cd37c32922e37ad239aa81f22f60300e1"
+      },
+      {
+        "path": "dist/renderer.js.LICENSE.txt",
+        "sha256": "f67aa07bbf3b53ecad4cf7a2d3d21ad91b1695aa3b5ca204ce79105bb083f1ce"
+      },
+      {
+        "path": "dist/swiper-14.0.5.css",
+        "sha256": "0919b5c4bd2b12f54e1a13198170bb1952f54b89c6308e9d8f0962e889d4b6e3"
+      },
+      {
+        "path": "dist/fonts/Roboto-Regular.ttf",
+        "sha256": "79e851404657dac2106b3d22ad256d47824a9a5765458edb72c9102a45816d95"
+      },
+      {
+        "path": "dist/imgs/defaultBanner.png",
+        "sha256": "a447952555748dddbb9094736b39da611ebc32e7efdaedbfe17ab9a4bb9e2304"
+      },
+      {
+        "path": "dist/imgs/iconBlackSmall.svg",
+        "sha256": "b04ec7510ceebd1de69a95ff06c2b8a0933a702168a24862b21892592769fcea"
+      },
+      {
+        "path": "dist/imgs/iconCatppuccinFrappeDarkSmall.svg",
+        "sha256": "3d95e5b7e816b8222fbb4578a5c7a5108ff080eb00c2dc51dbe91d6eaa9dc175"
+      },
+      {
+        "path": "dist/imgs/iconCatppuccinFrappeLightSmall.svg",
+        "sha256": "9b2dc288b0f4882ae6c293c1a3909b795a6db3c571f8b799932621fc5fe5250c"
+      },
+      {
+        "path": "dist/imgs/iconCatppuccinLatteDarkSmall.svg",
+        "sha256": "2ef133aad09f50d377a1b55ebc4aca5767693875569fb551ec9ae99fe6c61582"
+      },
+      {
+        "path": "dist/imgs/iconCatppuccinLatteLightSmall.svg",
+        "sha256": "ab0bed4c8aedf93dcc3a836c47b83c16f46024db0d539fe32e73b446a47c678e"
+      },
+      {
+        "path": "dist/imgs/iconCatppuccinMochaDarkSmall.svg",
+        "sha256": "5a7bbd4e9b87ec6a8391e1cfd7cec2afa112a0878939ebe9dabea606770d2b5d"
+      },
+      {
+        "path": "dist/imgs/iconCatppuccinMochaLightSmall.svg",
+        "sha256": "a46f2e97b2aa12b4693a4515b2dae2e033628ab7fa5fa286f8c8e61107e0d9a7"
+      },
+      {
+        "path": "dist/imgs/iconColorSmall.svg",
+        "sha256": "ae24fa7c57f7512598b46946fc1dfba5e7530f5b96d579a172bbf1495d9c5cb9"
+      },
+      {
+        "path": "dist/imgs/iconDraculaDarkSmall.svg",
+        "sha256": "3c1cf73fb3c8722ddbf1c954df758db39b212e6544f1dc74a75dd033024b66e1"
+      },
+      {
+        "path": "dist/imgs/iconDraculaLightSmall.svg",
+        "sha256": "5939c3b575a05a8114955df73d368aeeadb92cfbd7c4d4df216af2a1ac5d0223"
+      },
+      {
+        "path": "dist/imgs/iconEverforestDarkHardSmall.svg",
+        "sha256": "fb72a88a45455da33d634928a6247bd3fc008fc7bc4f25da080b48bfdf744352"
+      },
+      {
+        "path": "dist/imgs/iconEverforestDarkLowSmall.svg",
+        "sha256": "1bad2c2f4300185d8b8a41675fc9db135e285bc4cb02c7ab0890cd2cc087b5cf"
+      },
+      {
+        "path": "dist/imgs/iconEverforestDarkMediumSmall.svg",
+        "sha256": "7e8b76ac1acda51a35635e8e9da0fc7bc40846ec8227fc3471068b38f7cb9391"
+      },
+      {
+        "path": "dist/imgs/iconEverforestLightHardSmall.svg",
+        "sha256": "e2f920734402511f8f3eefd8794f6658488014e5ef538e277520c581345d7481"
+      },
+      {
+        "path": "dist/imgs/iconEverforestLightLowSmall.svg",
+        "sha256": "c65f6c1dc5940149cd10f9a5d2aff834227e86f55a2a89692c93b8d52481bda7"
+      },
+      {
+        "path": "dist/imgs/iconEverforestLightMediumSmall.svg",
+        "sha256": "3af5663202257d76217751c96ce51da9abd87213317e1a88254932466ac55562"
+      },
+      {
+        "path": "dist/imgs/iconGruvboxDarkSmall.svg",
+        "sha256": "7e15bfbe2282a95dd9220116c22d35f2bcd8d1534e3fe13dcfdcfd7db74a342d"
+      },
+      {
+        "path": "dist/imgs/iconGruvboxLightSmall.svg",
+        "sha256": "cfab98d8099d3ee5b3a151c0724c591b895d0e13aa34281f2caa1467c3e1054e"
+      },
+      {
+        "path": "dist/imgs/iconNordicLightSmall.svg",
+        "sha256": "7a3d74afd7fbc32b264929bfa7609c7188e9ad6040e0f08df940e24da83cabe4"
+      },
+      {
+        "path": "dist/imgs/iconSolarizedDarkSmall.svg",
+        "sha256": "fff1f2031cb49681f0c02492bb84a84838b08738bb12b1d7b11b82cab828e622"
+      },
+      {
+        "path": "dist/imgs/iconSolarizedLightSmall.svg",
+        "sha256": "1c06649569e8f150da470fd0aa07b310be86a53dc542836b4aa18d9b542fd11f"
+      },
+      {
+        "path": "dist/imgs/iconWhiteSmall.svg",
+        "sha256": "eba9923a445e27ed33031b56eada0c8c4cb3f9609ce604429ec5e92878c9d218"
+      },
+      {
+        "path": "dist/imgs/invidious-logo-dark.svg",
+        "sha256": "aa528cbad672098de48a8f59b4b6363638794e0497036a44badea1d47a2851ae"
+      },
+      {
+        "path": "dist/imgs/invidious-logo-light.svg",
+        "sha256": "25c5cd3acc4fc93b89fee32f9cf7fa5af8f5334af7c51d5e19a430fcc134b68d"
+      },
+      {
+        "path": "dist/imgs/textBlackSmall.svg",
+        "sha256": "b1f3ca9135003c0aa479f8a1a943637580cade96955dd2155b9296466aef5079"
+      },
+      {
+        "path": "dist/imgs/textCatppuccinFrappeDarkSmall.svg",
+        "sha256": "14bfac8c0dc29b5faf7a2157154d79138329599146f5f84659b60dc0ba7b4416"
+      },
+      {
+        "path": "dist/imgs/textCatppuccinFrappeLightSmall.svg",
+        "sha256": "c8006c3b3e91129a745894af18fe52b741026527834c2e9a71c915a43c318253"
+      },
+      {
+        "path": "dist/imgs/textCatppuccinLatteDarkSmall.svg",
+        "sha256": "33454e22ce1040ecd4a1d99f2ef2f94a595565765b6d15dcbd90d6eaa59dbffd"
+      },
+      {
+        "path": "dist/imgs/textCatppuccinLatteLightSmall.svg",
+        "sha256": "8cee04fa69e6b57811a97e2fe87b186aaf5409a5b409a8a428c2a669a2f994bf"
+      },
+      {
+        "path": "dist/imgs/textCatppuccinMochaDarkSmall.svg",
+        "sha256": "3b9e079ac2d2b80c6039c9bf634034d5b7c075bea59f16ea846acc460587bb4e"
+      },
+      {
+        "path": "dist/imgs/textCatppuccinMochaLightSmall.svg",
+        "sha256": "02b0f22ae3ecef6aa6995dc39705167c33d00748b0363cc4346ae46363fca55f"
+      },
+      {
+        "path": "dist/imgs/textColorSmall.svg",
+        "sha256": "623b03bec996a40667d2e69d10d8391014444fa20d7b29d22993af54a0b95b72"
+      },
+      {
+        "path": "dist/imgs/textDraculaDarkSmall.svg",
+        "sha256": "6640b41104e92b900b25088db4f5f7844f54f3ec90cc66f5039dd8665cf171f1"
+      },
+      {
+        "path": "dist/imgs/textDraculaLightSmall.svg",
+        "sha256": "b85b4c1682c60a601218f7aa52273ff50a811a5030ea4c67f5a51c8e39c60f31"
+      },
+      {
+        "path": "dist/imgs/textEverforestDarkHardSmall.svg",
+        "sha256": "14147e63ae753352761959b001ae94ab87e45bf41fbbb371c52dd3a36bc570a8"
+      },
+      {
+        "path": "dist/imgs/textEverforestDarkLowSmall.svg",
+        "sha256": "67109bd9881061f93da864fa371bc4b5985cee6da60f681299dcdcf0308ed2fa"
+      },
+      {
+        "path": "dist/imgs/textEverforestDarkMediumSmall.svg",
+        "sha256": "e3925b94856865405bb585844ecad87dee544f44468ca280e30fbff637887226"
+      },
+      {
+        "path": "dist/imgs/textEverforestLightHardSmall.svg",
+        "sha256": "e69684a513dd520353be155f17e370bb077dd9d1e6a6d28747717e90460681f1"
+      },
+      {
+        "path": "dist/imgs/textEverforestLightLowSmall.svg",
+        "sha256": "e78928dec2dad33bc53ee1b2928ca5c7efc83512acdba8a3df0b8d0552285fbb"
+      },
+      {
+        "path": "dist/imgs/textEverforestLightMediumSmall.svg",
+        "sha256": "2857f8f9a1812de23b444241c9d794b649dc2e32adbfd97edcbfddb44663db7c"
+      },
+      {
+        "path": "dist/imgs/textGruvboxDarkSmall.svg",
+        "sha256": "155b41c72bbeb67e9d4dd12c3b705754385bc5f3aa840c8bab9d63f8687a9774"
+      },
+      {
+        "path": "dist/imgs/textGruvboxLightSmall.svg",
+        "sha256": "5d35733e49e0c88670862a5cc251a1b9f004aa9b8033441aed77e3548bb1b8a3"
+      },
+      {
+        "path": "dist/imgs/textNordicLightSmall.svg",
+        "sha256": "445a06c1c48d3251137fbc784b246729c7f0e862f9c32b5c7a54ae37615233ff"
+      },
+      {
+        "path": "dist/imgs/textSolarizedDarkSmall.svg",
+        "sha256": "5d49bab91f44d9939b3a5ee149e6c3cd830c8158b753c98d27520f5678b57844"
+      },
+      {
+        "path": "dist/imgs/textSolarizedLightSmall.svg",
+        "sha256": "4cf1f7f9af6678897ecb0d861d64a71da4454f16df3c84c4bd5361dd7ae324de"
+      },
+      {
+        "path": "dist/imgs/textWhiteSmall.svg",
+        "sha256": "3d7d8e98b0e31acb690052b10ea3c3733ec1d958dbb09aad01ad091c09093c4b"
+      },
+      {
+        "path": "dist/imgs/thumbnail_placeholder.svg",
+        "sha256": "5aea9638c4694658692282f551b18f5a6f0df7c411ddddf7e8ebd29fcd08e4fd"
+      },
+      {
+        "path": "dist/imgs/yt_logo_mono_dark.png",
+        "sha256": "7f519eab58cd2303f9294fcb8a0c9476b80ef3142486f1e475f8b9953912d990"
+      },
+      {
+        "path": "dist/static/external-player-map.json",
+        "sha256": "c6798256a9712a4f0a9cc0a683cd307ab1f8fc239fe11aab4478bb4bebb895be"
+      },
+      {
+        "path": "dist/static/invidious-instances.json",
+        "sha256": "801a5b725e2bab35d2c8e65a8d8e333ba8e439a116e0cee499758061e9a44ba9"
+      },
+      {
+        "path": "dist/static/geolocations/ar.json",
+        "sha256": "ed1ac9f15a8b35631519261d46c4e5877ddb4cea6739547939cb3dd5222708f2"
+      },
+      {
+        "path": "dist/static/geolocations/be.json",
+        "sha256": "a5521beb371913a9765d18a5f939c038f0d6d09ee6515878545a6e1d8a6c38b0"
+      },
+      {
+        "path": "dist/static/geolocations/bg.json",
+        "sha256": "e3751a6f81f1343187332f8fd6ff0b81eab8ac8867eec6a1b6187429eaf875ed"
+      },
+      {
+        "path": "dist/static/geolocations/ca.json",
+        "sha256": "e6ac14722ce967dc96ba62c292742a734c401cdde9b649d9f4c92589ee46cfcb"
+      },
+      {
+        "path": "dist/static/geolocations/cs.json",
+        "sha256": "464cc870593545997503ffc2cdb1ca574fac284e78c86404ffd2d388f09cd2cf"
+      },
+      {
+        "path": "dist/static/geolocations/da.json",
+        "sha256": "9d7e07b0d8fea7b9cd1ac37a2af3a7b240d46d8c1994926fd60d57ea674e2912"
+      },
+      {
+        "path": "dist/static/geolocations/de-DE.json",
+        "sha256": "a70a25e779f6e9a4ff755e00811c56ade8adfffa5d724ce46b3f7d0694131799"
+      },
+      {
+        "path": "dist/static/geolocations/el.json",
+        "sha256": "3c828f815b74365399762d9da893cab0e6a8feec3d808268890b5323677062f3"
+      },
+      {
+        "path": "dist/static/geolocations/en-GB.json",
+        "sha256": "853a80b2365ace4d2463e15359d01ae24a26440cefdf083c556e4e68bf1ad54f"
+      },
+      {
+        "path": "dist/static/geolocations/en-US.json",
+        "sha256": "853a80b2365ace4d2463e15359d01ae24a26440cefdf083c556e4e68bf1ad54f"
+      },
+      {
+        "path": "dist/static/geolocations/es-AR.json",
+        "sha256": "25969ae54c19abf0029945a12732606ad8c32e0fae5900d1f00e2f73d9ed25a3"
+      },
+      {
+        "path": "dist/static/geolocations/es-MX.json",
+        "sha256": "25969ae54c19abf0029945a12732606ad8c32e0fae5900d1f00e2f73d9ed25a3"
+      },
+      {
+        "path": "dist/static/geolocations/es.json",
+        "sha256": "261fe9c27d3fe587568135f25dd08a898e585ff5e9743b18637ec9e53f969cf4"
+      },
+      {
+        "path": "dist/static/geolocations/et.json",
+        "sha256": "9dab5deccc68d0aaf27204959adda96b8572b16daef8c6097a68b7852d0f7093"
+      },
+      {
+        "path": "dist/static/geolocations/eu.json",
+        "sha256": "97348c1cb9c17e03e145ee8bad046dddaf5cde90587c9c73fddac5de91ec6a53"
+      },
+      {
+        "path": "dist/static/geolocations/fa.json",
+        "sha256": "1b41213d4431b36c4e9dfb6bb28d7c3f5c4525fc9d02362ac4b307b2cb019dcf"
+      },
+      {
+        "path": "dist/static/geolocations/fi.json",
+        "sha256": "193160fc47478fb77e115700ffa4d12396a29a4592b83c784956b42af71e26e4"
+      },
+      {
+        "path": "dist/static/geolocations/fr-FR.json",
+        "sha256": "0a5d251e54b0fc58ed215981b0b457aa013d5508bf858286261c7f30957e29b0"
+      },
+      {
+        "path": "dist/static/geolocations/gl.json",
+        "sha256": "149b529030dd83e4ef6a32b3052da2ce7ae084c70e0e5912eee046611aa73c40"
+      },
+      {
+        "path": "dist/static/geolocations/he.json",
+        "sha256": "6f16f61f5a31d4f781b9042f89ab1580fdf144dc0dfe538a618f26e23fb77f0a"
+      },
+      {
+        "path": "dist/static/geolocations/hr.json",
+        "sha256": "8f036a9e1c5ac207fb48c6d4059b633c75edfbf47c6e0064443f608aca47ccba"
+      },
+      {
+        "path": "dist/static/geolocations/hu.json",
+        "sha256": "4a914c2cf759a87f71be9f91e88d6b3964150494707e1a1067c2df7bd8a3d131"
+      },
+      {
+        "path": "dist/static/geolocations/id.json",
+        "sha256": "2b8da9fa9a7190aeeb7ca11f8e6a58dd093fd9c86f848ba639cf7f39dcf00d8d"
+      },
+      {
+        "path": "dist/static/geolocations/is.json",
+        "sha256": "9761ddaf3ca772ff5095f3857a8fc47ab0dbf4544e6f6601d8ce193c8d891acd"
+      },
+      {
+        "path": "dist/static/geolocations/it.json",
+        "sha256": "f656a022e0fa0bd03f974e8108bf69a2b658577e759130019531f7dbb4fd3b2e"
+      },
+      {
+        "path": "dist/static/geolocations/ja.json",
+        "sha256": "2fd130b609da4832c5ef3008840e6cf791f2252cd8697da65d2bc8ba7654bc2f"
+      },
+      {
+        "path": "dist/static/geolocations/ko.json",
+        "sha256": "853397efec0f55570ce30a5847e29ef7cf4fb450620518781f7d2d6efcec9f22"
+      },
+      {
+        "path": "dist/static/geolocations/lt.json",
+        "sha256": "782256adec4be9c4ee9856686add27b9d48fb9ce60f183720b2fb4bfdf176aa4"
+      },
+      {
+        "path": "dist/static/geolocations/nb-NO.json",
+        "sha256": "8f9a488a4c642c1521e2180acf3b778f8ba7170dc7715586f1d033eae21e3bd6"
+      },
+      {
+        "path": "dist/static/geolocations/nl.json",
+        "sha256": "fe5ecae7e73764dec06b620d4e9e92e5702d898b5e23dd26a202ec90f2c7b233"
+      },
+      {
+        "path": "dist/static/geolocations/nn.json",
+        "sha256": "8f9a488a4c642c1521e2180acf3b778f8ba7170dc7715586f1d033eae21e3bd6"
+      },
+      {
+        "path": "dist/static/geolocations/pl.json",
+        "sha256": "61542a732ac33f68ef36e05d973db5eac63e808bb4e066004d317ddb361584c6"
+      },
+      {
+        "path": "dist/static/geolocations/pt-BR.json",
+        "sha256": "aa6d639c0aa2a2c087c75e8c73aa10bef074bfffc80667b38538995c2aad7eed"
+      },
+      {
+        "path": "dist/static/geolocations/pt-PT.json",
+        "sha256": "d53f6f776ddc2888230f643b41b72c189220e9591d1cc913cf09b0503b25be58"
+      },
+      {
+        "path": "dist/static/geolocations/pt.json",
+        "sha256": "aa6d639c0aa2a2c087c75e8c73aa10bef074bfffc80667b38538995c2aad7eed"
+      },
+      {
+        "path": "dist/static/geolocations/ro.json",
+        "sha256": "a685c9920e40bfcfc8ee07d25232c626b723e03a7e6d879c78b57aec9092222e"
+      },
+      {
+        "path": "dist/static/geolocations/ru.json",
+        "sha256": "c147775a0bc7a7d5b6763012f406e597b28693f11effe188aad5192b5c730500"
+      },
+      {
+        "path": "dist/static/geolocations/sk.json",
+        "sha256": "414af4d08cb67467392f9bfb64651989a80e2209f3d298024385009680a26ac0"
+      },
+      {
+        "path": "dist/static/geolocations/sl.json",
+        "sha256": "56820b579c5669aa3d30ffe39839364584ef1ce60e19bed04d6f76f58173cca0"
+      },
+      {
+        "path": "dist/static/geolocations/sr.json",
+        "sha256": "a67bb1461522161aef1473903f500ff1b074a1a73a53008e8c1f33c19d4a5873"
+      },
+      {
+        "path": "dist/static/geolocations/sv.json",
+        "sha256": "b6fc768ea700fa6a12abef30256795f32ce56152ff62ee1ef517f3727c019162"
+      },
+      {
+        "path": "dist/static/geolocations/ta.json",
+        "sha256": "273b8907cfb323da851c626fb7132fb37b1614545a854e81de3d9f79f1eceb77"
+      },
+      {
+        "path": "dist/static/geolocations/tr.json",
+        "sha256": "95c5b859cd604e8fde59c091670823d02241df3fe9a73db9f1c761110700a946"
+      },
+      {
+        "path": "dist/static/geolocations/uk.json",
+        "sha256": "12491d6e064a999c852cba91e1d32428efab126149017322a3e33cd86816a8e9"
+      },
+      {
+        "path": "dist/static/geolocations/vi.json",
+        "sha256": "c8d24969f303803ff66cb95c9db11537c9f3afb2398c119ea874d52f044aa247"
+      },
+      {
+        "path": "dist/static/geolocations/zh-CN.json",
+        "sha256": "933cdbfe4f7029c134ef0735cdfb99922113b3d81857d52fda8ca885153b2abd"
+      },
+      {
+        "path": "dist/static/geolocations/zh-TW.json",
+        "sha256": "643f2e7928864da51e3f96136b9491f43162b95e2be8d260b2672074c48c62a8"
+      },
+      {
+        "path": "dist/static/locales/ar.json.br",
+        "sha256": "e04577994daaaeed8e9593f38ecc54a46a31959b02f5150aee3572bc5c08c478"
+      },
+      {
+        "path": "dist/static/locales/be.json.br",
+        "sha256": "950f3ab8101851f2cb4f24b2b4a0aabd04bae0830a36c42594b48c3c1697c9b6"
+      },
+      {
+        "path": "dist/static/locales/bg.json.br",
+        "sha256": "08c84d34b83c683667cf4816f079c07e0c594161488c5853e6836de73987a01a"
+      },
+      {
+        "path": "dist/static/locales/br.json.br",
+        "sha256": "99d9c40eb6e0eac909fb29ea7dd474d2460efcc0569c77a636bdf7735b742fbb"
+      },
+      {
+        "path": "dist/static/locales/ca.json.br",
+        "sha256": "c10a6402d962daf6b74d38f111862abecca6a94b512a0ecc955d4518684e510a"
+      },
+      {
+        "path": "dist/static/locales/cs.json.br",
+        "sha256": "74457caa98a657e5bd08567aab590ed4be016e16ac380e6e32237c57c09ab0e6"
+      },
+      {
+        "path": "dist/static/locales/cy.json.br",
+        "sha256": "92eae4c88384edf4a685f46ced41df539f0a78bbad41bce83440c98f2778120f"
+      },
+      {
+        "path": "dist/static/locales/da.json.br",
+        "sha256": "ef898be18429a972a980b75b023df5d4422f3befd6b1f21f043985655d10ced3"
+      },
+      {
+        "path": "dist/static/locales/de-DE.json.br",
+        "sha256": "e172eace4de5f30102168fa3d76b16a660dd1bc48d6114ad2361edaddb3abd2e"
+      },
+      {
+        "path": "dist/static/locales/el.json.br",
+        "sha256": "72f23589f6863376549a2dc84839301e2c6a0935b1f1a22dac87ab77aeeb1342"
+      },
+      {
+        "path": "dist/static/locales/en-GB.json.br",
+        "sha256": "eda0a7df6b705000fef9c7d3e86b1ac8f6ba4641fe94d8283f416deeeee6ef25"
+      },
+      {
+        "path": "dist/static/locales/en-US.json.br",
+        "sha256": "976adb1f63e421fc4a607c24f3a31ea91d428576d7f91dc791467f200dbdec05"
+      },
+      {
+        "path": "dist/static/locales/es-AR.json.br",
+        "sha256": "9e833af340732a5938c5ffbeb807c32de1cd5c7e37a18a72a846310485a7434e"
+      },
+      {
+        "path": "dist/static/locales/es-MX.json.br",
+        "sha256": "64f01a64ed12f74cddcbb26247c44f7f21bc5e75dc80d4ebb696183a310e5665"
+      },
+      {
+        "path": "dist/static/locales/es.json.br",
+        "sha256": "3598157c13eff4e829d13fca9792664b16e53fd0045564cb9afe7904ac0939f7"
+      },
+      {
+        "path": "dist/static/locales/et.json.br",
+        "sha256": "634aa30f034f7a1fd4a067f73b1f1997a788b382f4b00ecf8b2bd5a9608b18ef"
+      },
+      {
+        "path": "dist/static/locales/eu.json.br",
+        "sha256": "26d42befb6f38955fce956a66b14d9e2c0eb2957725580121c1ff925bd09d9f0"
+      },
+      {
+        "path": "dist/static/locales/fa.json.br",
+        "sha256": "8c038d4e575aadb55cec6fd37d55e2b66d493740e0db8bd1447868caca61ddc2"
+      },
+      {
+        "path": "dist/static/locales/fi.json.br",
+        "sha256": "c146bc37b880fcce09f131ca68d08cf55c6eb607fe70907839b0a3e763419e8b"
+      },
+      {
+        "path": "dist/static/locales/fr-FR.json.br",
+        "sha256": "8529b97b571ba7ea32f81891eba5cc3c209b23ebe8b49e7f93ce0996ec224677"
+      },
+      {
+        "path": "dist/static/locales/gl.json.br",
+        "sha256": "1b53d99e9119ecdcc41b2f21f9febda09e193949259804cf5f874264565fad1b"
+      },
+      {
+        "path": "dist/static/locales/he.json.br",
+        "sha256": "e9873c1c1485118433e0a1366ede91cc2c7938067aa71c5a7aa72c98e78f5463"
+      },
+      {
+        "path": "dist/static/locales/hr.json.br",
+        "sha256": "fc6896553c66712e8860313a09f9c6ea039749acd4725bb3c025a3f06b5ee43d"
+      },
+      {
+        "path": "dist/static/locales/hu.json.br",
+        "sha256": "6a6901ecb893098a64fe5f9fa357bffe60cdce9422f753f373987e2e28db9568"
+      },
+      {
+        "path": "dist/static/locales/id.json.br",
+        "sha256": "50bed1881ec1ded2ea7b23b7de3cad4f862fc4944475b90f6bd2a5bcb2af377f"
+      },
+      {
+        "path": "dist/static/locales/is.json.br",
+        "sha256": "a75fa9f83040ebcce8e1b005dc3cc75b2a7392672e2384d96222f85e069fd43f"
+      },
+      {
+        "path": "dist/static/locales/it.json.br",
+        "sha256": "0b2800135f193895e20b2b1a7235ceb8dfa346ad8c93da06d5bb20b53bb83d04"
+      },
+      {
+        "path": "dist/static/locales/ja.json.br",
+        "sha256": "c600cfeac47aa2bfbd85e7dcf2f5b2d3162824edd33685f61ef6812f3cf5dce2"
+      },
+      {
+        "path": "dist/static/locales/ko.json.br",
+        "sha256": "4d395ca8ccb8f4734ad7c8bb45204d4b4da51450c42e9551ba5a3d28430feeea"
+      },
+      {
+        "path": "dist/static/locales/lt.json.br",
+        "sha256": "27fa8610392d02c8bd8ab42ba9c778a59322e3246b1a3aaf753610d1407bb77d"
+      },
+      {
+        "path": "dist/static/locales/nb-NO.json.br",
+        "sha256": "2a56f95dae3334459ffa067a5d806794597baec01ef77da2249ecd71456840e3"
+      },
+      {
+        "path": "dist/static/locales/nl.json.br",
+        "sha256": "f08486e7943c4fddf60d63125b58faa582413ef7643424a29f9b56907baee219"
+      },
+      {
+        "path": "dist/static/locales/nn.json.br",
+        "sha256": "e5e9c03d51cf07cdcf07b73d693c4a71d57fbe369021e0d28e8cc06d2ff61208"
+      },
+      {
+        "path": "dist/static/locales/pl.json.br",
+        "sha256": "e8f6b1f9943eebdc5af0c3b29a8c16c3bd63b5ece366b62608ad4aafb1aa1207"
+      },
+      {
+        "path": "dist/static/locales/pt-BR.json.br",
+        "sha256": "3f275ccccbc4192c856fd2456c770650fdf45cd282ad08227ee8011215713e8b"
+      },
+      {
+        "path": "dist/static/locales/pt-PT.json.br",
+        "sha256": "0c0c3d2ecff89e47a640e91afbbe2f833abd6e65e4df811bbb193455488dab0b"
+      },
+      {
+        "path": "dist/static/locales/pt.json.br",
+        "sha256": "5b79354ee45e5fc94fd0b34b108f5d7e9091a3f6b4b4020bb2e1f61ed0883983"
+      },
+      {
+        "path": "dist/static/locales/ro.json.br",
+        "sha256": "60dd429de77824677bb21d76a940f09294716c208a79ed746da288b07ee9331b"
+      },
+      {
+        "path": "dist/static/locales/ru.json.br",
+        "sha256": "64d2b05eb9c36835e97348738cb2c91089109402d895d58141f7287734b11382"
+      },
+      {
+        "path": "dist/static/locales/sk.json.br",
+        "sha256": "065b7ba645a01c2c9beacb60bbe9b038e9d56727d7f3b191dedaa93409634114"
+      },
+      {
+        "path": "dist/static/locales/sl.json.br",
+        "sha256": "4e9968223e5674104e475052e665a38b616b6df2f6c78b4a980235cb8b1f3fd4"
+      },
+      {
+        "path": "dist/static/locales/sr.json.br",
+        "sha256": "f171d1a950b88bd170e4827c494e1d74bf67f04b5586c9585dd884f7e9c1a059"
+      },
+      {
+        "path": "dist/static/locales/sv.json.br",
+        "sha256": "947820d3bfceea0cd1ff4f3e0ae92d7ed72d9573a4530325817b5c3a6862330f"
+      },
+      {
+        "path": "dist/static/locales/ta.json.br",
+        "sha256": "5422c96ca314a42f357602bd75fb595cf03003af1cc5abde48723e1caf4fc47b"
+      },
+      {
+        "path": "dist/static/locales/tr.json.br",
+        "sha256": "918506ac5ee443cefecf5d2825bd09ef4a0bae58f05ec11bfbb429a9e4fc45b7"
+      },
+      {
+        "path": "dist/static/locales/uk.json.br",
+        "sha256": "538d8e81ab230aaf320ef47ce59bcb85c802e8fa973cbe5937672a99b9c9d7f1"
+      },
+      {
+        "path": "dist/static/locales/vi.json.br",
+        "sha256": "1248387b1ee33072f67845f87f977a5a7e850da6b4c2074b6a865dcf3574cd63"
+      },
+      {
+        "path": "dist/static/locales/zh-CN.json.br",
+        "sha256": "222d25966969efb3652d35ea431eceb500d17e62527acdd67da53afc496966c2"
+      },
+      {
+        "path": "dist/static/locales/zh-TW.json.br",
+        "sha256": "050054a08bdd3a8d0be27f9d04b8cbc0a15ad2b40e5d43ae8a1993734526c706"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/be.json",
+        "sha256": "3b9a1b0c194fcc7e09b164344367a7654b1c868d6af92d63d60c4224b04d92cd"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/bg.json",
+        "sha256": "3a27203c81f3f8bbdb0b31c283513de78db9c066644f1fc26ff655384a3bedd9"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/ca.json",
+        "sha256": "21b2221b9d383bfe64c9e011a1a528dabb0763797ca8cdcdb18f0562c75e88a8"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/cs.json",
+        "sha256": "aac4f546735641def6ca063b6e7d96a837e4b3b073738aaabbcc884973697c01"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/da.json",
+        "sha256": "cf386a26aee5de4254e106856c1f133694a452c856be3f38ccd6a40abed24954"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/el.json",
+        "sha256": "404dae157b998c336c08c86a0f18feb3b0e901c976cf9e90eb785462253a4bb2"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/fa.json",
+        "sha256": "fcd36076e55a0fb5e0e3132516bc818553d7b64193093424db3b11aa223a48f1"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/fi.json",
+        "sha256": "ec79764d7b3a896cc221af52aa6f8b8db112489c6af1e2f421e6944d24e138bd"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/hr.json",
+        "sha256": "7ccaaaf1f1d30ded4decbb4b2321e4f86a8d0eab568ec657d2bbe46a65541f1d"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/hu.json",
+        "sha256": "db939b59f01a519f52fdc5dbd93a7c3909a2858c39610bab56d69f0546093d95"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/id.json",
+        "sha256": "505549afa20e72c62bfa37bdb7cd96ef7ae9bab358e908caf9674a5bd5875daa"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/iw.json",
+        "sha256": "84f966fd4db3de64cf1959b8be40495111acd96bbc2c80f3a1a1323a906081e8"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/lt.json",
+        "sha256": "874513eff6e458d144a5548f05a4631bbb17685af56a3f5c550d5d7ebb9c7fa0"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/no.json",
+        "sha256": "93f2a8af8943ce3747f7d1440c450da1d7bfb543c32812df0904b1019fbd8562"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/pt-PT.json",
+        "sha256": "73bc8442d00dd9443de2dcc52b087d18b7969e71f438f4198f21572eb3680f5e"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/ro.json",
+        "sha256": "99762136e5ce04a2d29a9d9f70c0ea7f7dea8c220c0b27da2ef516a2de4abe0d"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/sk.json",
+        "sha256": "03815180e5113ed1730730ca69cefc18826ebb304514b29195a6f636e316d450"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/sl.json",
+        "sha256": "ad1dfaa31e41af576b503119108e7fd65ff92595e52fb4e6c3f86c2c13d122df"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/sr.json",
+        "sha256": "4c81c7436f37985d4fe88b97fc12d2922417dabef8b1872e63601b3e948b2708"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/sv.json",
+        "sha256": "bd489f897f620521ff8cb510899cf609e72936d27d64c62ed67fd85dae30aaa0"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/uk.json",
+        "sha256": "a5c675a5606ab4c9f1152752b1b1d95a001623c5bc187bd7206cd254618e914d"
+      },
+      {
+        "path": "dist/static/shaka-player-locales/vi.json",
+        "sha256": "c3bf25861c14c1ef3f3912e0c4ea932d2cf823897ad8fdb9ce8545c377b5e38d"
+      }
+    ],
+    "asarSha256": "ef71c156ffb1fd3626ba66b6e124f6b7983a3f26a513b54a29cc73b5b3ec447b",
+    "criticalVersions": {
+      "electron": "42.5.2",
+      "electron-builder": "26.15.7",
+      "shaka-player": "5.1.12",
+      "youtubei.js": "18.0.0",
+      "googlevideo": "4.0.4",
+      "vue": "3.5.39",
+      "webpack": "5.108.4"
+    }
+  },
+  "trials": [
+    {
+      "case": "smoke-1",
+      "worker": {
+        "schemaVersion": 1,
+        "result": "failed",
+        "phase": "transport",
+        "applicationSourceModified": false,
+        "packagedExecutable": true,
+        "isolatedProfile": true,
+        "normalSandboxFlags": true,
+        "profilePreferences": {
+          "defaultVolume": 0.35,
+          "checkForUpdates": false,
+          "backendFallback": false,
+          "backendPreference": "local"
+        },
+        "realProviderVideoId": "aqz-KE-bpKQ",
+        "syncServiceAdded": false,
+        "providerAVSyncProven": false,
+        "audibleOutputProven": false,
+        "guard": {
+          "beforeReady": true,
+          "userDataIsIsolated": true,
+          "sessionDataIsIsolated": true
+        },
+        "ui": {
+          "windowFound": true,
+          "windowVisible": false,
+          "windowMinimized": false,
+          "page": {
+            "ready": "complete",
+            "bodyCharacters": 3001,
+            "videos": [
+              {
+                "time": 0,
+                "duration": null,
+                "paused": true,
+                "ended": false,
+                "muted": false,
+                "volume": 0.35,
+                "readyState": 0,
+                "width": 0,
+                "height": 0,
+                "errorCode": 0,
+                "frames": 0,
+                "droppedFrames": 0,
+                "audioDecodedBytes": 0
+              }
+            ]
+          }
+        },
+        "observationSamples": [
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": null,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 0,
+                  "width": 0,
+                  "height": 0,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 1,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 1,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 1,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 4,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 0.387237,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 29,
+                  "droppedFrames": 11,
+                  "audioDecodedBytes": 34513
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 1.396718,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 91,
+                  "droppedFrames": 40,
+                  "audioDecodedBytes": 83198
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 2.403512,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 151,
+                  "droppedFrames": 68,
+                  "audioDecodedBytes": 131966
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 3.414488,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 211,
+                  "droppedFrames": 96,
+                  "audioDecodedBytes": 181726
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 4.424486,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 273,
+                  "droppedFrames": 125,
+                  "audioDecodedBytes": 231155
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": false,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3001,
+              "videos": [
+                {
+                  "time": 5.433832,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 333,
+                  "droppedFrames": 153,
+                  "audioDecodedBytes": 279722
+                }
+              ]
+            }
+          }
+        ],
+        "playback": {
+          "initial": {
+            "time": 5.433832,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 333,
+            "droppedFrames": 153,
+            "audioDecodedBytes": 279722
+          },
+          "afterFiveSeconds": {
+            "time": 10.564321,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 640,
+            "droppedFrames": 297,
+            "audioDecodedBytes": 529637
+          }
+        },
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "seek": {
+          "target": 33.067587,
+          "after": {
+            "time": 33.067587,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 1,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 790,
+            "droppedFrames": 367,
+            "audioDecodedBytes": 652104
+          },
+          "passed": false
+        },
+        "errorType": "TransportValidationFailed",
+        "processExitCode": 0,
+        "cleanProcessExit": true
+      },
+      "harnessSha256": "a441fd67fe2cdab6e7ab1c3352c7d0474d401bf65e5a57cdddb85f4dee72c203",
+      "screenshotSha256": {
+        "baseline-playback.png": "71b44f224f0d286b0b702c1585db2248cd201fb1f5185343247abc56fd3d87d1",
+        "baseline-ui.png": "48c8f6c52b6c28cd2b1fac7ee24d210eb6e413a544325f17a72f1d7b3f206834"
+      },
+      "privateLogSha256": "915394945a7c89a7980f2156ce92259d1cc91519654f12d8c62f9565e3c45028",
+      "originCheckDiagnosticObservedInPrivateLog": true
+    },
+    {
+      "case": "smoke-2",
+      "worker": {
+        "schemaVersion": 1,
+        "result": "passed",
+        "phase": "complete",
+        "applicationSourceModified": false,
+        "packagedExecutable": true,
+        "isolatedProfile": true,
+        "normalSandboxFlags": true,
+        "profilePreferences": {
+          "defaultVolume": 0.35,
+          "checkForUpdates": false,
+          "backendFallback": false,
+          "backendPreference": "local"
+        },
+        "realProviderVideoId": "aqz-KE-bpKQ",
+        "syncServiceAdded": false,
+        "providerAVSyncProven": false,
+        "audibleOutputProven": false,
+        "guard": {
+          "beforeReady": true,
+          "userDataIsIsolated": true,
+          "sessionDataIsIsolated": true
+        },
+        "ui": {
+          "windowFound": true,
+          "windowVisible": true,
+          "windowMinimized": false,
+          "page": {
+            "ready": "complete",
+            "bodyCharacters": 3010,
+            "videos": [
+              {
+                "time": 0,
+                "duration": null,
+                "paused": true,
+                "ended": false,
+                "muted": false,
+                "volume": 0.35,
+                "readyState": 0,
+                "width": 0,
+                "height": 0,
+                "errorCode": 0,
+                "frames": 0,
+                "droppedFrames": 0,
+                "audioDecodedBytes": 0
+              }
+            ]
+          }
+        },
+        "observationSamples": [
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": null,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 0,
+                  "width": 0,
+                  "height": 0,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 1,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 0.372523,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 29,
+                  "droppedFrames": 11,
+                  "audioDecodedBytes": 34513
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 1.380509,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 89,
+                  "droppedFrames": 39,
+                  "audioDecodedBytes": 82164
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 2.387468,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 149,
+                  "droppedFrames": 67,
+                  "audioDecodedBytes": 130946
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 3.397298,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 211,
+                  "droppedFrames": 96,
+                  "audioDecodedBytes": 180681
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 4.414926,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 271,
+                  "droppedFrames": 124,
+                  "audioDecodedBytes": 231155
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3010,
+              "videos": [
+                {
+                  "time": 5.424865,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 333,
+                  "droppedFrames": 153,
+                  "audioDecodedBytes": 279722
+                }
+              ]
+            }
+          }
+        ],
+        "playback": {
+          "initial": {
+            "time": 5.424865,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 333,
+            "droppedFrames": 153,
+            "audioDecodedBytes": 279722
+          },
+          "afterFiveSeconds": {
+            "time": 10.640076,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 646,
+            "droppedFrames": 299,
+            "audioDecodedBytes": 533804
+          }
+        },
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "seek": {
+          "target": 33.148779,
+          "waitMs": 30390,
+          "after": {
+            "time": 34.328871,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 1215,
+            "droppedFrames": 403,
+            "audioDecodedBytes": 729920
+          },
+          "passed": true,
+          "samples": [
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.148778,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 796,
+              "droppedFrames": 369,
+              "audioDecodedBytes": 656234
+            },
+            {
+              "time": 33.317321,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 4,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 1155,
+              "droppedFrames": 375,
+              "audioDecodedBytes": 681100
+            },
+            {
+              "time": 34.328871,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 4,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 1215,
+              "droppedFrames": 403,
+              "audioDecodedBytes": 729920
+            }
+          ]
+        },
+        "runtime": {
+          "electron": "42.5.2",
+          "chromium": "148.0.7778.271",
+          "node": "24.17.0",
+          "protocolRegistrationSuppressed": {
+            "set": 1,
+            "remove": 1
+          },
+          "renderProcessExits": []
+        },
+        "processExitCode": 0,
+        "cleanProcessExit": true
+      },
+      "harnessSha256": "d83b2c2aa3303cb447a1c88fdd2dbe7d971c9908de827d89994e715fa926ff72",
+      "screenshotSha256": {
+        "baseline-after-seek.png": "b375ae5177636c1622be5f382547d88f9d15fc445e35d836f892e982712c5cd9",
+        "baseline-playback.png": "e59e319abc9c2cdf28610aedb0cad4ffdd2135007040ccadd2bf85a29ac5be36",
+        "baseline-ui.png": "37b25fe03a5b0ca5054eaf569d6a46a669c443cd8c46fc64ea22a727fc6959a7"
+      },
+      "privateLogSha256": "1bd9350e8abe636be679eafc94608da9d60da8c6a6051f7feaee8f52b315a52c",
+      "originCheckDiagnosticObservedInPrivateLog": true
+    },
+    {
+      "case": "smoke-3",
+      "worker": {
+        "schemaVersion": 1,
+        "result": "passed",
+        "phase": "complete",
+        "applicationSourceModified": false,
+        "packagedExecutable": true,
+        "isolatedProfile": true,
+        "normalSandboxFlags": true,
+        "profilePreferences": {
+          "defaultVolume": 0.35,
+          "checkForUpdates": false,
+          "backendFallback": false,
+          "backendPreference": "local"
+        },
+        "realProviderVideoId": "aqz-KE-bpKQ",
+        "syncServiceAdded": false,
+        "providerAVSyncProven": false,
+        "audibleOutputProven": false,
+        "guard": {
+          "beforeReady": true,
+          "userDataIsIsolated": true,
+          "sessionDataIsIsolated": true
+        },
+        "ui": {
+          "windowFound": true,
+          "windowVisible": true,
+          "windowMinimized": false,
+          "page": {
+            "ready": "complete",
+            "bodyCharacters": 318,
+            "videos": []
+          }
+        },
+        "observationSamples": [
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 318,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 73,
+              "videos": []
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 521,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": null,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 0,
+                  "width": 0,
+                  "height": 0,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 0,
+                  "width": 0,
+                  "height": 0,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 1,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 0,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 1,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 4,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 0,
+                  "duration": 634.566,
+                  "paused": true,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 1,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 4,
+                  "droppedFrames": 0,
+                  "audioDecodedBytes": 0
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 0.652581,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 45,
+                  "droppedFrames": 19,
+                  "audioDecodedBytes": 47949
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 1.664706,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 107,
+                  "droppedFrames": 48,
+                  "audioDecodedBytes": 97767
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 2.677447,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 157,
+                  "droppedFrames": 71,
+                  "audioDecodedBytes": 145442
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 3.691708,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 229,
+                  "droppedFrames": 120,
+                  "audioDecodedBytes": 195203
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 4.708117,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 289,
+                  "droppedFrames": 148,
+                  "audioDecodedBytes": 245456
+                }
+              ]
+            }
+          },
+          {
+            "windowFound": true,
+            "windowVisible": true,
+            "windowMinimized": false,
+            "page": {
+              "ready": "complete",
+              "bodyCharacters": 3192,
+              "videos": [
+                {
+                  "time": 5.725965,
+                  "duration": 634.566,
+                  "paused": false,
+                  "ended": false,
+                  "muted": false,
+                  "volume": 0.35,
+                  "readyState": 4,
+                  "width": 1280,
+                  "height": 720,
+                  "errorCode": 0,
+                  "frames": 350,
+                  "droppedFrames": 176,
+                  "audioDecodedBytes": 295336
+                }
+              ]
+            }
+          }
+        ],
+        "playback": {
+          "initial": {
+            "time": 5.725965,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 350,
+            "droppedFrames": 176,
+            "audioDecodedBytes": 295336
+          },
+          "afterFiveSeconds": {
+            "time": 10.976334,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 665,
+            "droppedFrames": 324,
+            "audioDecodedBytes": 550386
+          }
+        },
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "seek": {
+          "target": 33.495233999999996,
+          "waitMs": 15133,
+          "after": {
+            "time": 34.582099,
+            "duration": 634.566,
+            "paused": false,
+            "ended": false,
+            "muted": false,
+            "volume": 0.35,
+            "readyState": 4,
+            "width": 1280,
+            "height": 720,
+            "errorCode": 0,
+            "frames": 1251,
+            "droppedFrames": 432,
+            "audioDecodedBytes": 740173
+          },
+          "passed": true,
+          "samples": [
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 33.495233,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 1,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 817,
+              "droppedFrames": 396,
+              "audioDecodedBytes": 672836
+            },
+            {
+              "time": 34.187765,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 4,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 1229,
+              "droppedFrames": 417,
+              "audioDecodedBytes": 722574
+            },
+            {
+              "time": 34.4917,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 4,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 1237,
+              "droppedFrames": 421,
+              "audioDecodedBytes": 737080
+            },
+            {
+              "time": 34.4917,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 4,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 1237,
+              "droppedFrames": 421,
+              "audioDecodedBytes": 737080
+            },
+            {
+              "time": 34.4917,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 4,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 1237,
+              "droppedFrames": 421,
+              "audioDecodedBytes": 737080
+            },
+            {
+              "time": 34.582099,
+              "duration": 634.566,
+              "paused": false,
+              "ended": false,
+              "muted": false,
+              "volume": 0.35,
+              "readyState": 4,
+              "width": 1280,
+              "height": 720,
+              "errorCode": 0,
+              "frames": 1251,
+              "droppedFrames": 432,
+              "audioDecodedBytes": 740173
+            }
+          ]
+        },
+        "runtime": {
+          "electron": "42.5.2",
+          "chromium": "148.0.7778.271",
+          "node": "24.17.0",
+          "protocolRegistrationSuppressed": {
+            "set": 1,
+            "remove": 1
+          },
+          "renderProcessExits": []
+        },
+        "processExitCode": 0,
+        "cleanProcessExit": true
+      },
+      "harnessSha256": "ff42f55436044cfda87fd0494722ab477394a748a06f7ff4c8bc460a38bcecf2",
+      "screenshotSha256": {
+        "baseline-after-seek.png": "6cc2c9f49b4838e0e742ad71cf96ed8a570b99d3a086239cad38f02077e2cbe3",
+        "baseline-playback.png": "dae9dccf4a328d5edb9145e88bb187fb5c872692e0411069203f7d64f7c1827e",
+        "baseline-ui.png": "fd0be1433bd687f40c2d3a9edfa8fc08d04599d3e23f1e2c500e52003d3d678b"
+      },
+      "privateLogSha256": "36271045245e8c093eb61187690198e364fe95224a2905adb7c97f5fb7b7f879",
+      "originCheckDiagnosticObservedInPrivateLog": true
+    }
+  ],
+  "runtimeInterpretation": {
+    "firstFiveSecondSeekTrialRemainsFailed": true,
+    "visibleTrialsPassed": 2,
+    "visibleSeekWaitMs": [
+      30390,
+      15133
+    ],
+    "profileGuardInstalledBeforeReady": true,
+    "externalProtocolRegistrationSuppressed": true,
+    "defaultSettingsSeededOnlyIntoDisposableProfile": true,
+    "inspectorUsedOnlyOnLoopback": true,
+    "playerOrProviderLogicPatched": false,
+    "videoAndAudioDecodeCountersAdvance": true,
+    "realSpeakerOutputProven": false,
+    "providerSourceAVSyncProven": false,
+    "smoothPresentationQualified": false,
+    "reportedDroppedFramesPreserved": true,
+    "originDiagnosticCauseProven": false,
+    "firstTrialRendererExitObserverAvailable": false,
+    "legacyPipePipe403CauseResolved": false
+  },
+  "remainingGates": [
+    "Investigate/validate variable seek responsiveness and dropped-frame counts in an observed foreground session; do not infer a cause from hidden/occluded captures.",
+    "Independent audible output/source A/V alignment and wider provider/network/hardware matrix.",
+    "Normal OS protocol integration, application identity/upgrade behavior and distribution/license/signing gates.",
+    "Shared optional metadata service and client adapters are not implemented."
+  ],
+  "privacy": {
+    "resolvedStreamUrlsPersistedInPortableEvidence": false,
+    "rawProviderResponsesPersistedInPortableEvidence": false,
+    "existingUserProfileUsed": false,
+    "physicalMicrophoneOpened": false,
+    "screenshotsAndRawDiagnosticsRemainDisposable": true
+  }
+}
