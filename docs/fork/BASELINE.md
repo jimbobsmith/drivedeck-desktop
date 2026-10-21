@@ -72,3 +72,7 @@ The unchanged baseline remains recorded above. Desktop issue #4 now adds optiona
 manual subscription/resume sync on a separate branch, retaining FreeTube playback.
 See [media-sync/README.md](media-sync/README.md) for the actual app adapters,
 protected enrollment, OS storage, evidence and remaining field/hosting gates.
+
+## Fork artwork
+
+The approved provisional DD desktop icons and their build/field evidence are documented in [branding](branding/README.md) (issue #7). The unchanged baseline evidence above remains historical.
