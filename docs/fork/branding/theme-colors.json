@@ -1,0 +1,87 @@
+{
+  "iconBlackSmall.svg": [
+    "#000",
+    "#000"
+  ],
+  "iconCatppuccinFrappeDarkSmall.svg": [
+    "#303446",
+    "#303446"
+  ],
+  "iconCatppuccinFrappeLightSmall.svg": [
+    "#c6d0f5",
+    "#c6d0f5"
+  ],
+  "iconCatppuccinLatteDarkSmall.svg": [
+    "#4c4f69",
+    "#4c4f69"
+  ],
+  "iconCatppuccinLatteLightSmall.svg": [
+    "#eff1f5",
+    "#eff1f5"
+  ],
+  "iconCatppuccinMochaDarkSmall.svg": [
+    "#1e1e2e",
+    "#1e1e2e"
+  ],
+  "iconCatppuccinMochaLightSmall.svg": [
+    "#cdd6f4",
+    "#cdd6f4"
+  ],
+  "iconColorSmall.svg": null,
+  "iconDraculaDarkSmall.svg": [
+    "#282a36",
+    "#282a36"
+  ],
+  "iconDraculaLightSmall.svg": [
+    "#f8f8f8",
+    "#f8f8f8"
+  ],
+  "iconEverforestDarkHardSmall.svg": [
+    "#1e2326",
+    "#1e2326"
+  ],
+  "iconEverforestDarkLowSmall.svg": [
+    "#293136",
+    "#293136"
+  ],
+  "iconEverforestDarkMediumSmall.svg": [
+    "#232a2e",
+    "#232a2e"
+  ],
+  "iconEverforestLightHardSmall.svg": [
+    "#f2efdf",
+    "#f2efdf"
+  ],
+  "iconEverforestLightLowSmall.svg": [
+    "#e5dfc5",
+    "#e5dfc5"
+  ],
+  "iconEverforestLightMediumSmall.svg": [
+    "#efebd4",
+    "#efebd4"
+  ],
+  "iconGruvboxDarkSmall.svg": [
+    "#282828",
+    "#282828"
+  ],
+  "iconGruvboxLightSmall.svg": [
+    "#ebdbb2",
+    "#ebdbb2"
+  ],
+  "iconNordicLightSmall.svg": [
+    "#eee",
+    "#eee"
+  ],
+  "iconSolarizedDarkSmall.svg": [
+    "#002b36",
+    "#002b36"
+  ],
+  "iconSolarizedLightSmall.svg": [
+    "#fdf6e3",
+    "#fdf6e3"
+  ],
+  "iconWhiteSmall.svg": [
+    "#fff",
+    "#fff"
+  ]
+}

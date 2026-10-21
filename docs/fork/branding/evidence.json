@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "artworkApproval": "Maintainer: ok, lets use those for now",
+  "authoringTools": {
+    "node": "24.18.0",
+    "sharp": "0.35.5",
+    "librsvg": "2.63.2"
+  },
+  "regeneration": {
+    "result": "passed",
+    "filesCompared": 65,
+    "identical": true
+  },
+  "playbackCodeChanged": false,
+  "identityMigration": false,
+  "dependencyChanges": false,
+  "personalDeviceInstallation": false,
+  "releasePublished": false,
+  "issue": "https://github.com/jimbobsmith/drivedeck-desktop/issues/7",
+  "baseCommit": "369b31b0d6b580f61b682b8927d1cdb59afe855f",
+  "toolchain": {
+    "node": "24.18.0",
+    "pnpm": "10.34.7",
+    "electronBuilder": "26.15.7"
+  },
+  "assetChecks": {
+    "ico": [
+      {
+        "size": 16,
+        "sourcePixelsMatch": true,
+        "pngSha256": "6eecb7f001032ccd1740b20adaa07d034c98da30ef80d6fbed258581cc6548a5"
+      },
+      {
+        "size": 24,
+        "sourcePixelsMatch": true,
+        "pngSha256": "caef395671b0d469135302bee4c6daeba2f57c4119b0bb56ffa43de3b15371c7"
+      },
+      {
+        "size": 32,
+        "sourcePixelsMatch": true,
+        "pngSha256": "79ce6f6612ba64abec9816e87566ffb453d886ddbd7071b8e2c1830361b3135d"
+      },
+      {
+        "size": 48,
+        "sourcePixelsMatch": true,
+        "pngSha256": "4589ebaad1cbc55c733f31cdc6705551c5b752ba29c8fa7a1a09f38eb6542fe2"
+      },
+      {
+        "size": 64,
+        "sourcePixelsMatch": true,
+        "pngSha256": "093504838efbda2f5588d3753a24e04ffd2b5e088a493a34907d1a7622eed706"
+      },
+      {
+        "size": 128,
+        "sourcePixelsMatch": true,
+        "pngSha256": "6fe946c17e3f020836b7482166e860e6d3ce4c6055c3cd10a5f6a2e7cd5315bc"
+      },
+      {
+        "size": 256,
+        "sourcePixelsMatch": true,
+        "pngSha256": "1cd66a58d30f58c0697f5cb766e51e92e41ec6eec1ef7b6bfeb51800d24d85bd"
+      }
+    ],
+    "icns": [
+      {
+        "type": "icp4",
+        "size": 16,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "icp5",
+        "size": 32,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "icp6",
+        "size": 64,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic07",
+        "size": 128,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic08",
+        "size": 256,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic09",
+        "size": 512,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic10",
+        "size": 1024,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic11",
+        "size": 32,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic12",
+        "size": 64,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic13",
+        "size": 256,
+        "sourcePixelsMatch": true
+      },
+      {
+        "type": "ic14",
+        "size": 512,
+        "sourcePixelsMatch": true
+      }
+    ],
+    "themeVariants": 22,
+    "hashes": {
+      "docs/fork/branding/dd-desktop.svg": "604bd48832e3441bc6f6c14b7c5cb5e8c3786ac7f023b54d22857083797feab4",
+      "docs/fork/branding/theme-colors.json": "ce2593069aa5f6c2ff3614dbfed6559e519eab4a16b1e4c57c1e470c0db86b7f",
+      "tools/branding/generate.cjs": "61f14727f5ac7a76ca10ce8a5afb7b8a4cf8b663f9f775c09a628b42d7578573",
+      "_icons/icon.svg": "604bd48832e3441bc6f6c14b7c5cb5e8c3786ac7f023b54d22857083797feab4",
+      "_icons/iconColor.png": "04950f3c2862dfdc81b55003b9d2db767990e1360cc0ebb22c7b3e63200f7e30",
+      "_icons/icon.ico": "ae2506f9673f51d703b6dae3e74d774e2cd6f61c28d7372c7a42d5f0bee1eafe",
+      "_icons/iconMac.icns": "946336ab7fe6bebfb32ace80abaca2e21c9f14895affd2641d4f8859f771b192"
+    }
+  },
+  "build": {
+    "result": "passed",
+    "lint": "passed",
+    "command": "pnpm run build",
+    "publish": "never",
+    "platform": "Windows x64",
+    "targets": [
+      "unpacked",
+      "zip",
+      "7z",
+      "nsis",
+      "portable"
+    ],
+    "warnings": "Three inherited webpack renderer asset/entrypoint/performance warnings retained."
+  },
+  "packagedChecks": {
+    "result": "passed",
+    "packagedExecutable": {
+      "file": "build/win-unpacked/FreeTube.exe",
+      "bytes": 232366080,
+      "sha256": "fcc8956ae29e351a20e8e2d41f5bd61257c4a600cbf6dd9187ff529a66bc1a6a"
+    },
+    "executableIconGroups": [
+      {
+        "id": 1,
+        "lang": 1033,
+        "icons": [
+          {
+            "size": 16,
+            "sha256": "6eecb7f001032ccd1740b20adaa07d034c98da30ef80d6fbed258581cc6548a5"
+          },
+          {
+            "size": 24,
+            "sha256": "caef395671b0d469135302bee4c6daeba2f57c4119b0bb56ffa43de3b15371c7"
+          },
+          {
+            "size": 32,
+            "sha256": "79ce6f6612ba64abec9816e87566ffb453d886ddbd7071b8e2c1830361b3135d"
+          },
+          {
+            "size": 48,
+            "sha256": "4589ebaad1cbc55c733f31cdc6705551c5b752ba29c8fa7a1a09f38eb6542fe2"
+          },
+          {
+            "size": 64,
+            "sha256": "093504838efbda2f5588d3753a24e04ffd2b5e088a493a34907d1a7622eed706"
+          },
+          {
+            "size": 128,
+            "sha256": "6fe946c17e3f020836b7482166e860e6d3ce4c6055c3cd10a5f6a2e7cd5315bc"
+          },
+          {
+            "size": 256,
+            "sha256": "1cd66a58d30f58c0697f5cb766e51e92e41ec6eec1ef7b6bfeb51800d24d85bd"
+          }
+        ]
+      }
+    ],
+    "windowTrayPngMatches": true,
+    "packagedWindowTrayPngSha256": "04950f3c2862dfdc81b55003b9d2db767990e1360cc0ebb22c7b3e63200f7e30"
+  },
+  "uiSmoke": {
+    "result": "passed",
+    "iconOnly": true,
+    "profileIsolated": true,
+    "sandboxPreserved": true,
+    "header": {
+      "found": true,
+      "width": 25,
+      "height": 25,
+      "hasDDFrame": true,
+      "hasPlay": true,
+      "hasViolet": true
+    },
+    "ui": {
+      "windowFound": true,
+      "windowVisible": true,
+      "windowMinimized": false,
+      "page": {
+        "ready": "complete",
+        "bodyCharacters": 318,
+        "videos": []
+      }
+    },
+    "runtime": {
+      "electron": "42.5.2",
+      "chromium": "148.0.7778.271",
+      "node": "24.17.0",
+      "protocolRegistrationSuppressed": {
+        "set": 1,
+        "remove": 1
+      },
+      "renderProcessExits": []
+    },
+    "processExitCode": 0,
+    "cleanProcessExit": true,
+    "initialTrial": {
+      "result": "failed",
+      "phase": "ui",
+      "errorType": "RuntimeEvaluationFailed",
+      "cause": "Incorrect quoting in test inspector expression; corrected helper passes without app changes.",
+      "uiLoaded": true,
+      "cleanProcessExit": true
+    },
+    "scriptSha256": "8793d73a7eef34a29afa3560701ab5193251cd3a39e47218b4c138d02c442674"
+  },
+  "artifacts": [
+    {
+      "file": "build/win-unpacked/FreeTube.exe",
+      "bytes": 232366080,
+      "sha256": "fcc8956ae29e351a20e8e2d41f5bd61257c4a600cbf6dd9187ff529a66bc1a6a",
+      "authenticodeStatus": "NotSigned"
+    },
+    {
+      "file": "build/win-unpacked/resources/app.asar",
+      "bytes": 4768287,
+      "sha256": "6c5838724775b6ddc3387387c7d2f77d5a362e57998ff4f81d171c6b2cda15a2"
+    },
+    {
+      "file": "build/FreeTube-0.25.3-win.zip",
+      "bytes": 144856713,
+      "sha256": "4a33f69a256137b942f83e80e63b1cc9336dd97bd189bed12e109d195570885c"
+    },
+    {
+      "file": "build/FreeTube-0.25.3-win.7z",
+      "bytes": 92637236,
+      "sha256": "120f1116f0c8e797736e2d36cd91f83502dce1a8953eab444cd45504c2f11ade"
+    },
+    {
+      "file": "build/FreeTube Setup 0.25.3.exe",
+      "bytes": 112043321,
+      "sha256": "62f3c623247a9d4927491c75986280ee0e08d45b13c87b00ac7f1c3a07975845",
+      "authenticodeStatus": "NotSigned"
+    },
+    {
+      "file": "build/FreeTube 0.25.3.exe",
+      "bytes": 111813743,
+      "sha256": "3ff253e9fae37284a7f444da71b6109fc2b994ed780b811e28ec4ab8c9149371",
+      "authenticodeStatus": "NotSigned"
+    }
+  ],
+  "lockfile": {
+    "file": "pnpm-lock.yaml",
+    "bytes": 364797,
+    "sha256": "cc4f359edfd0bba0ff12fd57485cde82e67a053bf1a648b6e82de3151984dbd7"
+  },
+  "packageManifest": {
+    "file": "package.json",
+    "bytes": 5413,
+    "sha256": "7268333449d4ffb43878940631a69d87a3a6ad431eb948afa727e79ed112afda"
+  },
+  "installerExecuted": false,
+  "unobservedFieldGates": [
+    "Native Linux and macOS packaging and runtime",
+    "Installed Windows shell/shortcut cache and tray presentation"
+  ]
+}
