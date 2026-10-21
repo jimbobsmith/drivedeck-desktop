@@ -12,10 +12,11 @@ export function installMediaSync (models, allowed, channels, events) {
   const gate = fn => { const p = chain.then(fn); chain = p.catch(() => {}); return p }
   const requireVault = () => { if (!safeStorage.isEncryptionAvailable() || (process.platform === 'linux' && safeStorage.getSelectedStorageBackend() === 'basic_text')) fail('os_secret_store_unavailable') }
   const changed = async () => {
-    const history = await models.history.find(); const profiles = await models.profiles.find()
+    const history = await models.history.find(); const profiles = await models.profiles.find(); const playlists = await models.playlists.find()
     for (const w of BrowserWindow.getAllWindows()) {
       if (!allowed(w.webContents.getURL())) continue
       w.webContents.send(channels.SYNC_HISTORY, { event: events.GENERAL.OVERWRITE, data: history })
+      w.webContents.send(channels.SYNC_PLAYLISTS, { event: events.GENERAL.OVERWRITE, data: playlists })
       for (const data of profiles) w.webContents.send(channels.SYNC_PROFILES, { event: events.GENERAL.UPSERT, data })
     }
   }
@@ -61,6 +62,7 @@ export function installMediaSync (models, allowed, channels, events) {
         await gate(async () => { instance?.close(); instance = undefined; for (const path of [secretPath(), secretPath() + '.new', dbPath(), dbPath() + '-wal', dbPath() + '-shm']) if (existsSync(path)) unlinkSync(path) })
         errorCode = undefined; return status()
       }
+      if (action === 'enable-library') { const current = get(); if (!current) fail('not_enrolled'); return await current.gate(() => current.enableLibrary()) }
       if (!['sync', 'keep-local', 'use-remote'].includes(action)) fail('invalid_action')
       const current = get(); if (!current) fail('not_enrolled')
       errorCode = undefined; return await current.sync(action === 'sync' ? undefined : action)

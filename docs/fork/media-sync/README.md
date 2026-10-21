@@ -81,3 +81,7 @@ See [TABLET_VALIDATION.md](TABLET_VALIDATION.md) and
 [tablet-evidence.json](tablet-evidence.json). DD Home was restored and handed
 back to the Spotify chat; standalone metadata proof does not qualify embedded
 DD playback/control or three-device simultaneous convergence.
+
+## Expanded library follow-up
+
+Playlists, Watch Later and latest per-video watch history are an explicit opt-in follow-up; see [library v2 contract](LIBRARY_V2.md). Existing subscription/resume enrollment does not silently enable the new data.

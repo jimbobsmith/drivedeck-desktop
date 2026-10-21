@@ -25,6 +25,12 @@
     </template>
     <template v-else>
       <FtButton
+        v-if="!status.libraryEnabled"
+        :label="$t('MediaSync.EnableLibrary')"
+        :disabled="busy"
+        @click="run('enable-library')"
+      />
+      <FtButton
         :label="$t('MediaSync.Sync')"
         :disabled="busy"
         @click="run('sync')"
@@ -61,12 +67,12 @@ const status = ref({ enabled: false, code: 'disconnected' })
 const passphrase = ref('')
 const busy = ref(false)
 const statusText = computed(() => {
-  const messages = { disconnected: t('MediaSync.Disconnected'), ready: t('MediaSync.Ready'), server_generation_changed: t('MediaSync.Restored'), synced: t('MediaSync.Synced'), pending: t('MediaSync.Pending'), conflict: t('MediaSync.Conflict'), offline: t('MediaSync.Offline'), restored_service: t('MediaSync.Restored') }
+  const messages = { library_upgrade_required: t('MediaSync.LibraryUpgrade'), playlist_not_portable: t('MediaSync.LibraryLimit'), invalid_playlist_name: t('MediaSync.LibraryLimit'), disconnected: t('MediaSync.Disconnected'), ready: t('MediaSync.Ready'), server_generation_changed: t('MediaSync.Restored'), synced: t('MediaSync.Synced'), pending: t('MediaSync.Pending'), conflict: t('MediaSync.Conflict'), offline: t('MediaSync.Offline'), restored_service: t('MediaSync.Restored') }
   return messages[status.value.code] ?? t('MediaSync.Failed')
 })
 async function run(action) {
   if (busy.value) return
-  if (['disconnect', 'keep-local', 'use-remote'].includes(action) && !window.confirm(t('MediaSync.Confirm'))) return
+  if (['disconnect', 'keep-local', 'use-remote', 'enable-library'].includes(action) && !window.confirm(action === 'enable-library' ? t('MediaSync.LibraryConfirm') : t('MediaSync.Confirm'))) return
   busy.value = true
   try { status.value = await window.ftElectron.mediaSync(action, passphrase.value) } catch { status.value = { ...status.value, code: 'failed' } } finally { passphrase.value = ''; busy.value = false }
 }

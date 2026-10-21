@@ -1229,6 +1229,10 @@ KeyboardShortcutPrompt:
   Skip to Previous Video: Skip to the previous video in a playlist
 
 MediaSync:
+  EnableLibrary: Include playlists, Watch Later and history
+  LibraryConfirm: 'Also sync playlist names, ordered YouTube videos (up to 200 per list), Watch Later and latest per-video watch times? Update and opt in every connected client. Same-named lists stay separate. Disconnect to stop syncing; existing remote copies remain.'
+  LibraryUpgrade: Update the service and every client, then enable playlists, Watch Later and history on this device.
+  LibraryLimit: A playlist cannot sync. Lists must contain at most 200 YouTube videos and a nonempty name of at most 160 UTF-8 bytes. Nothing was truncated.
   Title: Personal media sync
   Description: Optional manual sync of YouTube subscriptions and resume positions with your self-hosted service. Playback stays local. Import an owner-created protected enrollment file; keep its recovery copy private.
   Passphrase: Enrollment passphrase

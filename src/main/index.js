@@ -1861,7 +1861,7 @@ function runApp() {
   // As such, only the currently used actions have synchronization implemented
   // The remaining should have it implemented only when playlists
   // get fully implemented into the app
-  ipcMain.handle(IpcChannels.DB_PLAYLISTS, async (event, { action, data }) => {
+  ipcMain.handle(IpcChannels.DB_PLAYLISTS, mediaSync.wrap(async (event, { action, data }) => {
     if (!isFreeTubeUrl(event.senderFrame.url)) {
       return
     }
@@ -1960,7 +1960,7 @@ function runApp() {
       if (typeof err === 'string') throw err
       else throw err.toString()
     }
-  })
+  }))
 
   // *********** //
 

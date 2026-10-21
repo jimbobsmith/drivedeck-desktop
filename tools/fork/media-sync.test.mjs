@@ -82,3 +82,59 @@ test('offline sync preserves enabled enrollment and retry controls alongside dur
   app.client.flush = async () => ({offline: true, pending: app.client.state.pending.length});
   const result = await app.sync(); assert.equal(result.code, 'offline'); assert.equal(result.enabled, true); assert.equal(result.pending, 1); assert.equal((await models.history.find())[0].watchProgress, 12);
 });
+
+
+test('expanded library is opt-in; real NeDB playlists get stable IDs and preserve order/duplicates', async t => {
+  const {app} = await fixture(t); await models.playlists.deleteAll();
+  await models.playlists.create({_id: 'local-list', playlistName: 'Trips', videos: [{videoId}, {videoId: 'ZyxWVuts987'}, {videoId}]});
+  await models.history.upsert({videoId, timeWatched: 1700000000123, watchProgress: 2});
+  await app.capture(); assert.ok(app.client.state.pending.every(p => !['playlist', 'history', 'watch-later'].includes(p.payload.kind)));
+  app.enableLibrary(); await app.capture();
+  const list = app.client.state.pending.find(p => p.payload.kind === 'playlist').payload;
+  assert.deepEqual(list.items, [videoId, 'ZyxWVuts987', videoId]); assert.equal(list.name, 'Trips');
+  assert.ok(app.client.state.pending.some(p => p.payload.kind === 'history' && p.payload.watchedAtMs === 1700000000123));
+  assert.ok(app.client.state.pending.some(p => p.payload.kind === 'watch-later'));
+  const before = app.client.state.pending.length; await app.capture(); assert.equal(app.client.state.pending.length, before);
+  assert.equal((await models.playlists.find()).find(p => p._id === 'local-list').ddSyncId, list.id);
+});
+test('playlist projection renames/reorders without duplicate lists, preserves occurrence metadata and deletes', async t => {
+  const {app} = await fixture(t); await models.playlists.deleteAll(); app.enableLibrary();
+  const p = {kind: 'playlist', provider: 'youtube', version: 2, id: randomUUID(), name: 'Trip', items: [videoId, 'ZyxWVuts987', videoId]};
+  await app.project({payload: p, operation: 'put'});
+  let row = (await models.playlists.find())[0]; row.videos[0].title = 'local first'; row.videos[2].title = 'local second'; await models.playlists.upsert(row);
+  await app.project({payload: {...p, name: 'Renamed', items: [videoId, videoId]}, operation: 'put'});
+  const rows = await models.playlists.find(); assert.equal(rows.length, 1); row = rows[0]; assert.equal(row.playlistName, 'Renamed');
+  assert.deepEqual(row.videos.map(v => v.title), ['local first', 'local second']); assert.notEqual(row.videos[0].playlistItemId, row.videos[1].playlistItemId);
+  await app.project({payload: p, operation: 'remove'}); assert.equal((await models.playlists.find()).length, 0);
+});
+test('Watch Later uses its built-in identity rather than a display name; history deletion preserves resume', async t => {
+  const {app} = await fixture(t); await models.playlists.deleteAll(); app.enableLibrary();
+  await models.playlists.create({_id: 'ordinary', playlistName: 'Watch Later', videos: []});
+  await app.project({payload: {kind: 'watch-later', provider: 'youtube', version: 2, id: 'watch-later', items: [videoId]}, operation: 'put'});
+  const lists = await models.playlists.find(); assert.equal(lists.length, 2); assert.equal(lists.find(p => p._id === 'watchLater').videos[0].videoId, videoId);
+  await models.history.upsert({videoId, watchProgress: 25, title: 'retained'});
+  const h = {kind: 'history', provider: 'youtube', version: 2, id: videoId, watchedAtMs: 1700000000123};
+  await app.project({payload: h, operation: 'put'}); assert.equal((await models.history.find())[0].timeWatched, h.watchedAtMs);
+  await app.project({payload: h, operation: 'remove'}); const row = (await models.history.find())[0]; assert.equal(row.timeWatched, 0); assert.equal(row.watchProgress, 25); assert.equal(row.title, 'retained');
+});
+test('unsupported or oversized playlists fail visibly instead of truncating or recording deletions', async t => {
+  const {app} = await fixture(t); await models.playlists.deleteAll(); app.enableLibrary();
+  await models.playlists.create({_id: 'large', playlistName: 'Large', videos: Array.from({length: 201}, () => ({videoId}))});
+  const before = JSON.stringify(app.client.state); await assert.rejects(app.capture(), /playlist_not_portable/); assert.equal(JSON.stringify(app.client.state), before);
+  await models.playlists.deleteAll();
+});
+
+
+test('older history observations retain a newer local view and publish the merged latest time causally', async t => {
+  const {app, c} = await fixture(t); await models.playlists.deleteAll(); app.enableLibrary();
+  const p={kind:'history',provider:'youtube',version:2,id:videoId,watchedAtMs:1000};const k=recordKey(c.keys,p);
+  await models.history.upsert({videoId,timeWatched:2000}); await app.capture();app.client.state.pending=[];
+  app.client.state.local[k]={payload:p,operation:'put',revision:9};app.client.state.remote[k]=app.client.state.local[k];app.journal();app.client.save();await app.recover();
+  assert.equal((await models.history.find())[0].timeWatched,2000);const next=app.client.state.pending.find(x=>x.payload.kind==='history');assert.equal(next.payload.watchedAtMs,2000);assert.equal(next.baseRevision,9);
+});
+
+
+test('copying a local playlist never aliases its original portable identity', async t => {
+ const {app}=await fixture(t);await models.playlists.deleteAll();app.enableLibrary();await models.playlists.create({_id:'source',playlistName:'Source',videos:[]});await app.capture();
+ const original=(await models.playlists.find())[0];await models.playlists.create({...original,_id:'clone',playlistName:'Copy'});const snapshot=await app.snapshot();const ids=Object.values(snapshot).filter(p=>p.kind==='playlist').map(p=>p.id);assert.equal(new Set(ids).size,2);
+});

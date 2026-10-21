@@ -601,6 +601,10 @@ const customActions = {
 
       window.ftElectron.handleSyncPlaylists((event, data) => {
         switch (event) {
+          case SyncEvents.GENERAL.OVERWRITE:
+            commit('setAllPlaylists', data)
+            break
+
           case SyncEvents.GENERAL.CREATE:
             commit('addPlaylists', data)
             break
