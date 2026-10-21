@@ -1,7 +1,8 @@
 // Manual, optional sync. App writes stay in NeDB; SQLite journals an idempotent projection across files.
-import { randomUUID, recordKey, validatePayload, fail } from './protocol.mjs'
+import { randomUUID, recordKey, validatePayload, fail, isLibrary } from './protocol.mjs'
 import { Client } from './client.mjs'
-export const same = (a, b) => a?.kind === b?.kind && a?.id === b?.id && (a?.positionMs ?? null) === (b?.positionMs ?? null)
+import { librarySnapshot, projectLibrary } from './library.mjs'
+export const same = (a, b) => a?.kind === b?.kind && a?.id === b?.id && (a?.positionMs ?? null) === (b?.positionMs ?? null) && (a?.watchedAtMs ?? null) === (b?.watchedAtMs ?? null) && (a?.name ?? null) === (b?.name ?? null) && JSON.stringify(a?.items ?? null) === JSON.stringify(b?.items ?? null)
 export class AppSync {
   constructor (filename, config, models, changed = () => {}) {
     this.client = new Client(filename, config.endpoint, config.credential, config.keys)
@@ -22,6 +23,7 @@ export class AppSync {
       if (typeof row.watchProgress !== 'number') continue
       try { validatePayload(p); result[recordKey(this.client.keys, p)] = p } catch { /* Invalid/nonportable progress remains local. */ }
     }
+    if (this.client.state.libraryEnabled) Object.assign(result, await librarySnapshot(this.models, this.client.keys, history))
     return result
   }
 
@@ -44,20 +46,23 @@ export class AppSync {
   async recover () {
     const c = this.client; const journal = c.state.projection
     if (!journal) return
-    const current = await this.snapshot()
+    const current = await this.snapshot(); const projected = new Set()
     for (const [key, record] of Object.entries(journal.target)) {
       const desired = record.operation === 'put' ? record.payload : undefined
       if (!same(current[key], journal.before[key]) && !same(current[key], desired)) {
         // A local edit after a crash wins locally and becomes an explicit pending mutation.
         continue
       }
-      await this.project(record)
+      await this.project(record); projected.add(key)
     }
     c.state.baseline = structuredClone(journal.before)
     // Adopt successfully projected values without echoing them back to the service.
     const after = await this.snapshot()
     for (const [key, record] of Object.entries(journal.target)) {
-      if (same(after[key], record.operation === 'put' ? record.payload : undefined)) {
+      // History represents the latest observation, so an older imported event cannot erase a later local view.
+      if (projected.has(key) && record.operation === 'put' && record.payload.kind === 'history' && after[key]?.watchedAtMs > record.payload.watchedAtMs) {
+        c.edit(after[key]); c.state.baseline[key] = after[key]
+      } else if (same(after[key], record.operation === 'put' ? record.payload : undefined)) {
         if (after[key]) c.state.baseline[key] = after[key]; else delete c.state.baseline[key]
       }
     }
@@ -66,6 +71,7 @@ export class AppSync {
 
   async project (record) {
     const p = record.payload
+    if (isLibrary(p.kind)) { if (!this.client.state.libraryEnabled) fail('library_upgrade_required'); return projectLibrary(this.models, record) }
     if (p.kind === 'subscription') {
       const profiles = await this.models.profiles.find()
       const main = profiles.find(row => row._id === 'allChannels') ?? { _id: 'allChannels', name: 'All Channels', bgColor: '#000000', textColor: '#FFFFFF', subscriptions: [] }
@@ -98,7 +104,7 @@ export class AppSync {
         await this.recover()
         if (choice) { for (const key of Object.keys(c.state.conflicts)) c.resolve(key, choice); this.journal(); c.save(); await this.recover() }
       })
-      if (choice && (await c.flush()).offline) return { ...this.status(), code: 'offline' }
+      if ((await c.flush()).offline) return { ...this.status(), code: 'offline' }
       c.state.lastSyncComplete = true; c.save(); return this.status()
     } catch (error) { if (!error.code || error.name === 'TimeoutError') return { ...this.status(), code: 'offline' }; throw error } finally { this.syncing = false; this.syncBase = null }
   }
@@ -109,6 +115,7 @@ export class AppSync {
     c.state.projection = { before: structuredClone(c.state.baseline), basis: structuredClone(this.syncBase ?? c.state.remote), target }
   }
 
-  status () { const s = this.client.state; return { enabled: true, code: s.blocked ? 'restored_service' : Object.keys(s.conflicts).length ? 'conflict' : s.pending.length ? 'pending' : s.lastSyncComplete ? 'synced' : 'ready', pending: s.pending.length, conflicts: Object.keys(s.conflicts).length } }
+  enableLibrary () { this.client.state.libraryEnabled = true; this.client.save(); return this.status() }
+  status () { const s = this.client.state; return { enabled: true, libraryEnabled: !!s.libraryEnabled, code: s.blocked ? 'restored_service' : Object.keys(s.conflicts).length ? 'conflict' : s.pending.length ? 'pending' : s.lastSyncComplete ? 'synced' : 'ready', pending: s.pending.length, conflicts: Object.keys(s.conflicts).length } }
   close () { this.client.close() }
 }

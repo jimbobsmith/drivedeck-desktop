@@ -1,4 +1,3 @@
-// DriveDeck media protocol derived from platform cc0b45a; fork code under AGPL-3.0-or-later.
 import { createCipheriv, createDecipheriv, createHmac, randomBytes, randomUUID } from 'node:crypto'
 export const LIMITS = Object.freeze({ bodyBytes: 16384, ciphertextBytes: 4096, page: 100, records: 5000, changes: 10000, receipts: 20000, devices: 16, owners: 8, outbox: 1000, requestsPerMinute: 120, rateBuckets: 1024 })
 export class SyncError extends Error { constructor (code, status = 400) { super(code); this.code = code; this.status = status } }
@@ -18,13 +17,29 @@ export function validateMutation (value) {
   const fields = ['protocol', 'serverGeneration', 'mutationId', 'recordKey', 'kind', 'operation', 'baseRevision', 'resumeEpoch', 'envelope']
   exact(value, fields)
   if (value.protocol !== 1) fail('unsupported_protocol', 409)
-  if (!uuid(value.serverGeneration) || !uuid(value.mutationId) || typeof value.recordKey !== 'string' || !/^[a-f0-9]{64}$/.test(value.recordKey) || !['subscription', 'resume'].includes(value.kind) || !['put', 'remove'].includes(value.operation) || !integer(value.baseRevision) || !integer(value.resumeEpoch)) fail('invalid_mutation')
+  if (!uuid(value.serverGeneration) || !uuid(value.mutationId) || typeof value.recordKey !== 'string' || !/^[a-f0-9]{64}$/.test(value.recordKey) || !['subscription', 'resume', ...LIBRARY_KINDS].includes(value.kind) || !['put', 'remove'].includes(value.operation) || !integer(value.baseRevision) || !integer(value.resumeEpoch)) fail('invalid_mutation')
+  if (value.kind === 'watch-later' && value.operation !== 'put') fail('watch_later_clear_with_empty_list')
   exact(value.envelope, ['keyEpoch', 'nonce', 'ciphertext'])
   if (value.envelope.keyEpoch !== 1) fail('unsupported_key_epoch', 409)
   b64(value.envelope.nonce, 12); b64(value.envelope.ciphertext, 16, LIMITS.ciphertextBytes)
   return Object.fromEntries(fields.map(k => [k, k === 'envelope' ? { keyEpoch: 1, nonce: value.envelope.nonce, ciphertext: value.envelope.ciphertext } : value[k]]))
 }
+export const LIBRARY_KINDS = Object.freeze(['playlist', 'watch-later', 'history'])
+export const isLibrary = kind => LIBRARY_KINDS.includes(kind)
 export function validatePayload (value) {
+  if (isLibrary(value?.kind)) {
+    const fields = value.kind === 'history' ? ['kind', 'provider', 'id', 'version', 'watchedAtMs'] : value.kind === 'playlist' ? ['kind', 'provider', 'id', 'version', 'name', 'items'] : ['kind', 'provider', 'id', 'version', 'items']
+    exact(value, fields)
+    if (value.version !== 2 || value.provider !== 'youtube') fail('unsupported_library_version')
+    if (value.kind === 'history') {
+      if (typeof value.id !== 'string' || !/^[A-Za-z0-9_-]{11}$/.test(value.id) || !integer(value.watchedAtMs) || value.watchedAtMs < 1 || value.watchedAtMs > 8640000000000000) fail('invalid_history')
+    } else {
+      if (value.kind === 'playlist' ? !uuid(value.id) : value.id !== 'watch-later') fail('invalid_playlist_identity')
+      if (value.kind === 'playlist' && (typeof value.name !== 'string' || !value.name.trim() || Buffer.byteLength(value.name, 'utf8') > 160 || [...value.name].some(c => c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127))) fail('invalid_playlist_name')
+      if (!Array.isArray(value.items) || value.items.length > 200 || value.items.some(id => typeof id !== 'string' || !/^[A-Za-z0-9_-]{11}$/.test(id))) fail('playlist_not_portable')
+    }
+    return value
+  }
   const fields = value?.kind === 'subscription' ? ['kind', 'provider', 'id'] : ['kind', 'provider', 'id', 'positionMs', 'sessionId', 'checkpointSeq']
   exact(value, fields)
   if (value.provider !== 'youtube' || !['subscription', 'resume'].includes(value.kind) || typeof value.id !== 'string' || !(value.kind === 'subscription' ? /^UC[A-Za-z0-9_-]{22}$/ : /^[A-Za-z0-9_-]{11}$/).test(value.id)) fail('invalid_identity')
