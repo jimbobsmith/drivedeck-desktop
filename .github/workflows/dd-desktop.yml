@@ -1,0 +1,73 @@
+name: DD desktop packages
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  packages:
+    if: github.repository == 'jimbobsmith/drivedeck-desktop'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    env:
+      LEFTHOOK: '0'
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version: 24.18.0
+          package-manager-cache: false
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271
+        with:
+          version: 10.34.7
+          cache: false
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run lint:desktop-updates
+      - run: pnpm run test:media-sync
+      - run: pnpm run test:desktop-updates
+      - name: Linux packaging tools and sandbox namespaces
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libarchive-tools libsecret-1-0 xvfb
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - run: pnpm run pack
+      - name: Build native packages without publishing
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Windows ]; then
+            pnpm exec electron-builder --config _scripts/ebuilder.config.mjs --win nsis --x64 --publish never
+          else
+            pnpm exec electron-builder --config _scripts/ebuilder.config.mjs --linux AppImage deb --x64 --publish never
+          fi
+      - name: Check actual generated update metadata and checksums
+        run: node tools/fork/verify-release.mjs build
+      - name: Windows isolated UI smoke
+        if: runner.os == 'Windows'
+        run: node tools/fork/smoke-release.cjs "build/win-unpacked/DD FreeTube.exe"
+      - name: Linux isolated UI smoke
+        if: runner.os == 'Linux'
+        run: xvfb-run -a node tools/fork/smoke-release.cjs "build/linux-unpacked/dd-freetube"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: dd-freetube-${{ runner.os }}-x64
+          if-no-files-found: error
+          path: |
+            build/*.exe
+            build/*.blockmap
+            build/*.AppImage
+            build/*.deb
+            build/alpha*.yml
+            build/SHA256SUMS*
+            build/release-verification.json
+            build/ui-smoke.json

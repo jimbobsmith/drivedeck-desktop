@@ -9,6 +9,7 @@ permissions: {}
 
 jobs:
   build:
+    if: github.repository == 'FreeTubeApp/FreeTube'
     name: 'Update Site Version Number'
     runs-on: ubuntu-latest
 

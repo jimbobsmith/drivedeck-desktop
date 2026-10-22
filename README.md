@@ -1,3 +1,13 @@
+# DD FreeTube (DriveDeck desktop preview)
+
+This is the independent DriveDeck fork of FreeTube. Windows and Linux preview
+packages, installation details, update behavior and remaining validation gates
+are documented in [DD desktop releases](docs/fork/DESKTOP_RELEASE.md).
+Use the [DriveDeck release downloads](https://github.com/jimbobsmith/drivedeck-desktop/releases)
+for this fork. Upstream attribution and the original README are retained below.
+
+---
+
 <p align="center">
  <img alt="" src="/_icons/logoColor.svg" width=500 align="center">
 </p>

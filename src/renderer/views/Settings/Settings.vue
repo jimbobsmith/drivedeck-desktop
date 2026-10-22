@@ -65,6 +65,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef } f
 import { useI18n } from 'vue-i18n'
 
 import MediaSyncSettings from '../../components/MediaSyncSettings.vue'
+import DesktopUpdates from '../../components/DesktopUpdates.vue'
 import GeneralSettings from '../../components/GeneralSettings/GeneralSettings.vue'
 import ThemeSettings from '../../components/ThemeSettings.vue'
 import PlayerSettings from '../../components/PlayerSettings/PlayerSettings.vue'
@@ -99,6 +100,7 @@ const settingsSectionSortEnabled = computed(() => store.getters.getSettingsSecti
 
 const settingsComponentsData = computed(() => {
   return [
+    ...(USING_ELECTRON ? [{ type: 'desktop-updates', title: t('DDUpdates.Title'), icon: ['fas', 'download'], component: DesktopUpdates }] : []),
     ...(USING_ELECTRON ? [{ type: 'media-sync', title: t('MediaSync.Title'), icon: ['fas', 'arrows-rotate'], component: MediaSyncSettings }] : []),
     {
       type: 'theme',

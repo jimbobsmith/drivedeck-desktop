@@ -1,4 +1,6 @@
+import './desktop-identity.mjs'
 import { installMediaSync } from './media-sync/electron.mjs'
+import { installDesktopUpdates } from './install-desktop-updates.mjs'
 import {
   app, BrowserWindow, dialog, Menu, ipcMain,
   powerSaveBlocker, screen, session, shell,
@@ -311,15 +313,15 @@ function runApp() {
 
   // See: https://stackoverflow.com/questions/45570589/electron-protocol-handler-not-working-on-windows
   // remove so we can register each time as we run the app.
-  app.removeAsDefaultProtocolClient('freetube')
+  app.removeAsDefaultProtocolClient('dd-freetube')
 
   // If we are running a non-packaged version of the app && on windows
   if (process.env.NODE_ENV === 'development' && process.platform === 'win32') {
     // Set the path of electron.exe and your app.
     // These two additional parameters are only available on windows.
-    app.setAsDefaultProtocolClient('freetube', process.execPath, [path.resolve(process.argv[1])])
+    app.setAsDefaultProtocolClient('dd-freetube', process.execPath, [path.resolve(process.argv[1])])
   } else {
-    app.setAsDefaultProtocolClient('freetube')
+    app.setAsDefaultProtocolClient('dd-freetube')
   }
 
   if (process.env.NODE_ENV !== 'development') {
@@ -383,6 +385,7 @@ function runApp() {
   let proxyUrl
 
   app.on('ready', async (_, __) => {
+    installDesktopUpdates(isFreeTubeUrl)
     if (process.platform === 'darwin') {
       const dockMenu = Menu.buildFromTemplate([
         {
@@ -1074,7 +1077,7 @@ function runApp() {
           tray = new Tray(icon)
 
           tray.setIgnoreDoubleClickEvents(true)
-          tray.setToolTip('FreeTube')
+          tray.setToolTip('DD FreeTube')
 
           trayWindows = [window]
           createTrayContextMenu()
@@ -2252,9 +2255,9 @@ function runApp() {
   }
 
   function baseUrl(arg) {
-    let newArg = arg.replace('freetube://', '')
+    let newArg = arg.replace('dd-freetube://', '')
     // add support for authority free url
-      .replace('freetube:', '')
+      .replace('dd-freetube:', '')
 
     // fix for Qt URL, like `freetube://https//www.youtube.com/watch?v=...`
     // For details see https://github.com/FreeTubeApp/FreeTube/pull/3119
@@ -2271,25 +2274,6 @@ function runApp() {
       return null
     }
   }
-
-  /*
-   * Auto Updater
-   *
-   * Uncomment the following code below and install `electron-updater` to
-   * support auto updating. Code Signing with a valid certificate is required.
-   * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-builder.html#auto-updating
-   */
-
-  /*
-  import { autoUpdater } from 'electron-updater'
-  autoUpdater.on('update-downloaded', () => {
-    autoUpdater.quitAndInstall()
-  })
-
-  app.on('ready', () => {
-    if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
-  })
-   */
 
   function navigateTo(path, browserWindow) {
     if (browserWindow == null || !isFreeTubeUrl(browserWindow.webContents.getURL())) {

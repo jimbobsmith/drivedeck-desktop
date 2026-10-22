@@ -1,6 +1,23 @@
 # Put the name of your locale in the same language
 Locale Name: English (US)
 
+DDUpdates:
+  UpstreamGuides: Upstream FreeTube guides
+  Title: DD FreeTube updates
+  Description: Windows installer and Linux AppImage updates download only when you choose. Restarting requires confirmation. DEB installations use manual downloads.
+  Check: Check for updates
+  Releases: Release notes and downloads
+  Download: Download update
+  Install: Restart and install
+  Version: DD FreeTube {version}
+  Checking: Checking for DD FreeTube updates…
+  Current: DD FreeTube is up to date.
+  Available: DD FreeTube {version} is available.
+  Progress: 'Downloading update: {percent}%'
+  Ready: DD FreeTube {version} is ready to install.
+  Failed: The update check or download failed. Your current app is unchanged; try again when connected.
+  Manual: Use release downloads for this package. Automatic installation supports Windows NSIS and Linux AppImage.
+
 # Webkit Menu Bar
 File: File
 New Window: New Window
