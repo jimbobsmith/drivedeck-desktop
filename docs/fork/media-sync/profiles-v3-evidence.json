@@ -7,7 +7,7 @@
   "pnpm": "10.34.7",
   "checks": {
     "actualNeDBAndProfileStoreTests": {
-      "passed": 22,
+      "passed": 23,
       "failed": 0,
       "skipped": 0
     },
@@ -33,7 +33,8 @@
       "personalData": false,
       "deviceAccess": false
     },
-    "utf8NameBoundaryAndStrictUnicode": true
+    "utf8NameBoundaryAndStrictUnicode": true,
+    "ordinaryEditorRetainsIdentityAndDeferredMembers": true
   },
   "sourceSha256": {
     "src/main/media-sync/protocol.mjs": "a4508a3511f31a627d6a867939aa3726e2b22c04c21565b42a799bd70e5a6ff7",
@@ -43,7 +44,8 @@
     "src/main/media-sync/electron.mjs": "03f3536b248d4590c8ef6abffacd91850bf6abec12a71d9fda172ab15aefe47c",
     "src/renderer/components/MediaSyncSettings.vue": "70dc77a58fc1308e80024392619aaf8a506925dffbcf82f5b9abf43da3829c4c",
     "src/renderer/store/modules/profiles.js": "d9bd714bcc998d61664d1392a6ac4599162e590b139741fcf6131399258dff4d",
-    "src/renderer/store/modules/settings.js": "a293e16bee1a70882f84fbbc2a9e5fb49e5a6d2185cb82af2412f8d539993bb4"
+    "src/renderer/store/modules/settings.js": "a293e16bee1a70882f84fbbc2a9e5fb49e5a6d2185cb82af2412f8d539993bb4",
+    "src/datastores/handlers/base.js": "8c34454388ca8194be5cfd8978f7ae178f25c7e562e8a81bdef6c8202e9eab2b"
   },
   "remaining": [
     "compatible integration/releases/service deployment before opt-in",

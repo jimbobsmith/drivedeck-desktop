@@ -26,9 +26,9 @@ try {
  // on its own production HTTP page. beforePullPage recovery/capture is active.
  peer.edit(member);peer.edit(profile);peer.edit(channel);await peer.flush();await desktop.sync();
  let row=(await models.profiles.find()).find(r=>r.ddSyncId===profile.id);assert.equal(row.subscriptions[0].id,id);assert.equal(desktop.client.state.pending.length,0);
- await models.profiles.upsert({...row,name:'Desktop rename',bgColor:'#654321'});await desktop.sync();await peer.pull();const pk=recordKey(keys,profile);assert.equal(peer.state.local[pk].payload.name,'Desktop rename');
+ await models.profiles.upsert({_id:row._id,name:'Desktop rename',bgColor:'#654321',textColor:row.textColor,subscriptions:row.subscriptions});await desktop.sync();await peer.pull();const pk=recordKey(keys,profile);assert.equal(peer.state.local[pk].payload.name,'Desktop rename');
  // Real datastore local rename conflicts with a separate client's rename.
- row=(await models.profiles.find()).find(r=>r.ddSyncId===profile.id);await models.profiles.upsert({...row,name:'Local intent'});await desktop.capture();
+ row=(await models.profiles.find()).find(r=>r.ddSyncId===profile.id);await models.profiles.upsert({_id:row._id,name:'Local intent',bgColor:row.bgColor,textColor:row.textColor,subscriptions:row.subscriptions});await desktop.capture();
  peer.edit({...peer.state.local[pk].payload,name:'Other intent'});await peer.flush();const conflict=await desktop.sync();assert.equal(conflict.conflicts,1);await desktop.sync('keep-local');await peer.pull();assert.equal(peer.state.local[pk].payload.name,'Local intent');
  // An independently published member cannot undo the global unsubscribe.
  peer.edit(channel,'remove');peer.edit(member);await peer.flush();await desktop.sync();assert.ok((await models.profiles.find()).every(r=>r.subscriptions.length===0));

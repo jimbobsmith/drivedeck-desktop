@@ -157,6 +157,16 @@ test('profile membership scales beyond100 channels using individual records with
  await models.profiles.create({_id:'allChannels',subscriptions});await models.profiles.create({_id:'large',name:'Large',bgColor:'#000000',textColor:'#FFFFFF',subscriptions});
  const snapshot=Object.values(await app.snapshot());assert.equal(snapshot.filter(p=>p.kind==='profile-member').length,250);assert.equal(snapshot.filter(p=>p.kind==='profile').length,1);
 });
+test('ordinary upstream editor-shaped replacement retains UUID and deferred membership across rename/color edits',async t=>{
+ const {app}=await fixture(t);app.enableProfiles();const other='UC'+'z'.repeat(22);
+ await models.profiles.create({_id:'allChannels',subscriptions:[{id}]});await models.profiles.create({_id:'edited',name:'Before',bgColor:'#123456',textColor:'#FFFFFF',subscriptions:[{id}],ddSyncDeferredSubscriptions:[other]});
+ await app.capture();const first=(await models.profiles.find()).find(p=>p._id==='edited');
+ await models.profiles.upsert({_id:'edited',name:'After',bgColor:'#654321',textColor:'#000000',subscriptions:[{id}]});await app.capture();
+ const after=(await models.profiles.find()).find(p=>p._id==='edited');assert.equal(after.ddSyncId,first.ddSyncId);assert.equal(after.ddSyncOrigin,'edited');assert.deepEqual(after.ddSyncDeferredSubscriptions,[other]);
+ const edits=app.client.state.pending.filter(p=>p.payload.kind==='profile');assert.equal(edits.length,2);assert.equal(edits[0].payload.id,edits[1].payload.id);assert.equal(edits[1].payload.name,'After');assert.equal(edits[1].operation,'put');assert.ok(app.client.state.pending.every(p=>p.operation==='put'));
+ await models.profiles.delete('edited');await app.capture();await models.profiles.upsert({_id:'edited',name:'Explicit fresh profile',bgColor:'#123456',textColor:'#FFFFFF',subscriptions:[]});await app.capture();
+ assert.notEqual((await models.profiles.find()).find(p=>p._id==='edited').ddSyncId,first.ddSyncId);
+});
 test('remote name and colors update actual named profile while unsupported local membership and global metadata remain',async t=>{
  const {app}=await fixture(t);app.enableProfiles();const p=definition(),m=membership(p);await models.profiles.create({_id:'allChannels',subscriptions:[{id,name:'Retained',thumbnail:'local'}]});
  await remote(app,p);await remote(app,m);let row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);row.subscriptions.push({id:'local-other-provider',name:'Keep'});await models.profiles.upsert(row);
