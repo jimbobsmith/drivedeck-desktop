@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { registerHooks } from 'node:module';
-import { mkdtempSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { AppSync } from '../../src/main/media-sync/app-sync.mjs';
-import { generateKeys, randomUUID, recordKey, validatePayload } from '../../src/main/media-sync/protocol.mjs';
+import { generateKeys, randomUUID, recordKey, validatePayload, open } from '../../src/main/media-sync/protocol.mjs';
 import { protect, unprotect, validateConfig } from '../../src/main/media-sync/enrollment.mjs';
 const scratch = process.platform === 'win32' ? 'D:/tmp/dd' : tmpdir(); mkdirSync(scratch, {recursive: true});
 const directory = mkdtempSync(join(scratch, 'freetube-app-sync-test-'));
@@ -22,6 +22,10 @@ const id = 'UC' + 'a'.repeat(22), videoId = 'aBcDeFgH123';
 const sub = {kind: 'subscription', provider: 'youtube', id};
 const resume = ms => ({kind: 'resume', provider: 'youtube', id: videoId, positionMs: ms, sessionId: randomUUID(), checkpointSeq: 1});
 const config = () => ({schema: 'drivedeck.media-sync.enrollment.v1', endpoint: 'http://127.0.0.1:8789', credential: {protocol: 1, ownerId: randomUUID(), deviceId: randomUUID(), token: generateKeys().encryptionKey, serverGeneration: randomUUID()}, keys: generateKeys()});
+test('actual Android-produced public profile/member vectors decrypt and route identically in the desktop production protocol',()=>{
+ const fixture=JSON.parse(readFileSync(new URL('./fixtures/public-android-profiles-v3.json',import.meta.url),'utf8'));assert.match(fixture.warning,/public.*synthetic/i);assert.equal(fixture.cases.length,2);
+ for(const value of fixture.cases){assert.deepEqual(open(fixture.keys,fixture.owner,value.mutation),value.payload);assert.equal(recordKey(fixture.keys,value.payload),value.recordKey);}
+});
 async function fixture(t) {
   await models.history.deleteAll(); for (const p of await models.profiles.find()) await models.profiles.delete(p._id);
   const c = config(), file = join(directory, randomUUID() + '.sqlite'), app = new AppSync(file, c, models);

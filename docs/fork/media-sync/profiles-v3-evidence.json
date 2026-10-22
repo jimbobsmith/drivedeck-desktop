@@ -7,7 +7,7 @@
   "pnpm": "10.34.7",
   "checks": {
     "actualNeDBAndProfileStoreTests": {
-      "passed": 23,
+      "passed": 24,
       "failed": 0,
       "skipped": 0
     },
@@ -34,7 +34,15 @@
       "deviceAccess": false
     },
     "utf8NameBoundaryAndStrictUnicode": true,
-    "ordinaryEditorRetainsIdentityAndDeferredMembers": true
+    "ordinaryEditorRetainsIdentityAndDeferredMembers": true,
+    "actualAndroidProfileRuntime": {
+      "implementation": "4c63f85a0dcc3df7223f046ded6b4e76c028c1cc",
+      "profileTests": 11,
+      "migrationTests": 1,
+      "passed": 12,
+      "failed": 0
+    },
+    "actualAndroidAndDesktopCryptoBidirectional": true
   },
   "sourceSha256": {
     "src/main/media-sync/protocol.mjs": "a4508a3511f31a627d6a867939aa3726e2b22c04c21565b42a799bd70e5a6ff7",
@@ -49,7 +57,6 @@
   },
   "remaining": [
     "compatible integration/releases/service deployment before opt-in",
-    "Android runtime profile evidence recorded separately",
     "physical phone/Fire/TV profile qualification",
     "personal-library upgrade",
     "hosted HTTPS/NAS",
@@ -57,5 +64,6 @@
     "restore reconciliation and retention"
   ],
   "personalDataAccess": false,
-  "installerExecuted": false
+  "installerExecuted": false,
+  "publicAndroidFixtureSha256": "989326c0f05f4ab564878fd37df05b4e909d08ec9748207bb357636e40e5c7b8"
 }
