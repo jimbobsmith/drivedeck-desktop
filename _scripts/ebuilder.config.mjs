@@ -2,7 +2,9 @@ import packageDetails from '../package.json' with { type: 'json' }
 
 /** @type {import('electron-builder').Configuration} */
 export default {
-  appId: `io.freetubeapp.${packageDetails.name}`,
+  appId: 'com.drivedeck.freetube',
+  artifactName: '${name}-${version}-${os}-${arch}.${ext}', // eslint-disable-line no-template-curly-in-string
+  publish: [{ provider: 'github', owner: 'jimbobsmith', repo: 'drivedeck-desktop', releaseType: 'prerelease', channel: 'alpha' }],
   copyright: 'Copyleft © 2020-2026 freetubeapp@protonmail.com',
   // asar: false,
   // compression: 'store',
@@ -12,18 +14,28 @@ export default {
   },
   protocols: [
     {
-      name: 'FreeTube',
+      name: 'DD FreeTube',
       schemes: [
-        'freetube'
+        'dd-freetube'
       ]
     }
   ],
   files: [
+    'LICENSE',
     '_icons/iconColor.*',
     'icon.svg',
     'dist/**/*',
     '!dist/web/*',
     '!node_modules/**/*',
+  ],
+
+  // electron-builder's default application-file exclusions omit docs/ even
+  // when named in files. Copy required notices explicitly into resources.
+  extraResources: [
+    { from: 'LICENSE', to: 'licenses/AGPL-3.0.txt' },
+    { from: 'docs/fork/UPSTREAM_NOTICE.md', to: 'licenses/UPSTREAM_NOTICE.md' },
+    { from: 'docs/fork/THIRD_PARTY_NOTICES.txt', to: 'licenses/THIRD_PARTY_NOTICES.txt' },
+    { from: 'docs/fork/production-license-inventory.json', to: 'licenses/production-license-inventory.json' },
   ],
 
   // As we bundle all dependecies with webpack, the `node_modules` folder is excluded from packaging in the `files` array.
@@ -52,7 +64,7 @@ export default {
   linux: {
     category: 'Network',
     icon: '_icons/icon.svg',
-    target: ['deb', 'zip', '7z', 'rpm', 'AppImage', 'pacman'],
+    target: ['AppImage', 'deb'],
   },
   // See the following issues for more information
   // https://github.com/jordansissel/fpm/issues/1503
@@ -83,10 +95,10 @@ export default {
     type: 'distribution',
     extendInfo: {
       CFBundleURLTypes: [
-        'freetube'
+        'dd-freetube'
       ],
       CFBundleURLSchemes: [
-        'freetube'
+        'dd-freetube'
       ],
 
       // Clear the default usage descriptions in the Info.plist file set by Electron that we don't need
@@ -105,9 +117,10 @@ export default {
   },
   win: {
     icon: '_icons/icon.ico',
-    target: ['nsis', 'zip', '7z', 'portable'],
+    target: ['nsis'],
   },
   nsis: {
+    include: '_scripts/dd-installer.nsh',
     allowToChangeInstallationDirectory: true,
     oneClick: false,
   },

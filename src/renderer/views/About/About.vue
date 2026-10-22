@@ -11,7 +11,7 @@
       <section class="brand">
         <FtLogoFull class="logo" />
         <div class="version">
-          {{ versionNumber }} {{ $t("About.Beta") }}
+          {{ versionNumber }} {{ $t("DDUpdates.Preview") }}
         </div>
       </section>
       <section class="about-chunks">
@@ -46,7 +46,6 @@ import FtCard from '../../components/ft-card/ft-card.vue'
 import FtLogoFull from '../../components/FtLogoFull/FtLogoFull.vue'
 import { vSaferHtml } from '../../directives/vSaferHtml.js'
 
-import { ABOUT_BITCOIN_ADDRESS } from '../../../constants'
 import packageDetails from '../../../../package.json'
 
 const { t } = useI18n()
@@ -58,7 +57,8 @@ const chunks = computed(() => [
     icon: ['fab', 'github'],
     title: t('About.Source code'),
     content: [
-      '<a href="https://github.com/FreeTubeApp/FreeTube" lang="en" dir="ltr">GitHub: FreeTubeApp/FreeTube</a>',
+      '<a href="https://github.com/jimbobsmith/drivedeck-desktop" lang="en" dir="ltr">GitHub: DD FreeTube</a>',
+      '<a href="https://github.com/FreeTubeApp/FreeTube" lang="en" dir="ltr">Upstream: FreeTubeApp/FreeTube</a>',
       t('About.Licensed under the {licenseLink}', {
         licenseLink: `<a href="https://www.gnu.org/licenses/agpl-3.0.en.html">${t('About.AGPLv3')}</a>`,
       }),
@@ -67,54 +67,28 @@ const chunks = computed(() => [
   {
     icon: ['fas', 'file-download'],
     title: t('About.Downloads / Changelog'),
-    content: `<a href="https://github.com/FreeTubeApp/FreeTube/releases">${t('About.GitHub releases')}</a>`,
+    content: `<a href="https://github.com/jimbobsmith/drivedeck-desktop/releases">${t('About.GitHub releases')}</a>`,
   },
   {
     icon: ['fas', 'question-circle'],
-    title: t('About.Help'),
+    title: t('DDUpdates.UpstreamGuides'),
     content: [
       `<a href="https://docs.freetubeapp.io/">${t('About.FreeTube Wiki')}</a>`,
-      `<a href="https://docs.freetubeapp.io/faq/">${t('About.FAQ')}</a>`,
-      `<a href="https://github.com/FreeTubeApp/FreeTube/discussions/">${t('About.Discussions')}</a>`
+      `<a href="https://docs.freetubeapp.io/faq/">${t('About.FAQ')}</a>`
     ].join(' / '),
   },
   {
     icon: ['fas', 'exclamation-circle'],
     title: t('About.Report a problem'),
     content: [
-      `<a href="https://github.com/FreeTubeApp/FreeTube/issues">${t('About.GitHub issues')}</a>`,
+      `<a href="https://github.com/jimbobsmith/drivedeck-desktop/issues">${t('About.GitHub issues')}</a>`,
       t('About.Please check for duplicates before posting'),
     ].join('<br>'),
   },
   {
     icon: ['fas', 'globe'],
     title: t('About.Website'),
-    content: '<a href="https://freetubeapp.io/">https://freetubeapp.io/</a>',
-  },
-  {
-    icon: ['fas', 'envelope'],
-    title: t('About.Email'),
-    content: '<a href="mailto:FreeTubeApp@protonmail.com">FreeTubeApp@protonmail.com</a>',
-  },
-  {
-    icon: ['fab', 'mastodon'],
-    title: t('About.Mastodon'),
-    content: '<a href="https://fosstodon.org/@FreeTube">@FreeTube@fosstodon.org</a>',
-  },
-  {
-    icon: ['fab', 'matrix'],
-    title: t('About.Chat on Matrix'),
-    content: [
-      '<a href="https://matrix.to/#/#freetube:matrix.org">#freetube:matrix.org</a>',
-      t('About.Please read the {roomRulesLink}', {
-        roomRulesLink: `<a href="https://docs.freetubeapp.io/community/matrix/">${t('About.room rules')}</a>`,
-      }),
-    ].join('<br>'),
-  },
-  {
-    icon: ['fas', 'language'],
-    title: t('About.Translate'),
-    content: '<a href="https://hosted.weblate.org/engage/free-tube/">https://hosted.weblate.org/engage/free-tube/</a>',
+    content: '<a href="https://github.com/jimbobsmith/drivedeck-desktop">DD FreeTube</a>',
   },
   {
     icon: ['fas', 'users'],
@@ -122,11 +96,6 @@ const chunks = computed(() => [
     content: t('About.FreeTube is made possible by {creditsPageLink}', {
       creditsPageLink: `<a href="https://docs.freetubeapp.io/credits/">${t('About.these people and projects')}</a>`,
     }),
-  },
-  {
-    icon: ['fab', 'bitcoin'],
-    title: `${t('About.Donate')} - BTC`,
-    content: `<a href="bitcoin:${ABOUT_BITCOIN_ADDRESS}">${ABOUT_BITCOIN_ADDRESS}</a>`
   }
 ])
 </script>

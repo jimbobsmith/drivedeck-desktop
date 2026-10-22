@@ -1,8 +1,8 @@
 {
-  "name": "freetube",
-  "productName": "FreeTube",
+  "name": "dd-freetube",
+  "productName": "DD FreeTube",
   "description": "A private YouTube client",
-  "version": "0.25.3",
+  "version": "0.1.0-alpha.1",
   "license": "AGPL-3.0-or-later",
   "main": "./dist/main.js",
   "private": true,
@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FreeTubeApp/FreeTube.git"
+    "url": "git+https://github.com/jimbobsmith/drivedeck-desktop.git"
   },
   "bugs": {
-    "url": "https://github.com/FreeTubeApp/FreeTube/issues"
+    "url": "https://github.com/jimbobsmith/drivedeck-desktop/issues"
   },
   "scripts": {
     "build": "pnpm run pack && pnpm run build-release",
@@ -49,7 +49,9 @@
     "checkforbadtemplates": "node _scripts/findMissingTemplates.mjs",
     "ci": "pnpm install --frozen-lockfile",
     "test:media-sync": "node --test tools/fork/media-sync.test.mjs tools/fork/profile-store.test.mjs",
-    "lint:media-sync": "eslint --config eslint.config.mjs \"src/main/media-sync/*.mjs\""
+    "lint:media-sync": "eslint --config eslint.config.mjs \"src/main/media-sync/*.mjs\"",
+    "test:desktop-updates": "node --test tools/fork/desktop-updates.test.mjs",
+    "lint:desktop-updates": "eslint --config eslint.config.mjs src/main/desktop-*.mjs src/main/install-desktop-updates.mjs src/renderer/helpers/desktop-update-checks.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.0",
@@ -62,6 +64,7 @@
     "bgutils-js": "^4.0.3",
     "dompurify": "^3.4.11",
     "electron-context-menu": "^4.1.2",
+    "electron-updater": "6.8.9",
     "googlevideo": "^4.0.4",
     "marked": "^18.0.6",
     "process": "^0.11.10",
