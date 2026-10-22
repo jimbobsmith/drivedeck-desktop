@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
-const {spawn} = require('node:child_process');
+const {spawn, spawnSync} = require('node:child_process');
 const executable = path.resolve(process.argv[2]);
 if (!fs.statSync(executable).isFile()) throw Error('PackageExecutableRequired');
 const scratch = process.env.RUNNER_TEMP || (process.platform === 'win32' ? 'D:/tmp/dd' : os.tmpdir());
@@ -47,8 +47,12 @@ const report={result:'failed', isolatedProfile:true, normalSandboxFlags:true, in
 }catch(error){report.errorType=error.message}
 finally{
  if(ws){try{await evaluate('__ddElectron.app.quit();true')}catch{}ws.close()}
- for(let i=0;i<40&&exited===undefined;i++)await pause(100);
- if(exited===undefined){child.kill();report.result='failed'}
+ for(let i=0;i<200&&exited===undefined;i++)await pause(100);
+ if(exited===undefined){
+  if(process.platform==='win32')spawnSync('taskkill.exe',['/PID',String(child.pid),'/T','/F'],{windowsHide:true,stdio:'ignore',timeout:10000});
+  else child.kill();
+  report.forcedTermination=true;report.result='failed';
+ }
  report.exitCode=exited;
  if(exited!==0)report.result='failed';
  fs.writeFileSync(path.join('build','ui-smoke.json'),JSON.stringify(report,null,2));
