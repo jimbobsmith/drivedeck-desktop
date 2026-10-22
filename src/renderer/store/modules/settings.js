@@ -491,7 +491,7 @@ const customActions = {
   },
 
   // Should be a root action, but we'll tolerate
-  setupListenersToSyncWindows: ({ commit, dispatch }) => {
+  setupListenersToSyncWindows: ({ commit, dispatch, state }) => {
     if (process.env.IS_ELECTRON) {
       window.ftElectron.handleSyncSettings((event, data) => {
         switch (event) {
@@ -574,6 +574,10 @@ const customActions = {
 
       window.ftElectron.handleSyncProfiles((event, data) => {
         switch (event) {
+          case SyncEvents.GENERAL.OVERWRITE:
+            commit('setProfileList', data)
+            if (!data.some(profile => profile._id === state.defaultProfile)) dispatch('updateDefaultProfile', MAIN_PROFILE_ID)
+            break
           case SyncEvents.GENERAL.CREATE:
             commit('addProfileToList', data)
             break

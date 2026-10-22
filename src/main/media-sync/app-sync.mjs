@@ -2,7 +2,8 @@
 import { randomUUID, recordKey, validatePayload, fail, isLibrary } from './protocol.mjs'
 import { Client } from './client.mjs'
 import { librarySnapshot, projectLibrary } from './library.mjs'
-export const same = (a, b) => a?.kind === b?.kind && a?.id === b?.id && (a?.positionMs ?? null) === (b?.positionMs ?? null) && (a?.watchedAtMs ?? null) === (b?.watchedAtMs ?? null) && (a?.name ?? null) === (b?.name ?? null) && JSON.stringify(a?.items ?? null) === JSON.stringify(b?.items ?? null)
+import { profileSnapshot, projectProfile, reconcileProfileSubscription } from './profiles.mjs'
+export const same = (a, b) => a?.kind === b?.kind && a?.id === b?.id && (a?.positionMs ?? null) === (b?.positionMs ?? null) && (a?.watchedAtMs ?? null) === (b?.watchedAtMs ?? null) && (a?.name ?? null) === (b?.name ?? null) && JSON.stringify(a?.items ?? null) === JSON.stringify(b?.items ?? null) && (a?.bgColor ?? null) === (b?.bgColor ?? null) && (a?.textColor ?? null) === (b?.textColor ?? null)
 export class AppSync {
   constructor (filename, config, models, changed = () => {}) {
     this.client = new Client(filename, config.endpoint, config.credential, config.keys)
@@ -24,6 +25,7 @@ export class AppSync {
       try { validatePayload(p); result[recordKey(this.client.keys, p)] = p } catch { /* Invalid/nonportable progress remains local. */ }
     }
     if (this.client.state.libraryEnabled) Object.assign(result, await librarySnapshot(this.models, this.client.keys, history))
+    if (this.client.state.profilesEnabled) Object.assign(result, await profileSnapshot(this.models, this.client.keys))
     return result
   }
 
@@ -71,6 +73,10 @@ export class AppSync {
 
   async project (record) {
     const p = record.payload
+    if (p.kind === 'profile' || p.kind === 'profile-member') {
+      if (!this.client.state.profilesEnabled) fail('profiles_upgrade_required')
+      return projectProfile(this.models, record, this.client.state)
+    }
     if (isLibrary(p.kind)) { if (!this.client.state.libraryEnabled) fail('library_upgrade_required'); return projectLibrary(this.models, record) }
     if (p.kind === 'subscription') {
       const profiles = await this.models.profiles.find()
@@ -81,6 +87,7 @@ export class AppSync {
       } else if (!main.subscriptions.some(row => row.id === p.id)) {
         await this.models.profiles.upsert({ ...main, subscriptions: [...main.subscriptions, { id: p.id, name: p.id, thumbnail: '' }] })
       }
+      if (this.client.state.profilesEnabled) await reconcileProfileSubscription(this.models, p.id, record.operation === 'remove')
     } else if (record.operation === 'remove') {
       // Remove only resume progress; unrelated watch-history metadata stays local.
       await this.models.history.clearWatchProgress(p.id)
@@ -116,6 +123,7 @@ export class AppSync {
   }
 
   enableLibrary () { this.client.state.libraryEnabled = true; this.client.save(); return this.status() }
-  status () { const s = this.client.state; return { enabled: true, libraryEnabled: !!s.libraryEnabled, code: s.blocked ? 'restored_service' : Object.keys(s.conflicts).length ? 'conflict' : s.pending.length ? 'pending' : s.lastSyncComplete ? 'synced' : 'ready', pending: s.pending.length, conflicts: Object.keys(s.conflicts).length } }
+  enableProfiles () { this.client.state.profilesEnabled = true; this.client.save(); return this.status() }
+  status () { const s = this.client.state; return { enabled: true, libraryEnabled: !!s.libraryEnabled, profilesEnabled: !!s.profilesEnabled, code: s.blocked ? 'restored_service' : Object.keys(s.conflicts).length ? 'conflict' : s.pending.length ? 'pending' : s.lastSyncComplete ? 'synced' : 'ready', pending: s.pending.length, conflicts: Object.keys(s.conflicts).length } }
   close () { this.client.close() }
 }

@@ -5,7 +5,7 @@ import { mkdtempSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { AppSync } from '../../src/main/media-sync/app-sync.mjs';
-import { generateKeys, randomUUID, recordKey } from '../../src/main/media-sync/protocol.mjs';
+import { generateKeys, randomUUID, recordKey, validatePayload } from '../../src/main/media-sync/protocol.mjs';
 import { protect, unprotect, validateConfig } from '../../src/main/media-sync/enrollment.mjs';
 const scratch = process.platform === 'win32' ? 'D:/tmp/dd' : tmpdir(); mkdirSync(scratch, {recursive: true});
 const directory = mkdtempSync(join(scratch, 'freetube-app-sync-test-'));
@@ -137,4 +137,47 @@ test('older history observations retain a newer local view and publish the merge
 test('copying a local playlist never aliases its original portable identity', async t => {
  const {app}=await fixture(t);await models.playlists.deleteAll();app.enableLibrary();await models.playlists.create({_id:'source',playlistName:'Source',videos:[]});await app.capture();
  const original=(await models.playlists.find())[0];await models.playlists.create({...original,_id:'clone',playlistName:'Copy'});const snapshot=await app.snapshot();const ids=Object.values(snapshot).filter(p=>p.kind==='playlist').map(p=>p.id);assert.equal(new Set(ids).size,2);
+});
+
+const definition = () => ({kind:'profile',provider:'youtube',version:3,id:randomUUID(),name:'Trips',bgColor:'#123456',textColor:'#FFFFFF'});
+const membership = (p, channel=id) => ({kind:'profile-member',provider:'youtube',version:3,id:p.id+':'+channel,profileId:p.id,channelId:channel});
+async function remote(app, payload, operation='put') {
+ const record={payload,operation,revision:1};app.client.state.local[recordKey(app.client.keys,payload)]=record;await app.project(record);
+}
+test('profiles opt in separately and use stable independent identities even with matching names and copied data',async t=>{
+ const {app}=await fixture(t);await models.profiles.create({_id:'allChannels',subscriptions:[{id}]});
+ for(const _id of ['first','second']) await models.profiles.create({_id,name:'Same',bgColor:'#123456',textColor:'#FFFFFF',subscriptions:[{id}]});
+ await app.capture();assert.ok(app.client.state.pending.every(p=>!p.payload.kind.startsWith('profile')));app.enableProfiles();await app.capture();
+ const profiles=Object.values(await app.snapshot()).filter(p=>p.kind==='profile');assert.equal(profiles.length,2);assert.notEqual(profiles[0].id,profiles[1].id);
+ const old=(await models.profiles.find()).find(p=>p._id==='first');await models.profiles.create({...old,_id:'copied'});assert.equal(new Set(Object.values(await app.snapshot()).filter(p=>p.kind==='profile').map(p=>p.id)).size,3);
+ const before=app.client.state.pending.length;await app.capture();const after=app.client.state.pending.length;await app.capture();assert.equal(app.client.state.pending.length,after);assert.ok(after>before);
+});
+test('profile membership scales beyond100 channels using individual records without truncation',async t=>{
+ const {app}=await fixture(t);app.enableProfiles();const subscriptions=Array.from({length:250},(_,i)=>({id:'UC'+String(i).padStart(22,'a')}));
+ await models.profiles.create({_id:'allChannels',subscriptions});await models.profiles.create({_id:'large',name:'Large',bgColor:'#000000',textColor:'#FFFFFF',subscriptions});
+ const snapshot=Object.values(await app.snapshot());assert.equal(snapshot.filter(p=>p.kind==='profile-member').length,250);assert.equal(snapshot.filter(p=>p.kind==='profile').length,1);
+});
+test('remote name and colors update actual named profile while unsupported local membership and global metadata remain',async t=>{
+ const {app}=await fixture(t);app.enableProfiles();const p=definition(),m=membership(p);await models.profiles.create({_id:'allChannels',subscriptions:[{id,name:'Retained',thumbnail:'local'}]});
+ await remote(app,p);await remote(app,m);let row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);row.subscriptions.push({id:'local-other-provider',name:'Keep'});await models.profiles.upsert(row);
+ await remote(app,{...p,name:'Renamed',bgColor:'#654321'});row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);assert.equal(row.name,'Renamed');assert.equal(row.bgColor,'#654321');assert.equal(row.subscriptions[0].name,'Retained');assert.ok(row.subscriptions.some(c=>c.id==='local-other-provider'));
+ await remote(app,m,'remove');row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);assert.deepEqual(row.subscriptions.map(c=>c.id),['local-other-provider']);assert.equal((await models.profiles.find()).find(r=>r._id==='allChannels').subscriptions.length,1);
+});
+test('member arriving before definition/global subscription survives restart without silently subscribing or echo deletion',async t=>{
+ const {app,c,file}=await fixture(t);app.enableProfiles();const p=definition(),m=membership(p);await remote(app,m);assert.equal((await models.profiles.find()).length,0);await remote(app,p);
+ let row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);assert.deepEqual(row.subscriptions,[]);assert.deepEqual(row.ddSyncDeferredSubscriptions,[id]);
+ const snapshot=await app.snapshot();assert.ok(Object.values(snapshot).some(v=>v.kind==='profile-member'));app.client.state.baseline=snapshot;app.client.save();
+ const reopened=new AppSync(file,c,models);try {await reopened.capture();assert.equal(reopened.client.state.pending.length,0);await remote(reopened,sub);row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);assert.equal(row.subscriptions[0].id,id);assert.deepEqual(row.ddSyncDeferredSubscriptions,[]);}finally{reopened.close();}
+});
+test('global unsubscribe suppresses stale and concurrent membership without re-subscribing; profile delete suppresses orphan add',async t=>{
+ const {app}=await fixture(t);app.enableProfiles();const p=definition(),m=membership(p);await remote(app,sub);await remote(app,p);await remote(app,m);await remote(app,sub,'remove');await remote(app,m);
+ let rows=await models.profiles.find();assert.ok(rows.every(r=>r.subscriptions.length===0));assert.ok(!Object.values(await app.snapshot()).some(v=>v.kind==='profile-member'));
+ await remote(app,p,'remove');await remote(app,m);rows=await models.profiles.find();assert.equal(rows.filter(r=>r._id!=='allChannels').length,0);
+ const recreated={...p,id:randomUUID()};await remote(app,recreated);assert.equal((await models.profiles.find()).find(r=>r.ddSyncId===recreated.id).subscriptions.length,0);
+});
+test('profile projection journal recovery retains a local rename and preserves exact field validation',async t=>{
+ const {app,c}=await fixture(t);app.enableProfiles();const p=definition();await remote(app,p);await app.capture();app.client.state.pending=[];
+ const k=recordKey(c.keys,p),incoming={...p,name:'Remote'};app.client.state.local[k]={payload:incoming,operation:'put',revision:8};app.client.state.remote[k]=app.client.state.local[k];app.journal();app.client.save();
+ const row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);await models.profiles.upsert({...row,name:'Local after crash'});await app.recover();assert.equal((await models.profiles.find()).find(r=>r.ddSyncId===p.id).name,'Local after crash');assert.ok(app.client.state.pending.some(entry=>entry.payload.name==='Local after crash'));
+ assert.throws(()=>validatePayload({...p,name:'x'.repeat(161)}));assert.throws(()=>validatePayload({...membership(p),id:'bad'}));assert.throws(()=>validatePayload({...p,subscriptions:[]}));
 });

@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "date": "2026-10-22",
+  "status": "unmerged review candidate",
+  "base": "b969fe3b5",
+  "node": "24.18.0",
+  "pnpm": "10.34.7",
+  "checks": {
+    "actualNeDBAndProfileStoreTests": {
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0
+    },
+    "fullUpstreamLint": true,
+    "mediaSyncLint": true,
+    "productionMainPreloadRendererBuild": true,
+    "existingWebpackSizeWarnings": 3,
+    "profileMemberCount": 250,
+    "productionServiceHttp": {
+      "schema": 1,
+      "passed": true,
+      "transport": "literal-loopback HTTP",
+      "datastores": "actual FreeTube NeDB handlers plus SQLite journal",
+      "pageSize": 1,
+      "checks": [
+        "member-before-definition-and-global-subscription",
+        "no-echo-on-page-recovery",
+        "desktop-rename-color-to-peer",
+        "explicit-local-rename-conflict",
+        "global-unsubscribe-no-resurrection",
+        "profile-deletion-no-ghost"
+      ],
+      "personalData": false,
+      "deviceAccess": false
+    }
+  },
+  "sourceSha256": {
+    "src/main/media-sync/protocol.mjs": "98456162b52a81628d87e9a8ee6749fa3d27a09805f033a2ba410bf618c20f31",
+    "src/main/media-sync/profiles.mjs": "98f158d7ffc577af6d609f1786b2a5998454578134bfb14603abec4941420077",
+    "src/main/media-sync/app-sync.mjs": "24dfad8bd5c3192f7649408b545fd8c6907e082aa1a1a6a69b73a7c66382f416",
+    "src/main/media-sync/client.mjs": "aac92dcf6170ec278839c773ddbcb29e1b46104c8134c9bfda42f76e96603796",
+    "src/main/media-sync/electron.mjs": "03f3536b248d4590c8ef6abffacd91850bf6abec12a71d9fda172ab15aefe47c",
+    "src/renderer/components/MediaSyncSettings.vue": "70dc77a58fc1308e80024392619aaf8a506925dffbcf82f5b9abf43da3829c4c",
+    "src/renderer/store/modules/profiles.js": "d9bd714bcc998d61664d1392a6ac4599162e590b139741fcf6131399258dff4d",
+    "src/renderer/store/modules/settings.js": "a293e16bee1a70882f84fbbc2a9e5fb49e5a6d2185cb82af2412f8d539993bb4"
+  },
+  "remaining": [
+    "compatible integration/releases/service deployment before opt-in",
+    "Android runtime profile evidence recorded separately",
+    "physical phone/Fire/TV profile qualification",
+    "personal-library upgrade",
+    "hosted HTTPS/NAS",
+    "browser profile library editor support",
+    "restore reconciliation and retention"
+  ],
+  "personalDataAccess": false,
+  "installerExecuted": false
+}

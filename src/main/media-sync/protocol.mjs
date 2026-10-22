@@ -17,7 +17,7 @@ export function validateMutation (value) {
   const fields = ['protocol', 'serverGeneration', 'mutationId', 'recordKey', 'kind', 'operation', 'baseRevision', 'resumeEpoch', 'envelope']
   exact(value, fields)
   if (value.protocol !== 1) fail('unsupported_protocol', 409)
-  if (!uuid(value.serverGeneration) || !uuid(value.mutationId) || typeof value.recordKey !== 'string' || !/^[a-f0-9]{64}$/.test(value.recordKey) || !['subscription', 'resume', ...LIBRARY_KINDS].includes(value.kind) || !['put', 'remove'].includes(value.operation) || !integer(value.baseRevision) || !integer(value.resumeEpoch)) fail('invalid_mutation')
+  if (!uuid(value.serverGeneration) || !uuid(value.mutationId) || typeof value.recordKey !== 'string' || !/^[a-f0-9]{64}$/.test(value.recordKey) || !['subscription', 'resume', 'profile', 'profile-member', ...LIBRARY_KINDS].includes(value.kind) || !['put', 'remove'].includes(value.operation) || !integer(value.baseRevision) || !integer(value.resumeEpoch)) fail('invalid_mutation')
   if (value.kind === 'watch-later' && value.operation !== 'put') fail('watch_later_clear_with_empty_list')
   exact(value.envelope, ['keyEpoch', 'nonce', 'ciphertext'])
   if (value.envelope.keyEpoch !== 1) fail('unsupported_key_epoch', 409)
@@ -27,6 +27,17 @@ export function validateMutation (value) {
 export const LIBRARY_KINDS = Object.freeze(['playlist', 'watch-later', 'history'])
 export const isLibrary = kind => LIBRARY_KINDS.includes(kind)
 export function validatePayload (value) {
+  if (value?.kind === 'profile' || value?.kind === 'profile-member') {
+    if (value.kind === 'profile-member') {
+      exact(value, ['kind', 'provider', 'version', 'id', 'profileId', 'channelId'])
+      if (!uuid(value.profileId) || typeof value.channelId !== 'string' || !/^UC[A-Za-z0-9_-]{22}$/.test(value.channelId) || value.id !== value.profileId + ':' + value.channelId) fail('profile_not_portable')
+    } else {
+      exact(value, ['kind', 'provider', 'version', 'id', 'name', 'bgColor', 'textColor'])
+      if (!uuid(value.id) || typeof value.name !== 'string' || !value.name.trim() || Buffer.byteLength(value.name, 'utf8') > 160 || [...value.name].some(c => c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127) || ![value.bgColor, value.textColor].every(c => typeof c === 'string' && /^#[0-9A-Fa-f]{6}$/.test(c))) fail('profile_not_portable')
+    }
+    if (value.version !== 3 || value.provider !== 'youtube') fail('unsupported_profiles_version')
+    return value
+  }
   if (isLibrary(value?.kind)) {
     const fields = value.kind === 'history' ? ['kind', 'provider', 'id', 'version', 'watchedAtMs'] : value.kind === 'playlist' ? ['kind', 'provider', 'id', 'version', 'name', 'items'] : ['kind', 'provider', 'id', 'version', 'items']
     exact(value, fields)

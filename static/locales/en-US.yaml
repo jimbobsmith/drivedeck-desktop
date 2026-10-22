@@ -1229,6 +1229,10 @@ KeyboardShortcutPrompt:
   Skip to Previous Video: Skip to the previous video in a playlist
 
 MediaSync:
+  EnableProfiles: Include subscription profiles
+  ProfilesConfirm: 'Also sync profile names, colors and subscription membership? Profiles are subsets of All Channels; history remains shared. Once a profile is shared, older v1/v2 clients stop syncing this library until compatible support is installed and enabled. Profile support in the current browser library editor is pending, so it will stop library editing and syncing; account, enrollment and export controls remain available. Update the service and every client first. Active and default profile selections stay on this device. Existing remote copies remain after disconnect.'
+  ProfilesUpgrade: Update the service and every client, then enable subscription profiles on this device. Existing local data and pending changes are retained.
+  ProfilesLimit: A profile cannot sync. Names must be nonempty and at most 160 UTF-8 bytes, with valid colors and canonical YouTube channel membership. Nothing was truncated.
   EnableLibrary: Include playlists, Watch Later and history
   LibraryConfirm: 'Also sync playlist names, ordered YouTube videos (up to 200 per list), Watch Later and latest per-video watch times? Update and opt in every connected client. Same-named lists stay separate. Disconnect to stop syncing; existing remote copies remain.'
   LibraryUpgrade: Update the service and every client, then enable playlists, Watch Later and history on this device.

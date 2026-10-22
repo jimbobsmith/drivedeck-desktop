@@ -48,7 +48,7 @@
     "pack:botGuardScript": "webpack --config _scripts/webpack.botGuardScript.config.js",
     "checkforbadtemplates": "node _scripts/findMissingTemplates.mjs",
     "ci": "pnpm install --frozen-lockfile",
-    "test:media-sync": "node --test tools/fork/media-sync.test.mjs",
+    "test:media-sync": "node --test tools/fork/media-sync.test.mjs tools/fork/profile-store.test.mjs",
     "lint:media-sync": "eslint --config eslint.config.mjs \"src/main/media-sync/*.mjs\""
   },
   "dependencies": {
