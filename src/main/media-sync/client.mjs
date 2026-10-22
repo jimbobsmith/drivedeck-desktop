@@ -27,12 +27,12 @@ export class Client {
   }
 
   async request (path, method = 'GET', value) {
-    const response = await fetch(this.baseUrl + path, { method, redirect: 'error', signal: AbortSignal.timeout(5000), headers: { authorization: `Bearer ${this.credential.deviceId}.${this.credential.token}`, 'x-dd-sync-version': '1', ...(this.state.libraryEnabled ? { 'x-dd-sync-library': '2' } : {}), ...(value ? { 'content-type': 'application/json' } : {}) }, body: value ? JSON.stringify(value) : undefined })
+    const response = await fetch(this.baseUrl + path, { method, redirect: 'error', signal: AbortSignal.timeout(5000), headers: { authorization: `Bearer ${this.credential.deviceId}.${this.credential.token}`, 'x-dd-sync-version': '1', ...(this.state.libraryEnabled ? { 'x-dd-sync-library': '2' } : {}), ...(this.state.profilesEnabled ? { 'x-dd-sync-profiles': '1' } : {}), ...(value ? { 'content-type': 'application/json' } : {}) }, body: value ? JSON.stringify(value) : undefined })
     const chunks = []; let size = 0
     for await (const chunk of response.body) { size += chunk.length; if (size > 1048576) fail('response_too_large'); chunks.push(chunk) }
     let body; try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')) } catch { fail('invalid_response') }
     if (body.protocol !== 1) fail('unsupported_protocol', 409)
-    if (body.code === 'library_upgrade_required' || body.code === 'unsupported_library_version') fail(body.code, 409)
+    if (['library_upgrade_required', 'unsupported_library_version', 'profiles_upgrade_required', 'unsupported_profiles_version'].includes(body.code)) fail(body.code, 409)
     if (body.code === 'server_generation_changed') { this.state.blocked = true; this.save(); fail('server_generation_changed', 409) }
     return { status: response.status, body }
   }

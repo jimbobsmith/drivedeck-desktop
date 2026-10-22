@@ -56,7 +56,7 @@ function profileSort(a, b) {
 }
 
 const actions = {
-  async grabAllProfiles({ rootState, commit, state }, defaultName = null) {
+  async grabAllProfiles({ rootState, commit, dispatch, state }, defaultName = null) {
     let profiles
     try {
       profiles = await DBProfileHandlers.find()
@@ -92,6 +92,7 @@ const actions = {
     // We want the primary profile to always be first
     // So sort with that then sort alphabetically by profile name
     profiles = profiles.sort(profileSort)
+    if (!profiles.some(profile => profile._id === rootState.settings.defaultProfile)) await dispatch('updateDefaultProfile', MAIN_PROFILE_ID)
 
     if (state.profileList.length < profiles.length) {
       const profile = profiles.find((profile) => {
@@ -262,7 +263,8 @@ const actions = {
 
 const mutations = {
   setProfileList(state, profileList) {
-    state.profileList = profileList
+    state.profileList = profileList.sort(profileSort)
+    if (!profileList.some(profile => profile._id === state.activeProfile)) state.activeProfile = MAIN_PROFILE_ID
   },
 
   setActiveProfile(state, activeProfile) {

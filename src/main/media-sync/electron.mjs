@@ -17,7 +17,7 @@ export function installMediaSync (models, allowed, channels, events) {
       if (!allowed(w.webContents.getURL())) continue
       w.webContents.send(channels.SYNC_HISTORY, { event: events.GENERAL.OVERWRITE, data: history })
       w.webContents.send(channels.SYNC_PLAYLISTS, { event: events.GENERAL.OVERWRITE, data: playlists })
-      for (const data of profiles) w.webContents.send(channels.SYNC_PROFILES, { event: events.GENERAL.UPSERT, data })
+      w.webContents.send(channels.SYNC_PROFILES, { event: events.GENERAL.OVERWRITE, data: profiles })
     }
   }
   function get () {
@@ -63,6 +63,7 @@ export function installMediaSync (models, allowed, channels, events) {
         errorCode = undefined; return status()
       }
       if (action === 'enable-library') { const current = get(); if (!current) fail('not_enrolled'); return await current.gate(() => current.enableLibrary()) }
+      if (action === 'enable-profiles') { const current = get(); if (!current) fail('not_enrolled'); return await current.gate(() => current.enableProfiles()) }
       if (!['sync', 'keep-local', 'use-remote'].includes(action)) fail('invalid_action')
       const current = get(); if (!current) fail('not_enrolled')
       errorCode = undefined; return await current.sync(action === 'sync' ? undefined : action)

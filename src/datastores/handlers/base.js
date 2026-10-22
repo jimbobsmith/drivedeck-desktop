@@ -146,8 +146,15 @@ class Profiles {
     return db.profiles.findAsync({})
   }
 
-  static upsert(profile) {
-    return db.profiles.updateAsync({ _id: profile._id }, profile, { upsert: true })
+  static async upsert(profile) {
+    // Upstream's profile editor supplies only UI fields. Keep fork-owned sync
+    // identity/deferred membership when that ordinary edit replaces the row.
+    const old = await db.profiles.findOneAsync({ _id: profile._id })
+    const retained = {}
+    for (const key of ['ddSyncId', 'ddSyncOrigin', 'ddSyncDeferredSubscriptions']) {
+      if (old && Object.hasOwn(old, key)) retained[key] = old[key]
+    }
+    return db.profiles.updateAsync({ _id: profile._id }, { ...retained, ...profile }, { upsert: true })
   }
 
   static addChannelToProfiles(channel, profileIds) {
