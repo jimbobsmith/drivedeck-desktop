@@ -10,6 +10,8 @@ const updaterRequire = createRequire(require.resolve('electron-updater'))
 const yaml = updaterRequire('js-yaml')
 const semver = updaterRequire('semver')
 const { GitHubProvider } = require('electron-updater/out/providers/GitHubProvider.js')
+const builderRequire = createRequire(require.resolve('electron-builder'))
+const asar = createRequire(builderRequire.resolve('app-builder-lib'))('@electron/asar')
 const output = process.argv[2] ?? 'build'
 const windows = existsSync(join(output, 'alpha.yml'))
 const metadataName = windows ? 'alpha.yml' : 'alpha-linux.yml'
@@ -24,6 +26,9 @@ for (const entry of metadata.files) {
   assert.equal(createHash('sha512').update(bytes).digest('base64'), entry.sha512)
 }
 const resources = join(output, windows ? 'win-unpacked' : 'linux-unpacked', 'resources')
+for (const filename of ['LICENSE', 'docs/fork/UPSTREAM_NOTICE.md', 'docs/fork/THIRD_PARTY_NOTICES.txt', 'docs/fork/production-license-inventory.json']) {
+  assert.equal(asar.extractFile(join(resources, 'app.asar'), filename).toString('utf8').replaceAll('\r\n', '\n'), readFileSync(filename, 'utf8').replaceAll('\r\n', '\n'))
+}
 const feed = yaml.load(readFileSync(join(resources, 'app-update.yml'), 'utf8'))
 assert.equal(feed.provider, 'github')
 assert.equal(feed.owner, 'jimbobsmith')
@@ -46,5 +51,5 @@ for (const name of readdirSync(output).filter(name => /\.(exe|AppImage|deb|block
   hashes.push(`${createHash('sha256').update(readFileSync(join(output, name))).digest('hex')}  ${name}`)
 }
 writeFileSync(join(output, windows ? 'SHA256SUMS-windows.txt' : 'SHA256SUMS-linux.txt'), hashes.join('\n') + '\n')
-writeFileSync(join(output, 'release-verification.json'), JSON.stringify({ version: pkg.version, platform: windows ? 'win32' : 'linux', generatedMetadata: metadataName, embeddedForkFeedVerified: true, actualProviderSelectionVerified: true, artifactSha512Verified: true, sha256Files: hashes.length, signed: false }, null, 2))
+writeFileSync(join(output, 'release-verification.json'), JSON.stringify({ version: pkg.version, platform: windows ? 'win32' : 'linux', generatedMetadata: metadataName, embeddedForkFeedVerified: true, actualProviderSelectionVerified: true, artifactSha512Verified: true, shippedLicenseNoticesVerified: true, sha256Files: hashes.length, signed: false }, null, 2))
 console.log(`Verified ${pkg.version}: ${metadataName}, embedded fork feed, provider and ${hashes.length} hashes.`)

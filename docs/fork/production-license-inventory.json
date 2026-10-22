@@ -1,0 +1,1411 @@
+[
+  {
+    "name": "@babel/generator",
+    "version": "8.0.0-rc.6",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1b6fb84a734a170b32e4b562a7e56a09ddec59a05f78694b8739f90fddc4753e"
+  },
+  {
+    "name": "@babel/helper-string-parser",
+    "version": "7.29.7",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1b6fb84a734a170b32e4b562a7e56a09ddec59a05f78694b8739f90fddc4753e"
+  },
+  {
+    "name": "@babel/helper-string-parser",
+    "version": "8.0.0",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1b6fb84a734a170b32e4b562a7e56a09ddec59a05f78694b8739f90fddc4753e"
+  },
+  {
+    "name": "@babel/helper-validator-identifier",
+    "version": "7.29.7",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1b6fb84a734a170b32e4b562a7e56a09ddec59a05f78694b8739f90fddc4753e"
+  },
+  {
+    "name": "@babel/helper-validator-identifier",
+    "version": "8.0.2",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1b6fb84a734a170b32e4b562a7e56a09ddec59a05f78694b8739f90fddc4753e"
+  },
+  {
+    "name": "@babel/parser",
+    "version": "7.29.7",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae54860eca16b75f2cabfc4b2a48aa942ad536d3126998b6668fcd0b05b539fa"
+  },
+  {
+    "name": "@babel/parser",
+    "version": "8.0.0",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae54860eca16b75f2cabfc4b2a48aa942ad536d3126998b6668fcd0b05b539fa"
+  },
+  {
+    "name": "@babel/types",
+    "version": "7.29.7",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1b6fb84a734a170b32e4b562a7e56a09ddec59a05f78694b8739f90fddc4753e"
+  },
+  {
+    "name": "@babel/types",
+    "version": "8.0.0",
+    "license": "MIT",
+    "repository": "https://github.com/babel/babel.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1b6fb84a734a170b32e4b562a7e56a09ddec59a05f78694b8739f90fddc4753e"
+  },
+  {
+    "name": "@bufbuild/protobuf",
+    "version": "2.12.1",
+    "license": "(Apache-2.0 AND BSD-3-Clause)",
+    "repository": "https://github.com/bufbuild/protobuf-es.git",
+    "noticeSource": [
+      "https://github.com/bufbuild/protobuf-es/blob/5dc9c95de21d56fb1f0cf358c2d210bd4f4558c5/LICENSE",
+      "https://github.com/bufbuild/protobuf-es/blob/5dc9c95de21d56fb1f0cf358c2d210bd4f4558c5/packages/protobuf/src/wire/varint.ts"
+    ],
+    "noticeSha256": "8c76566a9491358cde01c94ceb6088e24be628233393ea2ca39d97b76770e7bd"
+  },
+  {
+    "name": "@fortawesome/fontawesome-common-types",
+    "version": "7.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/FortAwesome/Font-Awesome",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b326b6750f8970a2013e040bfa30e1dc79d4d8967e52193f443fa4a148ad10e"
+  },
+  {
+    "name": "@fortawesome/fontawesome-svg-core",
+    "version": "7.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/FortAwesome/Font-Awesome",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b326b6750f8970a2013e040bfa30e1dc79d4d8967e52193f443fa4a148ad10e"
+  },
+  {
+    "name": "@fortawesome/free-brands-svg-icons",
+    "version": "7.3.0",
+    "license": "(CC-BY-4.0 AND MIT)",
+    "repository": "https://github.com/FortAwesome/Font-Awesome",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b326b6750f8970a2013e040bfa30e1dc79d4d8967e52193f443fa4a148ad10e"
+  },
+  {
+    "name": "@fortawesome/free-regular-svg-icons",
+    "version": "7.3.0",
+    "license": "(CC-BY-4.0 AND MIT)",
+    "repository": "https://github.com/FortAwesome/Font-Awesome",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b326b6750f8970a2013e040bfa30e1dc79d4d8967e52193f443fa4a148ad10e"
+  },
+  {
+    "name": "@fortawesome/free-solid-svg-icons",
+    "version": "7.3.0",
+    "license": "(CC-BY-4.0 AND MIT)",
+    "repository": "https://github.com/FortAwesome/Font-Awesome",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b326b6750f8970a2013e040bfa30e1dc79d4d8967e52193f443fa4a148ad10e"
+  },
+  {
+    "name": "@fortawesome/vue-fontawesome",
+    "version": "3.3.1",
+    "license": "MIT",
+    "repository": "https://github.com/FortAwesome/vue-fontawesome.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "b46058c2c6997a40edb123bbffe8bd8141c92ab80ea4edff5543dfaa3c96c924"
+  },
+  {
+    "name": "@intlify/core-base",
+    "version": "11.4.6",
+    "license": "MIT",
+    "repository": "git+https://github.com/intlify/vue-i18n.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "41574d1d2877ce8c54b5361a0b063486ebcc12cad9147e04aec62e4b6af6f6da"
+  },
+  {
+    "name": "@intlify/devtools-types",
+    "version": "11.4.6",
+    "license": "MIT",
+    "repository": "git+https://github.com/intlify/vue-i18n.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "01876d559bffb0019f601fd2564285dd0c34440701b77cacbf343462e1cef0e9"
+  },
+  {
+    "name": "@intlify/message-compiler",
+    "version": "11.4.6",
+    "license": "MIT",
+    "repository": "git+https://github.com/intlify/vue-i18n.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "41574d1d2877ce8c54b5361a0b063486ebcc12cad9147e04aec62e4b6af6f6da"
+  },
+  {
+    "name": "@intlify/shared",
+    "version": "11.4.6",
+    "license": "MIT",
+    "repository": "git+https://github.com/intlify/vue-i18n.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "41574d1d2877ce8c54b5361a0b063486ebcc12cad9147e04aec62e4b6af6f6da"
+  },
+  {
+    "name": "@jridgewell/gen-mapping",
+    "version": "0.3.13",
+    "license": "MIT",
+    "repository": "git+https://github.com/jridgewell/sourcemaps.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7dbc9f3b06badfae4bfe8d191cbae4e789013210ed9d0e0c37891bf3f43135f0"
+  },
+  {
+    "name": "@jridgewell/remapping",
+    "version": "2.3.5",
+    "license": "MIT",
+    "repository": "git+https://github.com/jridgewell/sourcemaps.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7dbc9f3b06badfae4bfe8d191cbae4e789013210ed9d0e0c37891bf3f43135f0"
+  },
+  {
+    "name": "@jridgewell/resolve-uri",
+    "version": "3.1.2",
+    "license": "MIT",
+    "repository": "https://github.com/jridgewell/resolve-uri",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "0a61796ed34c30d86a928ebd96aa87be1199c652f94abdecd1af79991c95d650"
+  },
+  {
+    "name": "@jridgewell/source-map",
+    "version": "0.3.11",
+    "license": "MIT",
+    "repository": "git+https://github.com/jridgewell/sourcemaps.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7dbc9f3b06badfae4bfe8d191cbae4e789013210ed9d0e0c37891bf3f43135f0"
+  },
+  {
+    "name": "@jridgewell/sourcemap-codec",
+    "version": "1.5.5",
+    "license": "MIT",
+    "repository": "git+https://github.com/jridgewell/sourcemaps.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7dbc9f3b06badfae4bfe8d191cbae4e789013210ed9d0e0c37891bf3f43135f0"
+  },
+  {
+    "name": "@jridgewell/trace-mapping",
+    "version": "0.3.31",
+    "license": "MIT",
+    "repository": "git+https://github.com/jridgewell/sourcemaps.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7dbc9f3b06badfae4bfe8d191cbae4e789013210ed9d0e0c37891bf3f43135f0"
+  },
+  {
+    "name": "@seald-io/binary-search-tree",
+    "version": "1.0.3",
+    "repository": "git@github.com:seald/node-binary-search-tree.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "32d2cf866a02f77db0abe5b4ad71d89f2d3bbcfe6e80865297c4feb3396c2f2e"
+  },
+  {
+    "name": "@seald-io/nedb",
+    "version": "4.1.2",
+    "license": "MIT",
+    "repository": "git@github.com:seald/nedb.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "32d2cf866a02f77db0abe5b4ad71d89f2d3bbcfe6e80865297c4feb3396c2f2e"
+  },
+  {
+    "name": "@types/jsesc",
+    "version": "2.5.1",
+    "license": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "701c2e5e72bbca4624fdb170e710749719aa285df67840810565a3d7d0bc30ae"
+  },
+  {
+    "name": "@types/trusted-types",
+    "version": "2.0.7",
+    "license": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "701c2e5e72bbca4624fdb170e710749719aa285df67840810565a3d7d0bc30ae"
+  },
+  {
+    "name": "@vue-macros/common",
+    "version": "3.1.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/vue-macros/vue-macros.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "21a4c62dc7f170b6a8fa2c7a33e18126d2ab5899c87e8fc344f77e2c04a7a754"
+  },
+  {
+    "name": "@vue/compiler-core",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/compiler-dom",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/compiler-sfc",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/compiler-ssr",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/devtools-api",
+    "version": "6.6.4",
+    "license": "MIT",
+    "repository": "https://github.com/vuejs/vue-devtools.git",
+    "noticeSource": [
+      "https://github.com/vuejs/devtools-v6/blob/df6ab6bb7791a7a525a97990de73b3ea5e9a1941/LICENSE"
+    ],
+    "noticeSha256": "1ffbeb92fe8c768ef6cdb256df0cd95526bb3e8da8972a81409680ba90bef553"
+  },
+  {
+    "name": "@vue/devtools-api",
+    "version": "8.1.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/devtools.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "14cd8bec923e8a2d516e6800e9fa5dbc4b448c57aaca777d04b7cd48808b8d81"
+  },
+  {
+    "name": "@vue/devtools-kit",
+    "version": "8.1.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/devtools.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "14cd8bec923e8a2d516e6800e9fa5dbc4b448c57aaca777d04b7cd48808b8d81"
+  },
+  {
+    "name": "@vue/devtools-shared",
+    "version": "8.1.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/devtools.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "14cd8bec923e8a2d516e6800e9fa5dbc4b448c57aaca777d04b7cd48808b8d81"
+  },
+  {
+    "name": "@vue/reactivity",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/runtime-core",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/runtime-dom",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/server-renderer",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "@vue/shared",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "acorn",
+    "version": "8.17.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/acornjs/acorn.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "97f0152bc84c62fae262fa3f73095d5707b9e0fd569a54b28f9e2e248a368df8"
+  },
+  {
+    "name": "ansi-regex",
+    "version": "6.2.2",
+    "license": "MIT",
+    "repository": "chalk/ansi-regex",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "ansi-styles",
+    "version": "6.2.3",
+    "license": "MIT",
+    "repository": "chalk/ansi-styles",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "argparse",
+    "version": "2.0.1",
+    "license": "Python-2.0",
+    "repository": "nodeca/argparse",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "a27c09f24262759781e3c715ac0db5edfaf7f9d7a366c244ff338497200c9206"
+  },
+  {
+    "name": "ast-kit",
+    "version": "2.2.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/sxzz/ast-kit.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "bf6375b3926d905804d9bbcb3e4653e658d26abe4274509a4035698b6d94ce73"
+  },
+  {
+    "name": "ast-walker-scope",
+    "version": "0.9.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/sxzz/ast-walker-scope.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ad1fd8247b1babe8105786ea9b8435b8072642b366bbaeeb3fabec14b1cb97f5"
+  },
+  {
+    "name": "autolinker",
+    "version": "4.1.5",
+    "license": "MIT",
+    "repository": "git://github.com/gregjacobs/Autolinker.js.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1f2efa12b2581b3bced838670f2e2fbf730512f6658a2e0916b437970d844d85"
+  },
+  {
+    "name": "available-typed-arrays",
+    "version": "1.0.7",
+    "license": "MIT",
+    "repository": "git+https://github.com/inspect-js/available-typed-arrays.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "9da48bf8574688fc0c895e7112b41f5b3781d0c2bbe1f9388bf373e46173b679"
+  },
+  {
+    "name": "bgutils-js",
+    "version": "4.0.3",
+    "license": "MIT",
+    "repository": "git+https://github.com/LuanRT/BgUtils.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "69f2b69c42f7c1f956b63ca1ee0ed0b3449d3a4cdfdddddc4349fe729520c197"
+  },
+  {
+    "name": "birpc",
+    "version": "2.9.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/antfu-collective/birpc.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "f9e8691e281c5c901ca9b5006ee9c35a6306c821758ab10c0d26da88ba54df8c"
+  },
+  {
+    "name": "buffer-from",
+    "version": "1.1.2",
+    "license": "MIT",
+    "repository": "LinusU/buffer-from",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "73367aa0e7f7c53c24ca8f6d39b1ff6779aa5edef61eb54cf21215099edad07b"
+  },
+  {
+    "name": "builder-util-runtime",
+    "version": "9.7.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/electron-userland/electron-builder.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "985b5619e06ac6371e430f0adfba697b5428e7462272726020a308a2a00189d9"
+  },
+  {
+    "name": "call-bind-apply-helpers",
+    "version": "1.0.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/call-bind-apply-helpers.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "099249d1d436c700ed3d2cede0d8a1e712b4fe32e79fc9d1821b016111d27e19"
+  },
+  {
+    "name": "call-bind",
+    "version": "1.0.8",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/call-bind.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "3c9eac0dfa3cc91cdedee9497b09ac28945088fdcfd3237d18f3d7325c327ffa"
+  },
+  {
+    "name": "call-bound",
+    "version": "1.0.4",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/call-bound.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "099249d1d436c700ed3d2cede0d8a1e712b4fe32e79fc9d1821b016111d27e19"
+  },
+  {
+    "name": "chokidar",
+    "version": "5.0.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/paulmillr/chokidar.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "46e1c924785f043771cdaf08526fabb4d6bde007fbd089b35a1a0c5689832b7b"
+  },
+  {
+    "name": "cli-truncate",
+    "version": "4.0.0",
+    "license": "MIT",
+    "repository": "sindresorhus/cli-truncate",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "commander",
+    "version": "2.20.3",
+    "license": "MIT",
+    "repository": "https://github.com/tj/commander.js.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "308b6ff18295e32d63b24b2de2a27e7061a5d525d6a3d645c2b81607e490cc4c"
+  },
+  {
+    "name": "confbox",
+    "version": "0.1.8",
+    "license": "MIT",
+    "repository": "unjs/confbox",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "70a03020884ad78809e56f92a5a9762be0e9bf180125e8632bbca2f165f1cfaa"
+  },
+  {
+    "name": "confbox",
+    "version": "0.2.4",
+    "license": "MIT",
+    "repository": "unjs/confbox",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "c3b17ff3238b35f3f71d85c82729426cf03f86f4ccf7dc2814b55aace0d2e744"
+  },
+  {
+    "name": "csstype",
+    "version": "3.2.3",
+    "license": "MIT",
+    "repository": "https://github.com/frenic/csstype",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "03d88f93db9619cd1e4aa7397707c802aa26aa9ef33129a6134c800a51c8dc79"
+  },
+  {
+    "name": "debug",
+    "version": "4.4.3",
+    "license": "MIT",
+    "repository": "git://github.com/debug-js/debug.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "48366da25c789a4b9494099411a0290269a2daf84cb63554697cd810be34c9cd"
+  },
+  {
+    "name": "define-data-property",
+    "version": "1.1.4",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/define-data-property.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "9ae601c105c54d219f2b39154726e393a5338acb5c0795fd403b40861026f743"
+  },
+  {
+    "name": "dompurify",
+    "version": "3.4.11",
+    "license": "(MPL-2.0 OR Apache-2.0)",
+    "repository": "git://github.com/cure53/DOMPurify.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "2632299ccca3a0fc4e113c81b1f236b9f80cc72b5bb011d811960f0f9887a7ad"
+  },
+  {
+    "name": "dunder-proto",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/es-shims/dunder-proto.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "d9f6c8935d3417faf54e452feb99580e72341d9c7944f6db005a05474d219b4f"
+  },
+  {
+    "name": "electron-context-menu",
+    "version": "4.1.2",
+    "license": "MIT",
+    "repository": "sindresorhus/electron-context-menu",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "electron-dl",
+    "version": "4.0.0",
+    "license": "MIT",
+    "repository": "sindresorhus/electron-dl",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "electron-is-dev",
+    "version": "3.0.1",
+    "license": "MIT",
+    "repository": "sindresorhus/electron-is-dev",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "electron-updater",
+    "version": "6.8.9",
+    "license": "MIT",
+    "repository": "git+https://github.com/electron-userland/electron-builder.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "985b5619e06ac6371e430f0adfba697b5428e7462272726020a308a2a00189d9"
+  },
+  {
+    "name": "emoji-regex",
+    "version": "10.3.0",
+    "license": "MIT",
+    "repository": "https://github.com/mathiasbynens/emoji-regex.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "9c5fabc026dc79c490c37ec1de5dddf3205860810479874857aae0482d462776"
+  },
+  {
+    "name": "entities",
+    "version": "7.0.1",
+    "license": "BSD-2-Clause",
+    "repository": "https://github.com/fb55/entities.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "60a469677836c0e04403747f2e6dc6109b73835d53d35b2f12d7dcd49a09ca45"
+  },
+  {
+    "name": "es-define-property",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/es-define-property.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "099249d1d436c700ed3d2cede0d8a1e712b4fe32e79fc9d1821b016111d27e19"
+  },
+  {
+    "name": "es-errors",
+    "version": "1.3.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/es-errors.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "099249d1d436c700ed3d2cede0d8a1e712b4fe32e79fc9d1821b016111d27e19"
+  },
+  {
+    "name": "es-object-atoms",
+    "version": "1.1.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/es-object-atoms.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "099249d1d436c700ed3d2cede0d8a1e712b4fe32e79fc9d1821b016111d27e19"
+  },
+  {
+    "name": "escape-goat",
+    "version": "4.0.0",
+    "license": "MIT",
+    "repository": "sindresorhus/escape-goat",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "escape-string-regexp",
+    "version": "5.0.0",
+    "license": "MIT",
+    "repository": "sindresorhus/escape-string-regexp",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "estree-walker",
+    "version": "2.0.2",
+    "license": "MIT",
+    "repository": "https://github.com/Rich-Harris/estree-walker",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "8a43acce3085fddac64ba00da9055745688b9c0b4165033ee2474ecfba90e6b2"
+  },
+  {
+    "name": "exsolve",
+    "version": "1.0.8",
+    "license": "MIT",
+    "repository": "unjs/exsolve",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "48a172ab0c7e79c27a0bd75f25f5f790eca16dd80729a5d4c09ee9ec0f7b7b8f"
+  },
+  {
+    "name": "ext-list",
+    "version": "2.2.2",
+    "license": "MIT",
+    "repository": "kevva/ext-list",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "324432bca54da46cee24b68a05b7c66ab704d6ed741f45f672db5afb443defb5"
+  },
+  {
+    "name": "ext-name",
+    "version": "5.0.0",
+    "license": "MIT",
+    "repository": "kevva/ext-name",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "324432bca54da46cee24b68a05b7c66ab704d6ed741f45f672db5afb443defb5"
+  },
+  {
+    "name": "fdir",
+    "version": "6.5.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/thecodrr/fdir.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "fb08085e2916c16198bfe3630a6ced9718929a1882f84c9e043790bfbcaaa4f8"
+  },
+  {
+    "name": "fflate",
+    "version": "0.8.3",
+    "license": "MIT",
+    "repository": "https://github.com/101arrowz/fflate",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "cb4e0770ba0a85bdef9b6479f02303b2c0aa285939e32d0ab2b6f23bf633de9c"
+  },
+  {
+    "name": "for-each",
+    "version": "0.3.5",
+    "license": "MIT",
+    "repository": "https://github.com/Raynos/for-each.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b5484a6c65150b2a25f2fe7b8694cb151aa519318aef283c2d2f0dd1f213f7a"
+  },
+  {
+    "name": "fs-extra",
+    "version": "10.1.0",
+    "license": "MIT",
+    "repository": "https://github.com/jprichardson/node-fs-extra",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "49073ab9cd33112b684d4e8aa415535912d45d9beecd77a18116761c7d5cc6a3"
+  },
+  {
+    "name": "function-bind",
+    "version": "1.1.2",
+    "license": "MIT",
+    "repository": "https://github.com/Raynos/function-bind.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7e4038ac1ab667b5c5798ea4c66f0f6ae17485156e4766b4627f6f7375ffdade"
+  },
+  {
+    "name": "get-east-asian-width",
+    "version": "1.6.0",
+    "license": "MIT",
+    "repository": "sindresorhus/get-east-asian-width",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "get-intrinsic",
+    "version": "1.3.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/get-intrinsic.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "3c9eac0dfa3cc91cdedee9497b09ac28945088fdcfd3237d18f3d7325c327ffa"
+  },
+  {
+    "name": "get-proto",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/get-proto.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "fc310553275303a2c7b42580c2887683f7b5f873e2a8aef2d4a63efcda8bcecf"
+  },
+  {
+    "name": "googlevideo",
+    "version": "4.0.4",
+    "license": "MIT",
+    "repository": "git+https://github.com/LuanRT/GoogleVideo.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "69f2b69c42f7c1f956b63ca1ee0ed0b3449d3a4cdfdddddc4349fe729520c197"
+  },
+  {
+    "name": "gopd",
+    "version": "1.2.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/gopd.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "026ce1445fba93dc98fea4b26736ba74aab7351d0506dd17504374e7999e1009"
+  },
+  {
+    "name": "graceful-fs",
+    "version": "4.2.11",
+    "license": "ISC",
+    "repository": "https://github.com/isaacs/node-graceful-fs",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "08249db6d3942bf18f5c91d0cb5a40930d658ebc35d26835378a4a1fb9cb1347"
+  },
+  {
+    "name": "has-property-descriptors",
+    "version": "1.0.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/inspect-js/has-property-descriptors.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "8f9969ad48d8702a51998d3c41691d1b22473bbd7e59298cdd5d5e6fd62b35ee"
+  },
+  {
+    "name": "has-symbols",
+    "version": "1.1.0",
+    "license": "MIT",
+    "repository": "git://github.com/inspect-js/has-symbols.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "25b17d03c940e0fcfa2eb698fac041c70fd41cd19d2a471f411dddaefec8d98f"
+  },
+  {
+    "name": "has-tostringtag",
+    "version": "1.0.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/inspect-js/has-tostringtag.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "094d61b52ec4750fbca2aec531090f73aa9416a23b118e5ea09679baef7eec28"
+  },
+  {
+    "name": "hasown",
+    "version": "2.0.4",
+    "license": "MIT",
+    "repository": "git+https://github.com/inspect-js/hasOwn.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7de5d6067b95556a5d39e323b42fad229f2d365019f3b1b8b4c45137bb7fc854"
+  },
+  {
+    "name": "hookable",
+    "version": "5.5.3",
+    "license": "MIT",
+    "repository": "unjs/hookable",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7c08f7ec85d4a9ba03ada2cf781a47746ba477feca8e7899aa9af8607398dcf8"
+  },
+  {
+    "name": "immediate",
+    "version": "3.0.6",
+    "license": "MIT",
+    "repository": "git://github.com/calvinmetcalf/immediate.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "08a03e376c1deb82c3e6382b26fdbb6bf90ef9f48ab93ffd3bced087f1707060"
+  },
+  {
+    "name": "inherits",
+    "version": "2.0.4",
+    "license": "ISC",
+    "repository": "git://github.com/isaacs/inherits",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "bf94337989a2e404c2b5a268be3e33d02e99ec08c5f5e3e73270fff4ada4ac1c"
+  },
+  {
+    "name": "is-arguments",
+    "version": "1.1.1",
+    "license": "MIT",
+    "repository": "git://github.com/inspect-js/is-arguments.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "34909ef3f2cca8111e5caa39c39ca1cc9eaf9efe7e6ac79e4acf3e19fc6c2901"
+  },
+  {
+    "name": "is-callable",
+    "version": "1.2.7",
+    "license": "MIT",
+    "repository": "git://github.com/inspect-js/is-callable.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "6cd801e953516d36857ee083ffe10677a05afa15caf50dd92b7ea40cf03351be"
+  },
+  {
+    "name": "is-fullwidth-code-point",
+    "version": "4.0.0",
+    "license": "MIT",
+    "repository": "sindresorhus/is-fullwidth-code-point",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "is-generator-function",
+    "version": "1.0.10",
+    "license": "MIT",
+    "repository": "git://github.com/inspect-js/is-generator-function.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "34909ef3f2cca8111e5caa39c39ca1cc9eaf9efe7e6ac79e4acf3e19fc6c2901"
+  },
+  {
+    "name": "is-plain-obj",
+    "version": "1.1.0",
+    "license": "MIT",
+    "repository": "sindresorhus/is-plain-obj",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "fcf0fd5d927aec27547b4ec649655d6e49a2092b874e9ba99ac79d6fa2b37ef9"
+  },
+  {
+    "name": "is-typed-array",
+    "version": "1.1.15",
+    "license": "MIT",
+    "repository": "git://github.com/inspect-js/is-typed-array.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "6cd801e953516d36857ee083ffe10677a05afa15caf50dd92b7ea40cf03351be"
+  },
+  {
+    "name": "js-yaml",
+    "version": "4.3.0",
+    "license": "MIT",
+    "repository": "nodeca/js-yaml",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "f21e46ce3953acbc6073e02e3430bb9939be47d0e0771a3f881dcf1999125b3c"
+  },
+  {
+    "name": "jsesc",
+    "version": "3.1.0",
+    "license": "MIT",
+    "repository": "https://github.com/mathiasbynens/jsesc.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "9c5fabc026dc79c490c37ec1de5dddf3205860810479874857aae0482d462776"
+  },
+  {
+    "name": "json5",
+    "version": "2.2.3",
+    "license": "MIT",
+    "repository": "git+https://github.com/json5/json5.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7a588e68ee01ca4d1bfb28f61f5502399b68c66e5eb489f11f5f2fd15202cf34"
+  },
+  {
+    "name": "jsonfile",
+    "version": "6.2.1",
+    "license": "MIT",
+    "repository": "git@github.com:jprichardson/node-jsonfile.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "04746cd355ec5f2934ff051586c88891f60c78c9c9c6a06e4a88a4a4e2e24203"
+  },
+  {
+    "name": "lazy-val",
+    "version": "1.0.5",
+    "license": "MIT",
+    "repository": "develar/lazy-val",
+    "noticeSource": [
+      "https://github.com/develar/lazy-val/blob/b69ad4119f1b19bdab13c61ee2fcc88d46b89071/package.json"
+    ],
+    "noticeSha256": "a85c4cb7fa78b016fde74b1b5c44d68696ace2e6614df15b11e5eb53e3aec95b"
+  },
+  {
+    "name": "lie",
+    "version": "3.1.1",
+    "license": "MIT",
+    "repository": "https://github.com/calvinmetcalf/lie.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "cf53bb938bd6322fe95024af4cdfa6057104697d55c61800e904636b4168d58c"
+  },
+  {
+    "name": "local-pkg",
+    "version": "1.2.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/antfu-collective/local-pkg.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "f9e8691e281c5c901ca9b5006ee9c35a6306c821758ab10c0d26da88ba54df8c"
+  },
+  {
+    "name": "localforage",
+    "version": "1.10.0",
+    "license": "Apache-2.0",
+    "repository": "git://github.com/localForage/localForage.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "e6eae9b50fa371071ff12f99bd4be665b3113128a9b8267a8939532815247c3a"
+  },
+  {
+    "name": "lodash.escaperegexp",
+    "version": "4.1.2",
+    "license": "MIT",
+    "repository": "lodash/lodash",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "9d71f7d4da9c1e2d9183e20721779c89cef03e606a6f5349659a39a1928d36aa"
+  },
+  {
+    "name": "lodash.isequal",
+    "version": "4.5.0",
+    "license": "MIT",
+    "repository": "lodash/lodash",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "83a43376576489603d7c7dc8fcbbb71484aa267d5a2bca339af8af3a260a9d47"
+  },
+  {
+    "name": "magic-string-ast",
+    "version": "1.0.3",
+    "license": "MIT",
+    "repository": "git+https://github.com/sxzz/magic-string-ast.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "bf6375b3926d905804d9bbcb3e4653e658d26abe4274509a4035698b6d94ce73"
+  },
+  {
+    "name": "magic-string",
+    "version": "0.30.21",
+    "license": "MIT",
+    "repository": "git+https://github.com/Rich-Harris/magic-string.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "a78fca9009e4588ace853011a92ad12de2fdc09d1febb88f0c7213ef4041fe95"
+  },
+  {
+    "name": "marked",
+    "version": "18.0.6",
+    "license": "MIT",
+    "repository": "git+https://github.com/markedjs/marked.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "a994dc8feecb9a6852dc16b9edc18a2f2bb61eac7f6327b9affcc73afc086714"
+  },
+  {
+    "name": "math-intrinsics",
+    "version": "1.1.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/es-shims/math-intrinsics.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "d9f6c8935d3417faf54e452feb99580e72341d9c7944f6db005a05474d219b4f"
+  },
+  {
+    "name": "meriyah",
+    "version": "7.3.1",
+    "license": "ISC",
+    "repository": "git+https://github.com/meriyah/meriyah.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "d2f3fdf04c0f719ea045e93ec66d535278bf5e8eb57a79f5a5bdceb8eb3720e6"
+  },
+  {
+    "name": "mime-db",
+    "version": "1.54.0",
+    "license": "MIT",
+    "repository": "jshttp/mime-db",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "8b1afff203fd20d06e9c5b9cd443889446d0868b89b8c4288eb4fb869bd4a673"
+  },
+  {
+    "name": "mlly",
+    "version": "1.8.2",
+    "license": "MIT",
+    "repository": "unjs/mlly",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "3a89e6a5265c36e39d343bbb4adac04fb2f315c2a0e48041f80a5f9ecd92420b"
+  },
+  {
+    "name": "ms",
+    "version": "2.1.3",
+    "license": "MIT",
+    "repository": "vercel/ms",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "eb21deb57ad894f66d705efc147c8977f36c0ede2e9885cae56223f66d0ccbff"
+  },
+  {
+    "name": "muggle-string",
+    "version": "0.4.1",
+    "license": "MIT",
+    "repository": "https://github.com/johnsoncodehk/muggle-string.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ee552d63116273d524a9794ca3ffad9d30bf930b2e5de15ce702c21519f98019"
+  },
+  {
+    "name": "nanoid",
+    "version": "3.3.15",
+    "license": "MIT",
+    "repository": "ai/nanoid",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "237ae43f2975443eb86f2ca3c961c5684e7c2efb68efe127a568672bc1f64ff8"
+  },
+  {
+    "name": "path-exists",
+    "version": "5.0.0",
+    "license": "MIT",
+    "repository": "sindresorhus/path-exists",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "pathe",
+    "version": "2.0.3",
+    "license": "MIT",
+    "repository": "unjs/pathe",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "637005530168135029dfaf3161228b685f9195c75161f8778960d5aa664bd248"
+  },
+  {
+    "name": "perfect-debounce",
+    "version": "2.1.0",
+    "license": "MIT",
+    "repository": "unjs/perfect-debounce",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "3a89e6a5265c36e39d343bbb4adac04fb2f315c2a0e48041f80a5f9ecd92420b"
+  },
+  {
+    "name": "picocolors",
+    "version": "1.1.1",
+    "license": "ISC",
+    "repository": "alexeyraspopov/picocolors",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4cee057d0fe48f5bf35c5f43ec122a1d178bff140363421d6710f11f1d25aee7"
+  },
+  {
+    "name": "picomatch",
+    "version": "4.0.4",
+    "license": "MIT",
+    "repository": "micromatch/picomatch",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "8097430daa2c32a25d30ca6ea4e466f8aab6fd73cb5a6494bb084ab239ba3737"
+  },
+  {
+    "name": "pkg-types",
+    "version": "1.3.1",
+    "license": "MIT",
+    "repository": "unjs/pkg-types",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "df1028242987150cb78fbbf84b7b4212566c79e1a4f57ea07db4846aad5acaf9"
+  },
+  {
+    "name": "pkg-types",
+    "version": "2.3.1",
+    "license": "MIT",
+    "repository": "unjs/pkg-types",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "df1028242987150cb78fbbf84b7b4212566c79e1a4f57ea07db4846aad5acaf9"
+  },
+  {
+    "name": "possible-typed-array-names",
+    "version": "1.0.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/possible-typed-array-names.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "099249d1d436c700ed3d2cede0d8a1e712b4fe32e79fc9d1821b016111d27e19"
+  },
+  {
+    "name": "postcss",
+    "version": "8.5.16",
+    "license": "MIT",
+    "repository": "postcss/postcss",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "92d8799d4d9050ebec27b58f097320174432397f1aae88dc46944d039932cc3d"
+  },
+  {
+    "name": "process",
+    "version": "0.11.10",
+    "license": "MIT",
+    "repository": "git://github.com/shtylman/node-process.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "85a6fccf899874fcc3f524c9831a1efaaef479720edc255852fe465de4c2bb49"
+  },
+  {
+    "name": "pupa",
+    "version": "3.1.0",
+    "license": "MIT",
+    "repository": "sindresorhus/pupa",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "quansync",
+    "version": "0.2.11",
+    "license": "MIT",
+    "repository": "git+https://github.com/quansync-dev/quansync.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "934b4888d3dc3da43e0b0d00d411f4bddb65fede3dcaee99faa1d84999147b64"
+  },
+  {
+    "name": "readdirp",
+    "version": "5.0.0",
+    "license": "MIT",
+    "repository": "https://github.com/paulmillr/readdirp.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "6c1b93585055abc28c5982726c343642172ea2c87b8c4db2305c65aa563cb077"
+  },
+  {
+    "name": "sax",
+    "version": "1.6.0",
+    "license": "BlueOak-1.0.0",
+    "repository": "git+ssh://git@github.com/isaacs/sax-js.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "08f61bc23fd236c41ef37f209c8cf61f9a9be15f908dea84f8cb21c2b0ff3d98"
+  },
+  {
+    "name": "scule",
+    "version": "1.3.0",
+    "license": "MIT",
+    "repository": "unjs/scule",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "3a89e6a5265c36e39d343bbb4adac04fb2f315c2a0e48041f80a5f9ecd92420b"
+  },
+  {
+    "name": "semver",
+    "version": "7.7.4",
+    "license": "ISC",
+    "repository": "git+https://github.com/npm/node-semver.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "2ce903e02bf3a8b982a4ea43bff6ccba2ddf07820738d944f2e8f464766e2fe5"
+  },
+  {
+    "name": "set-function-length",
+    "version": "1.2.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/ljharb/set-function-length.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7de5d6067b95556a5d39e323b42fad229f2d365019f3b1b8b4c45137bb7fc854"
+  },
+  {
+    "name": "shaka-player",
+    "version": "5.1.12",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/shaka-project/shaka-player.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "83eb00d6e2a692bbe3b25b2d605244df1e597d3fad6e61b1f3c9605e16729ff0"
+  },
+  {
+    "name": "slice-ansi",
+    "version": "5.0.0",
+    "license": "MIT",
+    "repository": "chalk/slice-ansi",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ee15b56bc164abad04cf700da3037d9f01599f7372935414c62ed2bc3a32119d"
+  },
+  {
+    "name": "sort-keys-length",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": "kevva/sort-keys-length",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "13ffb8bc930a0a29bd681367b4c3b8b0314ce4c4c2e2cf38fe12ad9cafab85c4"
+  },
+  {
+    "name": "sort-keys",
+    "version": "1.1.2",
+    "license": "MIT",
+    "repository": "sindresorhus/sort-keys",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "fcf0fd5d927aec27547b4ec649655d6e49a2092b874e9ba99ac79d6fa2b37ef9"
+  },
+  {
+    "name": "source-map-js",
+    "version": "1.2.1",
+    "license": "BSD-3-Clause",
+    "repository": "7rulnik/source-map-js",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "82d5b1c80e18d929afb20075e97c5e25d4892843fda4bd94a3a57f90646e84ed"
+  },
+  {
+    "name": "source-map-support",
+    "version": "0.5.21",
+    "license": "MIT",
+    "repository": "https://github.com/evanw/node-source-map-support",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "122e940edf923dc6d7f0f333e9f0cfecc81142493de862a6f2b58f1fad6f9896"
+  },
+  {
+    "name": "source-map",
+    "version": "0.6.1",
+    "license": "BSD-3-Clause",
+    "repository": "http://github.com/mozilla/source-map.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "82d5b1c80e18d929afb20075e97c5e25d4892843fda4bd94a3a57f90646e84ed"
+  },
+  {
+    "name": "string-width",
+    "version": "7.2.0",
+    "license": "MIT",
+    "repository": "sindresorhus/string-width",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "strip-ansi",
+    "version": "7.2.0",
+    "license": "MIT",
+    "repository": "chalk/strip-ansi",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "swiper",
+    "version": "14.0.5",
+    "license": "MIT",
+    "repository": "https://github.com/nolimits4web/Swiper.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "7c7ba54e134581ac9e176e4294bf3a340105dad1df603c4ab2a997c40d1090a4"
+  },
+  {
+    "name": "terser",
+    "version": "5.49.0",
+    "license": "BSD-2-Clause",
+    "repository": "https://github.com/terser/terser",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "0276e4c9d740c15e89458a9803f249a73ca07df43fb311da1d4a13de8cb5124a"
+  },
+  {
+    "name": "tiny-typed-emitter",
+    "version": "2.1.0",
+    "license": "MIT",
+    "repository": "https://github.com/binier/tiny-typed-emitter.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "a69c171b4439ab0ab5752f15338091c4e97f042705771eb5e55835c91f167b55"
+  },
+  {
+    "name": "tinyglobby",
+    "version": "0.2.16",
+    "license": "MIT",
+    "repository": "git+https://github.com/SuperchupuDev/tinyglobby.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "d6930603691d0b8567361963ba39f361415a0f56938c341de5a0f1b8ddac8404"
+  },
+  {
+    "name": "tslib",
+    "version": "2.8.1",
+    "license": "0BSD",
+    "repository": "https://github.com/Microsoft/tslib.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "0862845aba85e0e1ccfd4dc59f6d2bdeb182568e5a55b45a152e40cc20cac0d6"
+  },
+  {
+    "name": "typescript",
+    "version": "6.0.3",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/microsoft/TypeScript.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "08c967d26f651e06919f154d69ddf24b570d38ba1daacaecc199124eefcb7a04"
+  },
+  {
+    "name": "ufo",
+    "version": "1.6.4",
+    "license": "MIT",
+    "repository": "unjs/ufo",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "3a89e6a5265c36e39d343bbb4adac04fb2f315c2a0e48041f80a5f9ecd92420b"
+  },
+  {
+    "name": "universalify",
+    "version": "2.0.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/RyanZim/universalify.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "f680a022ffa7e4fb86e61ea9269a45269c7fcef7cf0bf795d7850b9619764959"
+  },
+  {
+    "name": "unplugin-utils",
+    "version": "0.3.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/sxzz/unplugin-utils.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "adbd0f1a10f9d9df38d427a9ba7f7b15f96af4578cc96bc48e0890cadaa4edb9"
+  },
+  {
+    "name": "unplugin",
+    "version": "3.0.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/unjs/unplugin.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "c256fabaa673ea6f4bca1c5c017b22b03d2832fa866f4c82d0f191ad3a4a06ea"
+  },
+  {
+    "name": "unused-filename",
+    "version": "4.0.1",
+    "license": "MIT",
+    "repository": "sindresorhus/unused-filename",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "ae4d47957f17740f087342475db324a84872e9cd66c339193b9a668a04871fc1"
+  },
+  {
+    "name": "util",
+    "version": "0.12.5",
+    "license": "MIT",
+    "repository": "git://github.com/browserify/node-util",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "9abfdf882c27c8aeebf511c9963f01d05d997d3ce567b1dccc1521ea2f94dfdf"
+  },
+  {
+    "name": "vue-i18n",
+    "version": "11.4.6",
+    "license": "MIT",
+    "repository": "git+https://github.com/intlify/vue-i18n.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "41574d1d2877ce8c54b5361a0b063486ebcc12cad9147e04aec62e4b6af6f6da"
+  },
+  {
+    "name": "vue-observe-visibility",
+    "version": "2.0.0-alpha.1",
+    "license": "MIT",
+    "repository": "git+https://github.com/Akryum/vue-observe-visibility.git",
+    "noticeSource": [
+      "https://github.com/Akryum/vue-observe-visibility/blob/23f57abc6ad8fc62d2f7c14f74b2a673af1858c5/README.md",
+      "https://github.com/Akryum/vue-observe-visibility/blob/23f57abc6ad8fc62d2f7c14f74b2a673af1858c5/package.json"
+    ],
+    "noticeSha256": "585542cc1c27cec7a157ab44bf483f75bfffdf18553359985eab59d235d5a324"
+  },
+  {
+    "name": "vue-router",
+    "version": "5.1.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/router.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "f0ec404807839c2f7b51e74c3ff6683e2b75c7f3195c009e9a9e246f660a64e4"
+  },
+  {
+    "name": "vue",
+    "version": "3.5.39",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/core.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "4b2a505d2b0d57e3de8749bc5e6a7009ebc6b12655d28c96d23b893652811514"
+  },
+  {
+    "name": "vuex",
+    "version": "4.1.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/vuejs/vuex.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "1d2ee6d264a318ee3784ca035c6e87a5a2519d08e1a9da8459da02614362234e"
+  },
+  {
+    "name": "webpack-virtual-modules",
+    "version": "0.6.2",
+    "license": "MIT",
+    "repository": "git+https://github.com/sysgears/webpack-virtual-modules.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "6553289636319a1772d4db292448e0e9615f8a855d05bdde6028c1bf48fdf05b"
+  },
+  {
+    "name": "which-typed-array",
+    "version": "1.1.19",
+    "license": "MIT",
+    "repository": "git://github.com/inspect-js/which-typed-array.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "6cd801e953516d36857ee083ffe10677a05afa15caf50dd92b7ea40cf03351be"
+  },
+  {
+    "name": "yaml",
+    "version": "2.9.0",
+    "license": "ISC",
+    "repository": "github:eemeli/yaml",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "b97a216372676bfe53f7723de4dc3a2e35b8b77a5eee4028d69c2350c1bf5ac4"
+  },
+  {
+    "name": "youtubei.js",
+    "version": "18.0.0",
+    "license": "MIT",
+    "repository": "git+https://github.com/LuanRT/YouTube.js.git",
+    "noticeSource": "package-tarball",
+    "noticeSha256": "3bdce53a18c849c0414865823206ce9a3120b9ebd34ddb9115164c86efc6f734"
+  }
+]

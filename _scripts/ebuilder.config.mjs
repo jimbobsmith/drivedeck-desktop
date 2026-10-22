@@ -23,6 +23,8 @@ export default {
   files: [
     'LICENSE',
     'docs/fork/UPSTREAM_NOTICE.md',
+    'docs/fork/THIRD_PARTY_NOTICES.txt',
+    'docs/fork/production-license-inventory.json',
     '_icons/iconColor.*',
     'icon.svg',
     'dist/**/*',

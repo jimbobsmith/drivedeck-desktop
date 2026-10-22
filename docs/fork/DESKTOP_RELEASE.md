@@ -103,6 +103,15 @@ Controller tests cover download/restart consent, cancellation, offline retry,
 parallel actions, package classification, disabled check scheduling and the real
 updater digest transform's rejection of corrupt payloads.
 
+The complete pinned production graph, including installed optional/peer packages,
+has **175** name/version/license entries. Exact available LICENSE/NOTICE texts are
+bundled in `THIRD_PARTY_NOTICES.txt` with `production-license-inventory.json`.
+Four omitted npm license files are supplemented using pinned upstream source;
+two repositories only declare MIT and are explicitly identified with author
+attribution and standard MIT terms. `collect-production-notices.cjs --check`
+reproduces the inventory offline. Verification also compares the shipped AGPL,
+upstream attribution and production notice files inside app.asar to the source.
+
 The inherited upstream Upload Release and Update Site workflows are restricted
 to their original upstream repository. The DD build workflow cannot publish a
 release. After explicit merge/release approval, tag the integrated source and
