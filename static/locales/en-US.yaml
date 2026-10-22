@@ -2,6 +2,7 @@
 Locale Name: English (US)
 
 DDUpdates:
+  Preview: Preview
   UpstreamGuides: Upstream FreeTube guides
   Title: DD FreeTube updates
   Description: Windows installer and Linux AppImage updates download only when you choose. Restarting requires confirmation. DEB installations use manual downloads.

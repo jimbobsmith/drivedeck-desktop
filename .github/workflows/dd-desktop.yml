@@ -35,12 +35,11 @@ jobs:
       - run: pnpm run lint:desktop-updates
       - run: pnpm run test:media-sync
       - run: pnpm run test:desktop-updates
-      - name: Linux packaging tools and sandbox namespaces
+      - name: Linux packaging tools
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y libarchive-tools libsecret-1-0 xvfb
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - run: pnpm run pack
       - name: Build native packages without publishing
         shell: bash
@@ -57,7 +56,10 @@ jobs:
         run: node tools/fork/smoke-release.cjs "build/win-unpacked/DD FreeTube.exe"
       - name: Linux isolated UI smoke
         if: runner.os == 'Linux'
-        run: xvfb-run -a node tools/fork/smoke-release.cjs "build/linux-unpacked/dd-freetube"
+        run: |
+          sudo chown root:root build/linux-unpacked/chrome-sandbox
+          sudo chmod 4755 build/linux-unpacked/chrome-sandbox
+          xvfb-run -a node tools/fork/smoke-release.cjs "build/linux-unpacked/dd-freetube"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: dd-freetube-${{ runner.os }}-x64

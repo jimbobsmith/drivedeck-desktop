@@ -11,7 +11,7 @@
       <section class="brand">
         <FtLogoFull class="logo" />
         <div class="version">
-          {{ versionNumber }} {{ $t("About.Beta") }}
+          {{ versionNumber }} {{ $t("DDUpdates.Preview") }}
         </div>
       </section>
       <section class="about-chunks">

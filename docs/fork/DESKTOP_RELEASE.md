@@ -86,10 +86,12 @@ node tools/fork/smoke-release.cjs "build/win-unpacked/DD FreeTube.exe"
 
 `DD desktop packages` builds on Windows and Ubuntu runners, uploads installers,
 channel manifests and checksums, and runs a fresh-profile UI smoke. Linux uses
-Xvfb and enables unprivileged sandbox namespaces on the disposable runner; it
-does not disable Chromium's sandbox. Smoke inspects the computed default data
-directory before replacing it with a disposable one and suppresses only the
-process's protocol-registration calls. It checks UI identity, updater bridge,
+Xvfb and the bundled Chromium SUID sandbox helper, owned by root with mode 4755
+on the disposable runner. AppArmor and Chromium sandbox policy stay enabled.
+Smoke redirects only the OS application-data root into a disposable directory,
+then verifies the actual default `DD FreeTube` user-data derivation without
+overriding it. It suppresses only the process's protocol-registration calls.
+It checks UI identity, updater bridge,
 disabled automatic checks and normal exit. It does not execute installers or
 qualify audible playback, personal-library sync, signed upgrades or physical
 Linux integration.
