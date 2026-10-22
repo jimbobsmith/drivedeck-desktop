@@ -32,10 +32,11 @@
       ],
       "personalData": false,
       "deviceAccess": false
-    }
+    },
+    "utf8NameBoundaryAndStrictUnicode": true
   },
   "sourceSha256": {
-    "src/main/media-sync/protocol.mjs": "98456162b52a81628d87e9a8ee6749fa3d27a09805f033a2ba410bf618c20f31",
+    "src/main/media-sync/protocol.mjs": "a4508a3511f31a627d6a867939aa3726e2b22c04c21565b42a799bd70e5a6ff7",
     "src/main/media-sync/profiles.mjs": "98f158d7ffc577af6d609f1786b2a5998454578134bfb14603abec4941420077",
     "src/main/media-sync/app-sync.mjs": "24dfad8bd5c3192f7649408b545fd8c6907e082aa1a1a6a69b73a7c66382f416",
     "src/main/media-sync/client.mjs": "aac92dcf6170ec278839c773ddbcb29e1b46104c8134c9bfda42f76e96603796",

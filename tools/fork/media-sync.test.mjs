@@ -180,4 +180,5 @@ test('profile projection journal recovery retains a local rename and preserves e
  const k=recordKey(c.keys,p),incoming={...p,name:'Remote'};app.client.state.local[k]={payload:incoming,operation:'put',revision:8};app.client.state.remote[k]=app.client.state.local[k];app.journal();app.client.save();
  const row=(await models.profiles.find()).find(r=>r.ddSyncId===p.id);await models.profiles.upsert({...row,name:'Local after crash'});await app.recover();assert.equal((await models.profiles.find()).find(r=>r.ddSyncId===p.id).name,'Local after crash');assert.ok(app.client.state.pending.some(entry=>entry.payload.name==='Local after crash'));
  assert.throws(()=>validatePayload({...p,name:'x'.repeat(161)}));assert.throws(()=>validatePayload({...membership(p),id:'bad'}));assert.throws(()=>validatePayload({...p,subscriptions:[]}));
+ for(const name of ['\uFEFF','\uD800','\uDC00']) assert.throws(()=>validatePayload({...p,name}));
 });

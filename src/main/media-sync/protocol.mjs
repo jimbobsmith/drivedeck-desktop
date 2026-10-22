@@ -33,7 +33,7 @@ export function validatePayload (value) {
       if (!uuid(value.profileId) || typeof value.channelId !== 'string' || !/^UC[A-Za-z0-9_-]{22}$/.test(value.channelId) || value.id !== value.profileId + ':' + value.channelId) fail('profile_not_portable')
     } else {
       exact(value, ['kind', 'provider', 'version', 'id', 'name', 'bgColor', 'textColor'])
-      if (!uuid(value.id) || typeof value.name !== 'string' || !value.name.trim() || Buffer.byteLength(value.name, 'utf8') > 160 || [...value.name].some(c => c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127) || ![value.bgColor, value.textColor].every(c => typeof c === 'string' && /^#[0-9A-Fa-f]{6}$/.test(c))) fail('profile_not_portable')
+      if (!uuid(value.id) || typeof value.name !== 'string' || !value.name.trim() || Buffer.byteLength(value.name, 'utf8') > 160 || [...value.name].some(c => c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127 || (c.codePointAt(0) >= 0xD800 && c.codePointAt(0) <= 0xDFFF)) || ![value.bgColor, value.textColor].every(c => typeof c === 'string' && /^#[0-9A-Fa-f]{6}$/.test(c))) fail('profile_not_portable')
     }
     if (value.version !== 3 || value.provider !== 'youtube') fail('unsupported_profiles_version')
     return value
