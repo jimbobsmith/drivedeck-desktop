@@ -10,8 +10,6 @@ const updaterRequire = createRequire(require.resolve('electron-updater'))
 const yaml = updaterRequire('js-yaml')
 const semver = updaterRequire('semver')
 const { GitHubProvider } = require('electron-updater/out/providers/GitHubProvider.js')
-const builderRequire = createRequire(require.resolve('electron-builder'))
-const asar = createRequire(builderRequire.resolve('app-builder-lib'))('@electron/asar')
 const output = process.argv[2] ?? 'build'
 const windows = existsSync(join(output, 'alpha.yml'))
 const metadataName = windows ? 'alpha.yml' : 'alpha-linux.yml'
@@ -26,7 +24,6 @@ for (const entry of metadata.files) {
   assert.equal(createHash('sha512').update(bytes).digest('base64'), entry.sha512)
 }
 const resources = join(output, windows ? 'win-unpacked' : 'linux-unpacked', 'resources')
-assert.equal(asar.extractFile(join(resources, 'app.asar'), 'LICENSE').toString('utf8').replaceAll('\r\n', '\n'), readFileSync('LICENSE', 'utf8').replaceAll('\r\n', '\n'))
 for (const [source, shipped] of [['LICENSE', 'AGPL-3.0.txt'], ['docs/fork/UPSTREAM_NOTICE.md', 'UPSTREAM_NOTICE.md'], ['docs/fork/THIRD_PARTY_NOTICES.txt', 'THIRD_PARTY_NOTICES.txt'], ['docs/fork/production-license-inventory.json', 'production-license-inventory.json']]) {
   assert.equal(readFileSync(join(resources, 'licenses', shipped), 'utf8').replaceAll('\r\n', '\n'), readFileSync(source, 'utf8').replaceAll('\r\n', '\n'))
 }

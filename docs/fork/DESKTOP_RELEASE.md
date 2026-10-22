@@ -109,8 +109,8 @@ bundled in `THIRD_PARTY_NOTICES.txt` with `production-license-inventory.json`.
 Four omitted npm license files are supplemented using pinned upstream source;
 two repositories only declare MIT and are explicitly identified with author
 attribution and standard MIT terms. `collect-production-notices.cjs --check`
-reproduces the inventory offline. Verification compares the shipped AGPL inside
-app.asar and all attribution/notice files in `resources/licenses/` to the source.
+reproduces the inventory offline. Verification compares the shipped AGPL and all
+attribution/notice files in `resources/licenses/` to the source.
 
 The inherited upstream Upload Release and Update Site workflows are restricted
 to their original upstream repository. The DD build workflow cannot publish a
