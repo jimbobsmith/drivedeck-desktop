@@ -12,7 +12,8 @@ and the complete dependency lockfile are included. Electron and bundled third
 party libraries retain their own licenses and notices. Webpack emits bundled
 license comments alongside the application JavaScript. Exact license texts for
 the complete production runtime dependency graph and installed peers are in
-`docs/fork/THIRD_PARTY_NOTICES.txt`, with a portable name/version/license inventory.
+`resources/licenses/THIRD_PARTY_NOTICES.txt` in installed packages, with a portable
+name/version/license inventory in the same folder (sources under `docs/fork/`).
 Four omitted npm license files are supplemented from pinned upstream source or
 explicitly identified declared license terms. Electron distributions
 include their LICENSE and LICENSES.chromium.html.

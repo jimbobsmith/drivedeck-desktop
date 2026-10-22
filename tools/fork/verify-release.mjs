@@ -26,8 +26,9 @@ for (const entry of metadata.files) {
   assert.equal(createHash('sha512').update(bytes).digest('base64'), entry.sha512)
 }
 const resources = join(output, windows ? 'win-unpacked' : 'linux-unpacked', 'resources')
-for (const filename of ['LICENSE', 'docs/fork/UPSTREAM_NOTICE.md', 'docs/fork/THIRD_PARTY_NOTICES.txt', 'docs/fork/production-license-inventory.json']) {
-  assert.equal(asar.extractFile(join(resources, 'app.asar'), filename).toString('utf8').replaceAll('\r\n', '\n'), readFileSync(filename, 'utf8').replaceAll('\r\n', '\n'))
+assert.equal(asar.extractFile(join(resources, 'app.asar'), 'LICENSE').toString('utf8').replaceAll('\r\n', '\n'), readFileSync('LICENSE', 'utf8').replaceAll('\r\n', '\n'))
+for (const [source, shipped] of [['LICENSE', 'AGPL-3.0.txt'], ['docs/fork/UPSTREAM_NOTICE.md', 'UPSTREAM_NOTICE.md'], ['docs/fork/THIRD_PARTY_NOTICES.txt', 'THIRD_PARTY_NOTICES.txt'], ['docs/fork/production-license-inventory.json', 'production-license-inventory.json']]) {
+  assert.equal(readFileSync(join(resources, 'licenses', shipped), 'utf8').replaceAll('\r\n', '\n'), readFileSync(source, 'utf8').replaceAll('\r\n', '\n'))
 }
 const feed = yaml.load(readFileSync(join(resources, 'app-update.yml'), 'utf8'))
 assert.equal(feed.provider, 'github')
