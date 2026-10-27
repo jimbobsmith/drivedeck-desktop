@@ -1248,7 +1248,7 @@ KeyboardShortcutPrompt:
 
 MediaSync:
   EnableProfiles: Include subscription profiles
-  ProfilesConfirm: 'Also sync profile names, colors and subscription membership? Profiles are subsets of All Channels; history remains shared. Once a profile is shared, older v1/v2 clients stop syncing this library until compatible support is installed and enabled. Profile support in the current browser library editor is pending, so it will stop library editing and syncing; account, enrollment and export controls remain available. Update the service and every client first. Active and default profile selections stay on this device. Existing remote copies remain after disconnect.'
+  ProfilesConfirm: 'Also sync profile names, colors and subscription membership? Profiles are subsets of All Channels; history remains shared. Once a profile is shared, older v1/v2 clients stop syncing this library until compatible support is installed and enabled. Older browser portals stop library editing and syncing after profiles are shared. Use a compatible updated portal; account, enrollment and export controls remain available. Update the service and every client first. Active and default profile selections stay on this device. Existing remote copies remain after disconnect.'
   ProfilesUpgrade: Update the service and every client, then enable subscription profiles on this device. Existing local data and pending changes are retained.
   ProfilesLimit: A profile cannot sync. Names must be nonempty and at most 160 UTF-8 bytes, with valid colors and canonical YouTube channel membership. Nothing was truncated.
   EnableLibrary: Include playlists, Watch Later and history
@@ -1272,3 +1272,28 @@ MediaSync:
   Restored: Service restore detected. Uploads are paused and local changes retained; reconciliation is required.
   Failed: Sync could not finish. Local data is retained. Check enrollment, service availability and storage limits.
   Confirm: This affects sync enrollment or resolves all current conflicts. Local playback will stay available. Continue?
+
+LibraryImport:
+  RecoveryReview: "Local data changed after an interrupted import. Resume has stopped to protect those changes. Keep the partial result, discard the unfinished journal, then choose the exports again for a fresh preview."
+  Title: Import a FreeTube or PipePipe library
+  Description: Merge subscription categories, playlists, Watch Later, watch history and saved progress. Files stay on this computer. Settings and provider credentials are excluded.
+  MergeHelp: 'Existing names, colors and saved positions are retained. Categories remain separate from playlists. A different PipePipe backup creates independent categories/lists. No existing items are deleted. Limits: 64 MiB, 5,000 records, 200 videos/list and 1,000 changes. Sync remains optional and manual.'
+  Pending: An interrupted local import is saved. Resume rechecks your current library before merging.
+  Choose: Choose exports and preview
+  Confirm: Confirm additive merge
+  Cancel: Cancel
+  Resume: Resume saved import
+  Discard: Discard saved import
+  Review: Review these changes before confirming.
+  Failed: Import could not complete. Your existing library is retained. Check format, size limits and pending sync changes.
+  Done: Library merged locally. Use Sync now separately when ready.
+  Canceled: Import canceled.
+  Subscriptions: Subscriptions
+  Categories: Categories
+  Memberships: Category memberships
+  Playlists: Playlists
+  WatchLater: Watch Later
+  History: Watch history
+  Progress: Saved progress
+  Unchanged: Existing unchanged items
+  Unsupported: Unsupported entries omitted

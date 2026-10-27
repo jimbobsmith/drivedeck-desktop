@@ -76,3 +76,7 @@ protected enrollment, OS storage, evidence and remaining field/hosting gates.
 ## Fork artwork
 
 The approved provisional DD desktop icons and their build/field evidence are documented in [branding](branding/README.md) (issue #7). The unchanged baseline evidence above remains historical.
+
+## Cross-app library imports (#15)
+
+2026-10-27 review candidate: local export preview/explicit additive merge, recovery safeguards and category-capable themed portal. See [scope and gates](media-sync/IMPORTS.md). Native profiles were already integrated. This extension is not merged/released/deployed; browser UI, Android instrumentation and personal-library/NAS gates remain open. No shared devices touched.
