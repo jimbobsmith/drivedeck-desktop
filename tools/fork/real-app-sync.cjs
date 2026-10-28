@@ -63,11 +63,11 @@ async function command(command){
   await renderer(`(()=>{location.hash='#/settings/profile';return true})()`);
   let result;
   for(let attempt=0;attempt<40;attempt++){
-   await sleep(250); result=await renderer(`({title:document.title,text:document.body.innerText.slice(0,6000)})`);
-   if(result.text.includes('Profile Manager')&&(!command.expected||result.text.includes(command.expected)))break;
+   await sleep(250); result=await renderer(`(()=>{const heading=[...document.querySelectorAll('h2')].find(e=>e.innerText.includes('Profile Manager'));const active=document.querySelector('.fade-enter-active,.fade-leave-active,.fade-enter-from,.fade-leave-to');let paintReady=!!heading&&!active;for(let e=heading;e;e=e.parentElement){const style=getComputedStyle(e);paintReady=paintReady&&style.display!=='none'&&style.visibility!=='hidden'&&Number(style.opacity)>=0.99}return {title:document.title,text:document.body.innerText.slice(0,6000),paintReady}})()`);
+   if(result.paintReady&&result.text.includes('Profile Manager')&&(!command.expected||result.text.includes(command.expected)))break;
   }
   const destination=path.join(output,'ui-'+String(command.label??'state').replace(/[^a-z0-9-]/gi,'_')+'.png');
-  await evaluate(`(async()=>{const w=__ddElectron.BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().startsWith('app://bundle/'));process.getBuiltinModule('fs').writeFileSync(${JSON.stringify(destination)},(await w.webContents.capturePage()).toPNG());return true})()`);
+  await evaluate(`(async()=>{const w=__ddElectron.BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().startsWith('app://bundle/'));process.getBuiltinModule('fs').writeFileSync(${JSON.stringify(destination)},(await w.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true})).toPNG());return true})()`);
   return {...result,screenshot:destination};
  }
  case 'quit': await evaluate('__ddElectron.app.quit();true');return {quit:true};
