@@ -60,8 +60,12 @@ async function command(command){
  case 'sync': return renderer(`window.ftElectron.mediaSync(${JSON.stringify(command.choice??'sync')})`);
  case 'status': return renderer(`window.ftElectron.mediaSync('status')`);
  case 'ui': {
-  await renderer(`(()=>{location.hash='#/settings/profile';return true})()`);await sleep(300);
-  const result=await renderer(`({title:document.title,text:document.body.innerText.slice(0,6000)})`);
+  await renderer(`(()=>{location.hash='#/settings/profile';return true})()`);
+  let result;
+  for(let attempt=0;attempt<40;attempt++){
+   await sleep(250); result=await renderer(`({title:document.title,text:document.body.innerText.slice(0,6000)})`);
+   if(result.text.includes('Profile Manager')&&(!command.expected||result.text.includes(command.expected)))break;
+  }
   const destination=path.join(output,'ui-'+String(command.label??'state').replace(/[^a-z0-9-]/gi,'_')+'.png');
   await evaluate(`(async()=>{const w=__ddElectron.BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().startsWith('app://bundle/'));process.getBuiltinModule('fs').writeFileSync(${JSON.stringify(destination)},(await w.webContents.capturePage()).toPNG());return true})()`);
   return {...result,screenshot:destination};
