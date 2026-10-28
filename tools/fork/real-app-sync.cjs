@@ -12,14 +12,16 @@ const profile = path.join(output,'DD FreeTube'); fs.mkdirSync(profile,{recursive
 for(const name of ['session','logs','crashes'])fs.mkdirSync(path.join(output,name),{recursive:true});
 const settings = path.join(profile,'settings.db');
 if(!fs.existsSync(settings))fs.writeFileSync(settings,JSON.stringify({_id:'checkForUpdates',value:false})+'\n');
-const executable = path.join(repo,'node_modules/electron/dist/electron.exe');
+const executable = path.join(repo,'build/win-unpacked/DD FreeTube.exe');
+if(!fs.existsSync(executable))throw Error('BuildUnpackedApplicationFirst');
 const env={...process.env,APPDATA:output,LOCALAPPDATA:output,TEMP:output,TMP:output};
 delete env.NODE_OPTIONS;delete env.ELECTRON_RUN_AS_NODE;
-const child=spawn(executable,[repo,'--inspect-brk=127.0.0.1:0','--user-data-dir='+profile],{env,windowsHide:true,stdio:['ignore','pipe','pipe']});
+const child=spawn(executable,['--inspect-brk=127.0.0.1:0','--user-data-dir='+profile],{env,windowsHide:true,stdio:['ignore','pipe','pipe']});
 child.stdout.resume();
-let exited,stderr='',resolveInspector,ws,seq=0;
-const inspector=new Promise(resolve=>{resolveInspector=resolve});
+let exited,stderr='',resolveInspector,rejectInspector,ws,seq=0;
+const inspector=new Promise((resolve,reject)=>{resolveInspector=resolve;rejectInspector=reject});
 child.on('exit',code=>{exited=code});
+child.on('error',error=>{exited=-1;rejectInspector(Error('ElectronSpawnFailed:'+error.code))});
 child.stderr.on('data',bytes=>{stderr=(stderr+bytes).slice(-16384);const found=stderr.match(/Debugger listening on (ws:\/\/127\.0\.0\.1:[^\s]+)/);if(found)resolveInspector(found[1])});
 const pending=new Map(),events=new Map();
 async function deadline(p,ms=20000){let timer;try{return await Promise.race([p,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('E2EDeadline')),ms)})])}finally{clearTimeout(timer)}}
