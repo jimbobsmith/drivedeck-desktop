@@ -52,9 +52,9 @@ CSP permits same-origin workers and WASM compilation, without general unsafe-eva
 
 ## Evidence and rollout gates
 
-See `import-evidence.json`. Tests cover shipped WASM and native SQLite with DEFLATE descriptor ZIPs, explicit Watch Later mapping, 6,001 dated history observations, NDJSON, quotas, deferred members, encrypted batches and actual NeDB recovery. New Android Room rollback/reimport/mixed-provider tests are compiled only.
+See `import-evidence.json`. Tests cover shipped WASM and native SQLite with DEFLATE descriptor ZIPs, explicit Watch Later mapping, 6,001 dated history observations, NDJSON, quotas, deferred members, encrypted batches and actual NeDB recovery. All three new Android Room rollback/reimport/mixed-provider methods subsequently passed on the isolated owned AOSP guest; Player PR39 retains the source/artifact/runtime receipt.
 
-Browser visual/worker-upload QA is unverified: two preview-tab attachments timed out despite HTTP/API/assets responding. No alternate control workaround was used. New Android instrumentation, portrait/landscape UI, personal libraries, provider metadata, real cross-device convergence and NAS/private pull/reboot/restore remain open. No shared device or emulator was used.
+The initial browser attachments timed out; attachment later recovered and the actual FreeTube worker chooser/preview/Cancel/Confirm/reimport, independent themes and phone/landscape browser layouts passed. A real modal close-event race was fixed. Desktop actual import UI subsequently passed five synthetic button/IPC/parser/journal/store checks; only the native chooser selection supplies generated fixture paths. These checkpoints do not qualify PipePipe ZIP browser/desktop UI or Android import Activity portrait/landscape. Personal libraries, provider metadata and NAS/private-pull/reboot/restore gates remain open. No personal device was enumerated or selected.
 
 Last verified private image remains source 9bae1c9, digest `sha256:c1589ea4c6e67c22d571158f533483094a1f61cb636c78f83f078f7dd1ec351f`. It predates profiles/imports. Review and authorized merges, separately approved image/client publication, NAS installation, compatible updates on every client and explicit enrollment/opt-in must precede personal use. No new release/deployment is claimed.
 
@@ -93,3 +93,6 @@ UI/store checks, records results/screenshots/exit, and closes its owned app. It
 never opens an existing FreeTube profile. Source0d761e5 adds this test driver only;
 production build inputs remain61c2705. Review/merge/release and personal-library
 gates stay open.
+
+
+Current cross-repository evidence: [portal UI PR46](https://github.com/jimbobsmith/drivedeck-platform/pull/46), [desktop import UI PR16](https://github.com/jimbobsmith/drivedeck-desktop/pull/16), [Room import runtime PR39](https://github.com/jimbobsmith/drivedeck-player/pull/39). The separate [real-app campaign PR48](https://github.com/jimbobsmith/drivedeck-platform/pull/48) uses integrated production baselines plus test-only drivers, not these import candidates:14 synthetic scenario rows passed, manual Sync only, no general settings kind. It records offline/restart/conflict and history/resume checks, with owned resource handback independently reconciled READY at24/30 attempts. Nonempty playlist/Watch Later cross-app item roundtrips and production-library qualification remain open.
