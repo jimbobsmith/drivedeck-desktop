@@ -76,3 +76,14 @@ protected enrollment, OS storage, evidence and remaining field/hosting gates.
 ## Fork artwork
 
 The approved provisional DD desktop icons and their build/field evidence are documented in [branding](branding/README.md) (issue #7). The unchanged baseline evidence above remains historical.
+
+
+## Real-app convergence campaign, 2026-10-28
+
+The [repeatable local campaign](media-sync/REAL_APP_E2E.md) records actual Electron/Android/service
+checks for subscriptions/categories, offline/restart/conflict recovery and
+history/resume. All14 scenario rows passed; owned guest/privateADB/test service
+are stopped, independently reconciled READY at24/30 instrumentation attempts.
+These are test branches awaiting review, separate from import candidates.
+Sync is manual; no general settings propagation is implemented. Nonempty
+playlist/Watch Later item roundtrips and NAS/personal-library field gates remain.
