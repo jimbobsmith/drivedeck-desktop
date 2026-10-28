@@ -53,6 +53,12 @@ async function command(command){
   if(!status.enabled){await evaluate(`(()=>{__ddElectron.dialog.showOpenDialog=async()=>({canceled:false,filePaths:[${JSON.stringify(enrollment)}]});return true})()`);const result=await renderer(`window.ftElectron.mediaSync('import','synthetic-e2e-only-20261028')`);if(!result.enabled)throw Error('ProductionEnrollmentFailed:'+result.code)}
   return renderer(`window.ftElectron.mediaSync('enable-profiles')`);
  }
+ case 'enable-library': return renderer(`window.ftElectron.mediaSync('enable-library')`);
+ case 'history': return renderer(`window.ftElectron.dbHistory(1)`);
+ case 'upsert-history': return renderer(`window.ftElectron.dbHistory(2,${JSON.stringify(command.entry)})`);
+ case 'settings': return renderer(`window.ftElectron.dbSettings(1)`);
+ case 'set-setting': return renderer(`window.ftElectron.dbSettings(2,${JSON.stringify(command.setting)})`);
+ case 'remove-channel': return renderer(`window.ftElectron.dbProfiles(21,${JSON.stringify({channelId:command.channelId,profileIds:command.profileIds})})`);
  case 'profiles': return renderer(`window.ftElectron.dbProfiles(1)`);
  case 'upsert-profile': return renderer(`window.ftElectron.dbProfiles(2,${JSON.stringify(command.profile)})`);
  case 'create-profile': return renderer(`window.ftElectron.dbProfiles(0,${JSON.stringify(command.profile)})`);
@@ -60,11 +66,12 @@ async function command(command){
  case 'sync': return renderer(`window.ftElectron.mediaSync(${JSON.stringify(command.choice??'sync')})`);
  case 'status': return renderer(`window.ftElectron.mediaSync('status')`);
  case 'ui': {
-  await renderer(`(()=>{location.hash='#/settings/profile';return true})()`);
+  const route=command.screen==='history'?'#/history':'#/settings/profile'; const headingLabel=command.screen==='history'?'History':'Profile Manager';
+  await renderer(`(()=>{location.hash=${JSON.stringify(route)};return true})()`);
   let result;
   for(let attempt=0;attempt<40;attempt++){
-   await sleep(250); result=await renderer(`(()=>{const heading=[...document.querySelectorAll('h2')].find(e=>e.innerText.includes('Profile Manager'));const active=document.querySelector('.fade-enter-active,.fade-leave-active,.fade-enter-from,.fade-leave-to');let paintReady=!!heading&&!active;for(let e=heading;e;e=e.parentElement){const style=getComputedStyle(e);paintReady=paintReady&&style.display!=='none'&&style.visibility!=='hidden'&&Number(style.opacity)>=0.99}return {title:document.title,text:document.body.innerText.slice(0,6000),paintReady}})()`);
-   if(result.paintReady&&result.text.includes('Profile Manager')&&(!command.expected||result.text.includes(command.expected)))break;
+   await sleep(250); result=await renderer(`(()=>{const heading=[...document.querySelectorAll('h1,h2,h3')].find(e=>e.innerText.includes(${JSON.stringify(headingLabel)}));const active=document.querySelector('.fade-enter-active,.fade-leave-active,.fade-enter-from,.fade-leave-to');let paintReady=!!heading&&!active;for(let e=heading;e;e=e.parentElement){const style=getComputedStyle(e);paintReady=paintReady&&style.display!=='none'&&style.visibility!=='hidden'&&Number(style.opacity)>=0.99}return {title:document.title,text:document.body.innerText.slice(0,6000),paintReady}})()`);
+   if(result.paintReady&&result.text.includes(headingLabel)&&(!command.expected||result.text.includes(command.expected)))break;
   }
   const destination=path.join(output,'ui-'+String(command.label??'state').replace(/[^a-z0-9-]/gi,'_')+'.png');
   await evaluate(`(async()=>{const w=__ddElectron.BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().startsWith('app://bundle/'));process.getBuiltinModule('fs').writeFileSync(${JSON.stringify(destination)},(await w.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true})).toPNG());return true})()`);
