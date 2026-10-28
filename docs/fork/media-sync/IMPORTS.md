@@ -57,3 +57,39 @@ See `import-evidence.json`. Tests cover shipped WASM and native SQLite with DEFL
 Browser visual/worker-upload QA is unverified: two preview-tab attachments timed out despite HTTP/API/assets responding. No alternate control workaround was used. New Android instrumentation, portrait/landscape UI, personal libraries, provider metadata, real cross-device convergence and NAS/private pull/reboot/restore remain open. No shared device or emulator was used.
 
 Last verified private image remains source 9bae1c9, digest `sha256:c1589ea4c6e67c22d571158f533483094a1f61cb636c78f83f078f7dd1ec351f`. It predates profiles/imports. Review and authorized merges, separately approved image/client publication, NAS installation, compatible updates on every client and explicit enrollment/opt-in must precede personal use. No new release/deployment is claimed.
+
+
+## Real Electron UI evidence, 2026-10-28
+
+The real unsigned unpacked application on production source61c2705 passes five
+synthetic UI checks: FreeTube multi-file preview is read-only; Cancel retains the
+actual stores; Confirm adds the category/membership separately from playlists,
+preserves duplicate list entries and imports Watch Later/history/progress; repeated
+import is a no-op; PipePipe subscription JSON previews and commits correctly.
+Buttons and status/preview text are exercised in the actual Settings/Data screen,
+through production preload IPC, parser, import journal and NeDB stores. No sync
+enrollment or provider request is needed. Screenshot capture waits for full paint;
+the earlier fade-transition capture is retained and excluded as visual proof.
+
+The native file chooser is the only substituted boundary: it returns generated
+synthetic fixture paths. Native chooser interaction and PipePipe ZIP selection in
+this desktop UI are not claimed. Parser/archive tests remain separate evidence.
+No personal profile/provider content is read or written. The normal Electron
+sandbox remains; protocol registration and external network are suppressed only
+inside this isolated QA process. App exit0 and owned PID termination were verified.
+[Expected/observed receipt](import-ui-validation-20261028.json) includes exact
+source/app/driver/fixture/capture hashes and the remaining field gates.
+
+After the normal frozen production pack/unpacked build, run in an English-locale
+Windows test environment (Node24; no installer, signing or publication):
+
+```powershell
+node tools/fork/import-ui.cjs D:/tmp/dd/library-sync-20261020/drivedeck-desktop D:/tmp/dd/import-ui-NEW
+```
+
+The output directory must be new and under D:/tmp/dd. The helper creates its own
+fixtures and appData/userData/session/log/crash directories there, drives the real
+UI/store checks, records results/screenshots/exit, and closes its owned app. It
+never opens an existing FreeTube profile. Source0d761e5 adds this test driver only;
+production build inputs remain61c2705. Review/merge/release and personal-library
+gates stay open.
