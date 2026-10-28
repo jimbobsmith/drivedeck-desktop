@@ -11,7 +11,7 @@ fs.mkdirSync(output,{recursive:true});
 const profile = path.join(output,'DD FreeTube'); fs.mkdirSync(profile,{recursive:true});
 for(const name of ['session','logs','crashes'])fs.mkdirSync(path.join(output,name),{recursive:true});
 const settings = path.join(profile,'settings.db');
-if(!fs.existsSync(settings))fs.writeFileSync(settings,JSON.stringify({_id:'checkForUpdates',value:false})+'\n');
+if(!fs.existsSync(settings))fs.writeFileSync(settings,[{_id:'checkForUpdates',value:false},{_id:'fetchSubscriptionsAutomatically',value:false}].map(JSON.stringify).join('\n')+'\n');
 const executable = path.join(repo,'build/win-unpacked/DD FreeTube.exe');
 if(!fs.existsSync(executable))throw Error('BuildUnpackedApplicationFirst');
 const env={...process.env,APPDATA:output,LOCALAPPDATA:output,TEMP:output,TMP:output};
@@ -36,7 +36,7 @@ async function startup(){
  await deadline(new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject}));
  await call('Runtime.enable');await call('Debugger.enable');
  const paused=new Promise(resolve=>events.set('Debugger.paused',resolve));await call('Runtime.runIfWaitingForDebugger');const frame=(await deadline(paused)).callFrames[0].callFrameId;
- const expression=`(()=>{const e=process.getBuiltinModule('module').createRequire(${JSON.stringify(path.join(repo,'package.json'))})('electron');if(e.app.isReady())throw Error('LateIsolation');globalThis.__ddElectron=e;globalThis.__ddProtocols=[];e.app.setPath('appData',${JSON.stringify(output)});e.app.setPath('userData',${JSON.stringify(profile)});e.app.setPath('sessionData',${JSON.stringify(path.join(output,'session'))});e.app.setPath('logs',${JSON.stringify(path.join(output,'logs'))});e.app.setPath('crashDumps',${JSON.stringify(path.join(output,'crashes'))});e.app.setAsDefaultProtocolClient=scheme=>{__ddProtocols.push(['set',scheme]);return false};e.app.removeAsDefaultProtocolClient=scheme=>{__ddProtocols.push(['remove',scheme]);return false};e.app.on('session-created',s=>s.webRequest.onBeforeRequest((details,callback)=>callback({cancel:!details.url.startsWith('app://bundle/')&&!details.url.startsWith('file:')&&!details.url.startsWith('data:')&&!details.url.startsWith('http://127.0.0.1:')})));e.app.on('browser-window-created',(_,w)=>{w.webContents.setBackgroundThrottling(false);w.on('show',()=>w.hide())});return true})()`;
+ const expression=`(()=>{const e=process.getBuiltinModule('module').createRequire(${JSON.stringify(path.join(repo,'package.json'))})('electron');if(e.app.isReady())throw Error('LateIsolation');globalThis.__ddElectron=e;globalThis.__ddProtocols=[];globalThis.__ddBlockedExternal=0;const originalFetch=globalThis.fetch;globalThis.fetch=(input,init)=>{const u=new URL(typeof input==='string'||input instanceof URL?input:input.url);if(u.hostname!=='127.0.0.1'){__ddBlockedExternal++;return Promise.reject(Error('ExternalNetworkBlockedByE2E'))}return originalFetch(input,init)};e.app.setPath('appData',${JSON.stringify(output)});e.app.setPath('userData',${JSON.stringify(profile)});e.app.setPath('sessionData',${JSON.stringify(path.join(output,'session'))});e.app.setPath('logs',${JSON.stringify(path.join(output,'logs'))});e.app.setPath('crashDumps',${JSON.stringify(path.join(output,'crashes'))});e.app.setAsDefaultProtocolClient=scheme=>{__ddProtocols.push(['set',scheme]);return false};e.app.removeAsDefaultProtocolClient=scheme=>{__ddProtocols.push(['remove',scheme]);return false};e.app.on('session-created',s=>s.webRequest.onBeforeRequest((details,callback)=>callback({cancel:!details.url.startsWith('app://bundle/')&&!details.url.startsWith('file:')&&!details.url.startsWith('data:')&&!details.url.startsWith('http://127.0.0.1:')})));e.app.on('browser-window-created',(_,w)=>{w.webContents.setBackgroundThrottling(false);w.on('show',()=>w.hide())});return true})()`;
  const guarded=await call('Debugger.evaluateOnCallFrame',{callFrameId:frame,expression,returnByValue:true});if(guarded.exceptionDetails)throw Error('IsolationFailed');
  await call('Debugger.resume');await call('Debugger.disable');
  let state;
@@ -51,7 +51,7 @@ async function command(command){
  case 'enroll': {
   const status=await renderer(`window.ftElectron.mediaSync('status')`);
   if(!status.enabled){await evaluate(`(()=>{__ddElectron.dialog.showOpenDialog=async()=>({canceled:false,filePaths:[${JSON.stringify(enrollment)}]});return true})()`);const result=await renderer(`window.ftElectron.mediaSync('import','synthetic-e2e-only-20261028')`);if(!result.enabled)throw Error('ProductionEnrollmentFailed:'+result.code)}
-  await renderer(`window.ftElectron.mediaSync('enable-library')`);return renderer(`window.ftElectron.mediaSync('enable-profiles')`);
+  return renderer(`window.ftElectron.mediaSync('enable-profiles')`);
  }
  case 'profiles': return renderer(`window.ftElectron.dbProfiles(1)`);
  case 'upsert-profile': return renderer(`window.ftElectron.dbProfiles(2,${JSON.stringify(command.profile)})`);
