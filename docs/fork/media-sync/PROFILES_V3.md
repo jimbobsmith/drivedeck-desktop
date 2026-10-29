@@ -1,4 +1,4 @@
-# Subscription profiles — review candidate, 2026-10-22
+# Subscription profiles — integrated native support; browser extension under review
 
 Work items: [platform #43](https://github.com/jimbobsmith/drivedeck-platform/issues/43), [desktop #12](https://github.com/jimbobsmith/drivedeck-desktop/issues/12), [Player #32](https://github.com/jimbobsmith/drivedeck-player/issues/32). Parent: platform #27 / DriveDeck #244.
 
@@ -8,7 +8,7 @@ FreeTube profiles are named, colored subsets of the global **All Channels** subs
 
 Profile sync has its own per-device confirmation, independent of enrollment and expanded-library v2. Installing an updated app never enables it. Once a profile or membership record has been accepted, incapable v1/v2 clients are rejected before state/changes reads or writes. This remains true after profiles are deleted because tombstones retain the barrier. Pending intent and cursors remain intact. The confirmation discloses this owner-wide compatibility effect.
 
-**The current browser library editor does not support profiles.** Profile-enabled owners cannot use its library editing/sync routes; they receive an actionable message directing them to compatible DD PipePipe/DD FreeTube clients. Browser profile editing remains pending. Login, account management, enrollment, revocation, encrypted export and password controls remain available. The portal also rejects attempts to publish a first profile by constructing a request manually. No deployment is claimed here.
+Native profiles are integrated in platform PR #44, desktop PR #14 and Player PR #33. The [browser editor/import extension](IMPORTS.md) adds profile-capable browser requests; older portals remain blocked for profile-enabled owners. Account/enrollment routes retain their existing behavior. No deployment is claimed.
 
 ## Encrypted contract
 
@@ -25,11 +25,11 @@ Desktop stores fork-owned identity/deferred fields beside existing NeDB profiles
 
 ## Compatible rollout and evidence
 
-This is an unmerged review candidate, not a published compatible version. Minimum compatible source is the completed platform #43, desktop #12 and Player #32 PR set; the existing v1/v2 main/release builds are not profile-capable. Merge and release commit/version identifiers must replace these issue references in release notes before enabling profiles in a personal library.
+Native source is integrated through platform PR #44, desktop PR #14 and Player PR #33. Integration is not publication: the last verified private image remains 9bae1c9, predating profiles. Record compatible service/client release versions before enabling profiles. Browser/import issues #45/#15/#38 remain review candidates.
 
 1. Review/merge the compatible service and both client adapters, then publish the client builds with exact versions and service image digest recorded.
 2. Back up the operator-owned service with its existing consistent-backup procedure. Deploy the compatible service first, then update every native client that must retain access. Hosting/NAS installation needs its separate authority/evidence.
-3. Only after those versions are confirmed, enable profiles separately on each native device and use manual Sync now. Accept the browser-editor limitation before the first profile is shared.
+3. Only after those versions are confirmed, enable profiles separately on each native device and use manual Sync now. Use a released compatible browser editor; older portals retain the profile barrier.
 
 Actual dedicated synthetic Android runtime evidence now passes 11 profile Room/UI cases plus the 901→903 migration on implementation 4c63f85a0dcc3df7223f046ded6b4e76c028c1cc. It covers more than 100 members, deferred/restart projection, unsubscribe/tombstones, unsupported local membership, active-profile actions/reactive feeds, selected-profile fallback and portrait/landscape editor/consent. Production desktop-generated AES-GCM/HMAC vectors decrypt on Android; Android-produced public synthetic metadata/member vectors decrypt and route in the production desktop/native/WebCrypto implementations. This is dedicated virtual-runtime evidence, not personal-library or physical-device qualification. The public vectors contain intentionally published synthetic keys and must never be used for real enrollment.
 
