@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-29",
+  "issue": 17,
+  "importPR": 16,
+  "importMerge": "5dbcf0a24bb09018a141f3852bb8152f36385b4e",
+  "checkedCombinedHead": "b5e9a3944c0f3456341d70005669aeab28ff0970",
+  "productionInputs": "identical to reviewed merged import source; test driver/docs add no production change",
+  "checks": {
+    "mediaSyncImportTests": {
+      "passed": 32,
+      "failed": 0
+    },
+    "syncImportEslint": "PASS",
+    "mergeCommitEslintStylelintHooks": "PASS"
+  },
+  "runtimeReuse": "Original14 runtime rows remain tied to original baseline SHAs; five import UI checks retain their separate exact source/app hashes. No combined runtime rerun claimed.",
+  "independentSourceReview": "DD HQ /root/merge_sync_batch reviewed original pinned import and driver source; only merge conflict was append-only BASELINE documentation, both entries retained.",
+  "fieldGates": [
+    "nonempty actual cross-app playlist/Watch Later item roundtrip",
+    "personal libraries/provider metadata",
+    "NAS/LAN/deployment/restore",
+    "release/publication"
+  ],
+  "devicesTouched": false,
+  "imagePublished": false,
+  "nasTouched": false
+}

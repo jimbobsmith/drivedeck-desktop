@@ -24,3 +24,5 @@ publication, NAS action or device installation is part of this integration.
 
 Final merge IDs/authoritative branch heads are recorded on the linked issues;
 implementation and test/doc ancestry are verified after GitHub merges.
+
+Combined checked input `b5e9a3944c0f3456341d70005669aeab28ff0970` passes32 actual-store/sync/import tests and scoped ESLint. Full staged ESLint/stylelint merge hooks pass. Production source/static/package/lockfile inputs are identical to the reviewed merged import main. Later evidence commits are docs only; current hosted packaging/sync checks must pass before the final merge. See `integration-evidence-20261029.json`.
