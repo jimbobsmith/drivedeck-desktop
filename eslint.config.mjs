@@ -444,7 +444,7 @@ export default [
     }
   },
   {
-    files: ['src/main/media-sync/*.mjs', 'src/main/desktop-*.mjs', 'src/main/install-desktop-updates.mjs', 'src/renderer/helpers/desktop-update-checks.mjs'],
+    files: ['src/main/library-import/*.mjs', 'src/main/media-sync/*.mjs', 'src/main/desktop-*.mjs', 'src/main/install-desktop-updates.mjs', 'src/renderer/helpers/desktop-update-checks.mjs'],
     languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   }
 ]

@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-27",
+  "state": "unmerged-review-candidate",
+  "issueSet": {
+    "platform": 45,
+    "desktop": 15,
+    "player": 38
+  },
+  "devicesTouched": false,
+  "emulatorUsed": false,
+  "newReleasePublished": false,
+  "nasDeployed": false,
+  "browserUi": "unverified: two in-app preview tab attachment timeouts; HTTP APIs/assets pass",
+  "remainingGates": [
+    "browser worker/file-picker/confirm-cancel UI and responsive/theme visual checks",
+    "dedicated Android Room instrumentation and portrait/landscape import UI",
+    "personal-library/provider metadata and actual cross-device convergence",
+    "approved merge/publication, NAS pull/start/reboot/backup/restore and client enrollment"
+  ],
+  "tools": {
+    "node": "24.22.1",
+    "pnpm": "10.34.7",
+    "jdk": "25.0.4.1+1",
+    "gradle": "9.5.1",
+    "androidSdk": 37
+  },
+  "publishedImageSourceUnchanged": "9bae1c9ba093aa2733234e13f4888f5ff328d7c5",
+  "sourceHashes": "SHA-256 of LF-normalized changed product sources; binary hashes raw; evidence/docs excluded",
+  "repository": "jimbobsmith/drivedeck-desktop",
+  "issue": 15,
+  "baseRevision": "18e2a90d278442149447ff39ffe8450f9583bc86",
+  "sources": {
+    "eslint.config.mjs": "6c8c214102b6df956747e77d7d53f056766abe33445af03b5c69d37ca0c58f34",
+    "package.json": "610f0cb75b1d4bf2182669ba19b228a528a43ee2b56ea59acf8a07fe5e68669d",
+    "src/main/library-import/archive.mjs": "6cf1114448feaf74c415dc7bbff3526344b2e4b333e7698e8ec7d004e6810306",
+    "src/main/library-import/import.mjs": "66029cae27c0cd212054750427dd4612b34f7b9765158a5f08257cf6fd1b154b",
+    "src/main/library-import/native.mjs": "727e864dbabf04253deaf32adcf90bb87379f22fc511aeec859e4b037d9f4db7",
+    "src/main/library-import/shared.mjs": "8bb39fedddf3cd71f0332e6f05a54f7a762fbd42a5f163a3a1840ad0ab1ec93f",
+    "src/main/library-import/sqlite-import.mjs": "6c50e277174767b8660e4dc7e3a4bc9887bbecfd6961b0eeeca3e0fa645b47ce",
+    "src/main/media-sync/electron.mjs": "6868fc3e0796d90aa2a395ed506e4a0caffb7712fbc87e18d47117e1e3f136cc",
+    "src/preload/interface.js": "5a9c52346e593ab635e464aef32bb000fec2bfb7d3677ed8006a5f5d39eaddce",
+    "src/renderer/components/DataSettings/DataSettings.vue": "9bc1e0936b696f025b94d38ac210beca3b021d2988a90aecce24bc7280602983",
+    "src/renderer/components/LibraryImportSettings.css": "066386a911fb491088353f5d98e9801599d9be0494e93a1bfd3d1d8ae6b6695e",
+    "src/renderer/components/LibraryImportSettings.vue": "9c4cc2b73f7eacab7b010b28efe48ea3f3c5ae097d64c3cb04855166141f4c3b",
+    "static/locales/en-US.yaml": "e31a6fead8c28e25f1ccadd9424b818d91f936e25b32fdae9743697fa3ffe6f5",
+    "tools/fork/library-import.test.mjs": "93bbd8d3c5393afe562c13faf395c41b45d66ca460dc28efa8923835c56a8c8a"
+  },
+  "checks": {
+    "pnpm run test:media-sync": {
+      "passed": 32,
+      "failed": 0,
+      "includesRealImportTests": 8
+    },
+    "pnpm run lint": "passed",
+    "pnpm run lint:media-sync": "passed",
+    "node tools/fork/collect-production-notices.cjs --check": "175 pinned production package notices verified",
+    "pnpm run pack": "passed main/preload/renderer; 3 existing webpack performance warnings"
+  },
+  "builtBundles": {
+    "dist/main.js": "56c6dac0581d4ba023a70118838c8ebe6cc1ad57cb596daffc2b160d0e6b65f0",
+    "dist/preload.js": "b83658c4b39135140cec11d9aecf626a32cb4a3a59f488fe730283a858b15858",
+    "dist/renderer.js": "fb9b8159e4d67a40b2420fec45744090067635d22ccc74a20846527d6c304aa8"
+  }
+}

@@ -48,10 +48,11 @@
     "pack:botGuardScript": "webpack --config _scripts/webpack.botGuardScript.config.js",
     "checkforbadtemplates": "node _scripts/findMissingTemplates.mjs",
     "ci": "pnpm install --frozen-lockfile",
-    "test:media-sync": "node --test tools/fork/media-sync.test.mjs tools/fork/profile-store.test.mjs",
-    "lint:media-sync": "eslint --config eslint.config.mjs \"src/main/media-sync/*.mjs\"",
+    "test:media-sync": "node --test tools/fork/media-sync.test.mjs tools/fork/profile-store.test.mjs tools/fork/library-import.test.mjs",
+    "lint:media-sync": "eslint --config eslint.config.mjs \"src/main/media-sync/*.mjs\" \"src/main/library-import/*.mjs\"",
     "test:desktop-updates": "node --test tools/fork/desktop-updates.test.mjs",
-    "lint:desktop-updates": "eslint --config eslint.config.mjs src/main/desktop-*.mjs src/main/install-desktop-updates.mjs src/renderer/helpers/desktop-update-checks.mjs"
+    "lint:desktop-updates": "eslint --config eslint.config.mjs src/main/desktop-*.mjs src/main/install-desktop-updates.mjs src/renderer/helpers/desktop-update-checks.mjs",
+    "test:library-import": "node --test tools/fork/library-import.test.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.0",

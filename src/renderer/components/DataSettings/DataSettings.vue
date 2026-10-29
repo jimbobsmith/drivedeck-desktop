@@ -2,6 +2,7 @@
   <FtSettingsSection
     :title="$t('Settings.Data Settings.Data Settings')"
   >
+    <LibraryImportSettings v-if="windowAvailable" />
     <h4 class="groupTitle">
       {{ $t('Subscriptions.Subscriptions') }}
     </h4>
@@ -109,6 +110,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
+import LibraryImportSettings from '../LibraryImportSettings.vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -137,6 +139,7 @@ const IMPORT_DIRECTORY_ID = 'data-settings-import'
 const START_IN_DIRECTORY = 'downloads'
 
 const { t } = useI18n()
+const windowAvailable = typeof window !== 'undefined' && !!window.ftElectron?.libraryImport
 const router = useRouter()
 
 function openProfileSettings() {

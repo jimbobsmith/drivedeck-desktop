@@ -1,0 +1,322 @@
+{
+  "passed": true,
+  "proofs": [
+    {
+      "name": "FreeTube actual preview is read-only",
+      "passed": true,
+      "preview": "FreeTube subscriptions and categories\nFreeTube playlists and Watch Later\nFreeTube watch history and progress\nCategories: 1\nSubscriptions: 1\nCategory memberships: 1\nPlaylists: 1\nWatch Later: 1\nWatch history: 1\nSaved progress: 1\nExisting unchanged items: 0\nUnsupported entries omitted: 0",
+      "screenshot": {
+        "file": "D:\\tmp\\dd\\import-ui-20261028\\run-03\\freetube-preview.png",
+        "sha256": "400ac8722484f369173d3036abca2b7055ff3ccac3458952ac705aa82ac2844a",
+        "paintReady": true
+      }
+    },
+    {
+      "name": "Cancel preserves actual stores",
+      "passed": true
+    },
+    {
+      "name": "UI confirm commits category/list/Watch Later/history/progress",
+      "passed": true,
+      "observed": {
+        "profiles": [
+          {
+            "_id": "allChannels",
+            "name": "All Channels",
+            "bgColor": "#C51162",
+            "textColor": "#FFFFFF",
+            "subscriptions": [
+              {
+                "id": "UCcccccccccccccccccccccc",
+                "name": "UCcccccccccccccccccccccc",
+                "thumbnail": ""
+              }
+            ]
+          },
+          {
+            "ddSyncId": "ed5f079d-5c7b-4d3f-8cbb-8beba831b168",
+            "ddSyncOrigin": "dd-sync-profile-ed5f079d-5c7b-4d3f-8cbb-8beba831b168",
+            "ddSyncDeferredSubscriptions": [],
+            "_id": "dd-sync-profile-ed5f079d-5c7b-4d3f-8cbb-8beba831b168",
+            "name": "UI imported science",
+            "bgColor": "#112233",
+            "textColor": "#FFFFFF",
+            "subscriptions": [
+              {
+                "id": "UCcccccccccccccccccccccc",
+                "name": "UCcccccccccccccccccccccc",
+                "thumbnail": ""
+              }
+            ]
+          }
+        ],
+        "playlists": [
+          {
+            "_id": "dd-sync-22215793-f3c3-4c03-b423-658bcf911d35",
+            "description": "",
+            "protected": false,
+            "ddSyncId": "22215793-f3c3-4c03-b423-658bcf911d35",
+            "ddSyncOrigin": "dd-sync-22215793-f3c3-4c03-b423-658bcf911d35",
+            "playlistName": "UI weekend",
+            "videos": [
+              {
+                "videoId": "abcdefghijk",
+                "title": "Synced video: abcdefghijk",
+                "author": "",
+                "authorId": "",
+                "published": 0,
+                "description": "",
+                "viewCount": 0,
+                "lengthSeconds": 0,
+                "timeWatched": 0,
+                "isLive": false,
+                "type": "video",
+                "timeAdded": 0,
+                "playlistItemId": "61f9c6ca-67e7-425d-9d4d-a946c857d2a6"
+              },
+              {
+                "videoId": "abcdefghijk",
+                "title": "Synced video: abcdefghijk",
+                "author": "",
+                "authorId": "",
+                "published": 0,
+                "description": "",
+                "viewCount": 0,
+                "lengthSeconds": 0,
+                "timeWatched": 0,
+                "isLive": false,
+                "type": "video",
+                "timeAdded": 0,
+                "playlistItemId": "763429ba-617a-4308-945c-eea28e499fef"
+              }
+            ]
+          },
+          {
+            "_id": "watchLater",
+            "description": "",
+            "protected": false,
+            "playlistName": "Watch Later",
+            "videos": [
+              {
+                "videoId": "abcdefghijk",
+                "title": "Synced video: abcdefghijk",
+                "author": "",
+                "authorId": "",
+                "published": 0,
+                "description": "",
+                "viewCount": 0,
+                "lengthSeconds": 0,
+                "timeWatched": 0,
+                "isLive": false,
+                "type": "video",
+                "timeAdded": 0,
+                "playlistItemId": "0e8aa143-e488-4144-9328-ffca944b8bd0"
+              }
+            ]
+          }
+        ],
+        "history": [
+          {
+            "videoId": "abcdefghijk",
+            "title": "Synced video: abcdefghijk",
+            "author": "",
+            "authorId": "",
+            "published": 0,
+            "description": "",
+            "viewCount": 0,
+            "lengthSeconds": 0,
+            "timeWatched": 1800000000000,
+            "isLive": false,
+            "type": "video",
+            "_id": "kyR6W7nKBxzt8Y1m",
+            "watchProgress": 12.345
+          }
+        ]
+      },
+      "screenshot": {
+        "file": "D:\\tmp\\dd\\import-ui-20261028\\run-03\\freetube-committed.png",
+        "sha256": "c436637240105d0a55a9f13fbc3946be12cadf1ccb5494e5f8d80836938a3d26",
+        "paintReady": true
+      }
+    },
+    {
+      "name": "UI reimport is a no-op",
+      "passed": true,
+      "preview": "FreeTube subscriptions and categories\nFreeTube playlists and Watch Later\nFreeTube watch history and progress\nExisting unchanged items: 7\nUnsupported entries omitted: 0"
+    },
+    {
+      "name": "PipePipe JSON actual UI preview and confirm",
+      "passed": true,
+      "preview": "PipePipe / NewPipe subscriptions JSON\nSubscriptions: 1\nExisting unchanged items: 0\nUnsupported entries omitted: 0",
+      "observed": {
+        "profiles": [
+          {
+            "_id": "allChannels",
+            "name": "All Channels",
+            "bgColor": "#C51162",
+            "textColor": "#FFFFFF",
+            "subscriptions": [
+              {
+                "id": "UCcccccccccccccccccccccc",
+                "name": "UCcccccccccccccccccccccc",
+                "thumbnail": ""
+              },
+              {
+                "id": "UCdddddddddddddddddddddd",
+                "name": "UCdddddddddddddddddddddd",
+                "thumbnail": ""
+              }
+            ]
+          },
+          {
+            "ddSyncId": "ed5f079d-5c7b-4d3f-8cbb-8beba831b168",
+            "ddSyncOrigin": "dd-sync-profile-ed5f079d-5c7b-4d3f-8cbb-8beba831b168",
+            "ddSyncDeferredSubscriptions": [],
+            "_id": "dd-sync-profile-ed5f079d-5c7b-4d3f-8cbb-8beba831b168",
+            "name": "UI imported science",
+            "bgColor": "#112233",
+            "textColor": "#FFFFFF",
+            "subscriptions": [
+              {
+                "id": "UCcccccccccccccccccccccc",
+                "name": "UCcccccccccccccccccccccc",
+                "thumbnail": ""
+              }
+            ]
+          }
+        ],
+        "playlists": [
+          {
+            "_id": "dd-sync-22215793-f3c3-4c03-b423-658bcf911d35",
+            "description": "",
+            "protected": false,
+            "ddSyncId": "22215793-f3c3-4c03-b423-658bcf911d35",
+            "ddSyncOrigin": "dd-sync-22215793-f3c3-4c03-b423-658bcf911d35",
+            "playlistName": "UI weekend",
+            "videos": [
+              {
+                "videoId": "abcdefghijk",
+                "title": "Synced video: abcdefghijk",
+                "author": "",
+                "authorId": "",
+                "published": 0,
+                "description": "",
+                "viewCount": 0,
+                "lengthSeconds": 0,
+                "timeWatched": 0,
+                "isLive": false,
+                "type": "video",
+                "timeAdded": 0,
+                "playlistItemId": "61f9c6ca-67e7-425d-9d4d-a946c857d2a6"
+              },
+              {
+                "videoId": "abcdefghijk",
+                "title": "Synced video: abcdefghijk",
+                "author": "",
+                "authorId": "",
+                "published": 0,
+                "description": "",
+                "viewCount": 0,
+                "lengthSeconds": 0,
+                "timeWatched": 0,
+                "isLive": false,
+                "type": "video",
+                "timeAdded": 0,
+                "playlistItemId": "763429ba-617a-4308-945c-eea28e499fef"
+              }
+            ]
+          },
+          {
+            "_id": "watchLater",
+            "description": "",
+            "protected": false,
+            "playlistName": "Watch Later",
+            "videos": [
+              {
+                "videoId": "abcdefghijk",
+                "title": "Synced video: abcdefghijk",
+                "author": "",
+                "authorId": "",
+                "published": 0,
+                "description": "",
+                "viewCount": 0,
+                "lengthSeconds": 0,
+                "timeWatched": 0,
+                "isLive": false,
+                "type": "video",
+                "timeAdded": 0,
+                "playlistItemId": "0e8aa143-e488-4144-9328-ffca944b8bd0"
+              }
+            ]
+          }
+        ],
+        "history": [
+          {
+            "videoId": "abcdefghijk",
+            "title": "Synced video: abcdefghijk",
+            "author": "",
+            "authorId": "",
+            "published": 0,
+            "description": "",
+            "viewCount": 0,
+            "lengthSeconds": 0,
+            "timeWatched": 1800000000000,
+            "isLive": false,
+            "type": "video",
+            "_id": "kyR6W7nKBxzt8Y1m",
+            "watchProgress": 12.345
+          }
+        ]
+      },
+      "screenshot": {
+        "file": "D:\\tmp\\dd\\import-ui-20261028\\run-03\\pipepipe-committed.png",
+        "sha256": "86e3bdb7afb7188d03f3dd39140ff4731bdd31223eceac16cd5d3be8cecb5bcc",
+        "paintReady": true
+      }
+    }
+  ],
+  "driverSha256": "1800c18dfa26068c96998d91c54bd51d37aa9b1ad638c685ffea709ee5668f25",
+  "exeSha256": "c6a0683f2a168494468a12e867d61864766e1d893753e3d2509edb631ddc2abd",
+  "asarSha256": "ac2c632d9a54eab1d0900816b5f813ce2477cf88a2c2478429c9d561164df777",
+  "fixtureHashes": {
+    "history.db": "64a248101e72b093f46d26ad647f18d4fdb25864626f3a8c94ee3651644d17df",
+    "pipepipe.json": "5eef9bc4f7b49d776e5bdbd1638066c1ed3e5c7ad052292d9dca83cc8f1e195d",
+    "playlists.db": "bfd863bbe66c2766636fffadb882a9483dbca3fbb2eaf649e6e29a97d0ffa1f4",
+    "profiles.db": "12f66d2aca993cc0e6085b977354a92f5292495f8531dc72dee0738cdf3e8a16"
+  },
+  "limits": [
+    "native chooser selection supplied synthetically; application UI buttons, IPC/parser/journal/stores are real",
+    "PipePipe ZIP not exercised in desktop UI",
+    "no sync enrollment, personal data or provider playback"
+  ],
+  "date": "2026-10-28",
+  "productionSource": "61c2705ff30481a1357c8c9280b603a393d6f05b",
+  "testDriverSource": "0d761e5e41374f9755afd7def3f383cec947110e",
+  "appExitCode": 0,
+  "ownedAppPidExited": true,
+  "authenticode": {
+    "status": "NotSigned",
+    "signer": null
+  },
+  "personalDataTouched": false,
+  "nasTouched": false,
+  "remaining": [
+    "PipePipe ZIP actual desktop UI selection",
+    "personal exports/library field validation",
+    "review/merge/release"
+  ],
+  "priorAttempts": [
+    {
+      "run": "run-01",
+      "result": "Semantic UI/store checks passed; screenshots caught route fade and do not prove visual layout"
+    },
+    {
+      "run": "run-02",
+      "result": "Full-paint guard fixed capture; all5 checks and readable preview passed; run-03 reproduces from committed standalone driver with self-generated fixtures"
+    }
+  ],
+  "rawEvidenceHashes": {
+    "results.json": "c814b4e1efd5364941b00ee5e326958dc6bc60c14f0a6928d1bd69cdfa15021e",
+    "exit.json": "6041df3e9b345d68be886f995c452395674ea950cd3ca9992c13b64f3aa9cbd0"
+  }
+}
