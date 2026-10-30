@@ -1256,7 +1256,20 @@ MediaSync:
   LibraryUpgrade: Update the service and every client, then enable playlists, Watch Later and history on this device.
   LibraryLimit: A playlist cannot sync. Lists must contain at most 200 YouTube videos and a nonempty name of at most 160 UTF-8 bytes. Nothing was truncated.
   Title: Personal media sync
-  Description: Optional manual sync of YouTube subscriptions and resume positions with your self-hosted service. Playback stays local. Import an owner-created protected enrollment file; keep its recovery copy private.
+  Description: Optional manual sync of YouTube subscriptions and resume positions with your self-hosted service. Playback stays local.
+  SignInTitle: Sign in with a code
+  SignInHelp: In your sync portal, select Connect a device. Enter the service address and the one-time code it shows. The code works once and expires after 10 minutes.
+  Address: Service address
+  Code: Connect code
+  DeviceName: Device name
+  SignIn: Sign in
+  FileInstead: Use a protected enrollment file instead
+  CodeRejected: That code was not accepted. It may be mistyped, used already or expired. Create a new code in the portal.
+  CodeInvalid: Check the code. It has 26 letters and numbers, usually shown in groups of four.
+  AddressInvalid: Enter the service address starting with https://, with no path after it.
+  DeviceNameInvalid: Enter a device name of up to 96 bytes.
+  TooManyAttempts: Too many sign-in attempts. Wait a minute and try again.
+  DeviceQuota: Your account has reached its device limit. Revoke an old device in the portal first.
   Passphrase: Enrollment passphrase
   Import: Import protected enrollment
   Sync: Sync now
@@ -1264,7 +1277,7 @@ MediaSync:
   UseRemote: Use service versions for all conflicts
   Disconnect: Disconnect and forget enrollment
   Disconnected: Disconnected. Your library remains local.
-  Ready: Enrolled. Select Sync now to exchange subscriptions and resume positions.
+  Ready: Connected. Select Sync now to exchange subscriptions and resume positions.
   Synced: Sync complete.
   Pending: Local changes are waiting. Select Sync now to send them.
   Conflict: Conflicting changes are retained locally. Choose which versions to keep for all conflicts.
