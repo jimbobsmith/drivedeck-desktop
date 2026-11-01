@@ -25,7 +25,7 @@ let currentUpdateSearchInputTextListener
 export default {
   desktopUpdates: action => ipcRenderer.invoke('dd-desktop-updates', action),
   libraryImport: (action) => ipcRenderer.invoke('dd-library-import', action),
-  mediaSync: (action, passphrase) => ipcRenderer.invoke('dd-media-sync', action, passphrase),
+  mediaSync: (action, input) => ipcRenderer.invoke('dd-media-sync', action, input),
   /**
    * @returns {Promise<string>}
    */

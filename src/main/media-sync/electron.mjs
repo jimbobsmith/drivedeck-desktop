@@ -4,6 +4,7 @@ import { existsSync, readFileSync, writeFileSync, renameSync, unlinkSync, statSy
 import { join } from 'node:path'
 import { AppSync } from './app-sync.mjs'
 import { unprotect, validateConfig } from './enrollment.mjs'
+import { connectWithCode } from './connect.mjs'
 import { fail, SyncError } from './protocol.mjs'
 // No renderer receives enrollment tokens or library keys. Nothing polls in the background.
 export function installMediaSync (models, allowed, channels, events) {
@@ -44,7 +45,13 @@ export function installMediaSync (models, allowed, channels, events) {
     }
     return current ? current.gate(local) : local()
   })
-  ipcMain.handle('dd-media-sync', async (event, action, passphrase) => {
+  const save = config => {
+    const encrypted = safeStorage.encryptString(JSON.stringify(config))
+    writeFileSync(secretPath() + '.new', encrypted, { flag: 'wx', mode: 0o600 }); renameSync(secretPath() + '.new', secretPath())
+    get(); errorCode = undefined; return status()
+  }
+  // The third argument is the import passphrase, or {address, code, label} for code sign-in.
+  ipcMain.handle('dd-media-sync', async (event, action, input) => {
     if (!allowed(event.senderFrame?.url ?? '') || event.senderFrame !== event.sender.mainFrame) return { code: 'unauthorized' }
     if (action === 'status') return { ...status(), ...(errorCode ? { code: errorCode } : {}) }
     if (busy) return { code: 'client_busy' }; busy = true
@@ -54,10 +61,12 @@ export function installMediaSync (models, allowed, channels, events) {
         const selected = await dialog.showOpenDialog(BrowserWindow.fromWebContents(event.sender), { title: 'Import protected media sync enrollment', properties: ['openFile'], filters: [{ name: 'Protected enrollment', extensions: ['json'] }] })
         if (selected.canceled) return status()
         if (statSync(selected.filePaths[0]).size > 16384) fail('invalid_enrollment')
-        const config = validateConfig(unprotect(JSON.parse(readFileSync(selected.filePaths[0], 'utf8')), passphrase))
-        const encrypted = safeStorage.encryptString(JSON.stringify(config))
-        writeFileSync(secretPath() + '.new', encrypted, { flag: 'wx', mode: 0o600 }); renameSync(secretPath() + '.new', secretPath())
-        get(); errorCode = undefined; return status()
+        return save(validateConfig(unprotect(JSON.parse(readFileSync(selected.filePaths[0], 'utf8')), input)))
+      }
+      if (action === 'connect') {
+        requireVault(); if (existsSync(secretPath()) || existsSync(dbPath())) fail('disconnect_before_enrollment')
+        if (!input || typeof input !== 'object') fail('invalid_action')
+        return save(await connectWithCode({ address: input.address, code: input.code, label: input.label }))
       }
       if (action === 'disconnect') {
         await gate(async () => { instance?.close(); instance = undefined; for (const path of [secretPath(), secretPath() + '.new', dbPath(), dbPath() + '-wal', dbPath() + '-shm']) if (existsSync(path)) unlinkSync(path) })
