@@ -112,8 +112,9 @@ attribution and standard MIT terms. `collect-production-notices.cjs --check`
 reproduces the inventory offline. Verification compares the shipped AGPL and all
 attribution/notice files in `resources/licenses/` to the source.
 
-The inherited upstream Upload Release and Update Site workflows are restricted
-to their original upstream repository. The DD build workflow cannot publish a
+The inherited upstream release, site-update and repository-maintenance
+workflows were removed from the fork (#21); only upstream `build.yml` remains,
+and it runs here only on manual dispatch. The DD build workflow cannot publish a
 release. After explicit merge/release approval, tag the integrated source and
 create a **prerelease** in the fork with both platforms' artifacts, `alpha.yml`,
 `alpha-linux.yml`, their blockmaps and checksums. Publish all assets together;
