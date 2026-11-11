@@ -3,15 +3,23 @@ import { app, BrowserWindow, dialog, ipcMain, safeStorage } from 'electron'
 import { existsSync, readFileSync, writeFileSync, renameSync, unlinkSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { AppSync } from './app-sync.mjs'
+import { AutoSync } from './auto-sync.mjs'
 import { unprotect, validateConfig } from './enrollment.mjs'
 import { connectWithCode } from './connect.mjs'
 import { fail, SyncError } from './protocol.mjs'
-// No renderer receives enrollment tokens or library keys. Nothing polls in the background.
+// No renderer receives enrollment tokens or library keys. Automatic sync (auto-sync.mjs) runs in the main process.
 export function installMediaSync (models, allowed, channels, events) {
   let importer; let importPreview; let instance; let errorCode; let busy = false; let chain = Promise.resolve()
   const secretPath = () => join(app.getPath('userData'), 'dd-media-sync.secret')
   const dbPath = () => join(app.getPath('userData'), 'dd-media-sync.sqlite')
   const gate = fn => { const p = chain.then(fn); chain = p.catch(() => {}); return p }
+  const autoRun = async () => {
+    let current; try { current = get() } catch { errorCode = 'local_sync_error'; return { code: 'local_sync_error' } }
+    if (!current) return { code: 'not_enrolled' }
+    if (busy) return { code: 'client_busy' }; busy = true
+    try { const result = await current.sync(); errorCode = undefined; return result } catch (error) { errorCode = error instanceof SyncError ? error.code : 'sync_failed'; return { code: errorCode } } finally { busy = false }
+  }
+  const auto = new AutoSync({ run: autoRun, enabled: () => { try { return get()?.autoSyncEnabled() ?? false } catch { return false } } })
   const requireVault = () => { if (!safeStorage.isEncryptionAvailable() || (process.platform === 'linux' && safeStorage.getSelectedStorageBackend() === 'basic_text')) fail('os_secret_store_unavailable') }
   const changed = async () => {
     const history = await models.history.find(); const profiles = await models.profiles.find(); const playlists = await models.playlists.find()
@@ -39,7 +47,7 @@ export function installMediaSync (models, allowed, channels, events) {
       try { if (current) await current.recover() } catch { recovered = false; errorCode = 'local_sync_error' }
       const result = await handler(...args)
       if (current && recovered && args[1]?.action !== 1) {
-        try { await current.capture() } catch { errorCode = 'local_sync_error' }
+        try { await current.capture(); if (current.client.state.pending.length) auto.poke() } catch { errorCode = 'local_sync_error' }
       }
       return result
     }
@@ -48,7 +56,7 @@ export function installMediaSync (models, allowed, channels, events) {
   const save = config => {
     const encrypted = safeStorage.encryptString(JSON.stringify(config))
     writeFileSync(secretPath() + '.new', encrypted, { flag: 'wx', mode: 0o600 }); renameSync(secretPath() + '.new', secretPath())
-    get(); errorCode = undefined; return status()
+    get(); errorCode = undefined; auto.start(); return status()
   }
   // The third argument is the import passphrase, or {address, code, label} for code sign-in.
   ipcMain.handle('dd-media-sync', async (event, action, input) => {
@@ -66,17 +74,20 @@ export function installMediaSync (models, allowed, channels, events) {
       if (action === 'connect') {
         requireVault(); if (existsSync(secretPath()) || existsSync(dbPath())) fail('disconnect_before_enrollment')
         if (!input || typeof input !== 'object') fail('invalid_action')
-        return save(await connectWithCode({ address: input.address, code: input.code, label: input.label }))
+        save(await connectWithCode({ address: input.address, code: input.code, label: input.label }))
+        // Signing in with a code is the consent to sync everything the portal manages; no further switches.
+        const signedIn = get(); await signedIn.gate(() => { signedIn.enableLibrary(); signedIn.enableProfiles() }); auto.resume(0); return status()
       }
       if (action === 'disconnect') {
-        await gate(async () => { instance?.close(); instance = undefined; for (const path of [secretPath(), secretPath() + '.new', dbPath(), dbPath() + '-wal', dbPath() + '-shm']) if (existsSync(path)) unlinkSync(path) })
+        await gate(async () => { auto.stop(); instance?.close(); instance = undefined; for (const path of [secretPath(), secretPath() + '.new', dbPath(), dbPath() + '-wal', dbPath() + '-shm']) if (existsSync(path)) unlinkSync(path) })
         errorCode = undefined; return status()
       }
       if (action === 'enable-library') { const current = get(); if (!current) fail('not_enrolled'); return await current.gate(() => current.enableLibrary()) }
       if (action === 'enable-profiles') { const current = get(); if (!current) fail('not_enrolled'); return await current.gate(() => current.enableProfiles()) }
+      if (action === 'auto-sync-on' || action === 'auto-sync-off') { const current = get(); if (!current) fail('not_enrolled'); const result = await current.gate(() => current.setAutoSync(action === 'auto-sync-on')); if (action === 'auto-sync-on') auto.resume(0); return result }
       if (!['sync', 'keep-local', 'use-remote'].includes(action)) fail('invalid_action')
       const current = get(); if (!current) fail('not_enrolled')
-      errorCode = undefined; return await current.sync(action === 'sync' ? undefined : action)
+      errorCode = undefined; const result = await current.sync(action === 'sync' ? undefined : action); auto.resume(); return result
     } catch (error) { return { ...status(), code: error instanceof SyncError ? error.code : 'sync_failed' } } finally { busy = false }
   })
   const importHandler = wrap(async (event, action) => {
@@ -109,6 +120,8 @@ export function installMediaSync (models, allowed, channels, events) {
     if (!allowed(event.senderFrame?.url ?? '') || event.senderFrame !== event.sender.mainFrame) return { code: 'unauthorized' }
     return importHandler(event, action)
   })
+  app.whenReady().then(() => { try { if (get()) auto.start() } catch { errorCode = 'local_sync_error' } })
+  app.on('will-quit', () => auto.stop())
   app.on('will-quit', () => importer?.close())
   app.on('will-quit', () => instance?.close())
   return { wrap }

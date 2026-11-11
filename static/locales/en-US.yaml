@@ -1256,9 +1256,9 @@ MediaSync:
   LibraryUpgrade: Update the service and every client, then enable playlists, Watch Later and history on this device.
   LibraryLimit: A playlist cannot sync. Lists must contain at most 200 YouTube videos and a nonempty name of at most 160 UTF-8 bytes. Nothing was truncated.
   Title: Personal media sync
-  Description: Optional manual sync of YouTube subscriptions and resume positions with your self-hosted service. Playback stays local.
+  Description: Optional sync of YouTube subscriptions, playlists, watch history and resume positions with your self-hosted service, automatically in the background. Playback stays local.
   SignInTitle: Sign in with a code
-  SignInHelp: In your sync portal, select Connect a device. Enter the service address and the one-time code it shows. The code works once and expires after 10 minutes.
+  SignInHelp: In your sync portal, select Connect a device. Enter the service address and the one-time code it shows. The code works once and expires after 10 minutes. Signing in also syncs playlists, Watch Later, watch history and subscription profiles, and syncs automatically in the background.
   Address: Service address
   Code: Connect code
   DeviceName: Device name
@@ -1273,13 +1273,18 @@ MediaSync:
   Passphrase: Enrollment passphrase
   Import: Import protected enrollment
   Sync: Sync now
+  PauseAuto: Pause automatic sync
+  ResumeAuto: Resume automatic sync
+  AutoOn: Syncing automatically.
+  AutoOff: Automatic sync is paused.
+  LastSynced: 'Last synced {time}.'
   KeepLocal: Use this device for all conflicts
   UseRemote: Use service versions for all conflicts
   Disconnect: Disconnect and forget enrollment
   Disconnected: Disconnected. Your library remains local.
-  Ready: Connected. Select Sync now to exchange subscriptions and resume positions.
+  Ready: Connected. Nothing has been exchanged yet.
   Synced: Sync complete.
-  Pending: Local changes are waiting. Select Sync now to send them.
+  Pending: Local changes are waiting to be sent.
   Conflict: Conflicting changes are retained locally. Choose which versions to keep for all conflicts.
   Offline: Service unavailable. Local playback and pending changes remain available.
   Restored: Service restore detected. Uploads are paused and local changes retained; reconciliation is required.

@@ -1,4 +1,4 @@
-// Manual, optional sync. App writes stay in NeDB; SQLite journals an idempotent projection across files.
+// Optional sync (automatic unless paused, or on demand). App writes stay in NeDB; SQLite journals an idempotent projection across files.
 import { randomUUID, recordKey, validatePayload, fail, isLibrary } from './protocol.mjs'
 import { Client } from './client.mjs'
 import { librarySnapshot, projectLibrary } from './library.mjs'
@@ -112,7 +112,7 @@ export class AppSync {
         if (choice) { for (const key of Object.keys(c.state.conflicts)) c.resolve(key, choice); this.journal(); c.save(); await this.recover() }
       })
       if ((await c.flush()).offline) return { ...this.status(), code: 'offline' }
-      c.state.lastSyncComplete = true; c.save(); return this.status()
+      c.state.lastSyncComplete = true; c.state.lastSyncAt = Date.now(); c.save(); return this.status()
     } catch (error) { if (!error.code || error.name === 'TimeoutError') return { ...this.status(), code: 'offline' }; throw error } finally { this.syncing = false; this.syncBase = null }
   }
 
@@ -124,6 +124,9 @@ export class AppSync {
 
   enableLibrary () { this.client.state.libraryEnabled = true; this.client.save(); return this.status() }
   enableProfiles () { this.client.state.profilesEnabled = true; this.client.save(); return this.status() }
-  status () { const s = this.client.state; return { enabled: true, libraryEnabled: !!s.libraryEnabled, profilesEnabled: !!s.profilesEnabled, code: s.blocked ? 'restored_service' : Object.keys(s.conflicts).length ? 'conflict' : s.pending.length ? 'pending' : s.lastSyncComplete ? 'synced' : 'ready', pending: s.pending.length, conflicts: Object.keys(s.conflicts).length } }
+  // Automatic sync is on unless the user paused it (default for new and existing enrollments).
+  setAutoSync (on) { this.client.state.autoSync = !!on; this.client.save(); return this.status() }
+  autoSyncEnabled () { return this.client.state.autoSync !== false }
+  status () { const s = this.client.state; return { enabled: true, autoSync: s.autoSync !== false, lastSyncAt: s.lastSyncAt ?? null, libraryEnabled: !!s.libraryEnabled, profilesEnabled: !!s.profilesEnabled, code: s.blocked ? 'restored_service' : Object.keys(s.conflicts).length ? 'conflict' : s.pending.length ? 'pending' : s.lastSyncComplete ? 'synced' : 'ready', pending: s.pending.length, conflicts: Object.keys(s.conflicts).length } }
   close () { this.client.close() }
 }
