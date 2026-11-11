@@ -4,9 +4,9 @@
 // - First run shortly after start, then every `intervalMs`.
 // - A local change schedules a run after `debounceMs` (poke()).
 // - Offline or failed runs back off exponentially up to `maxBackoffMs`.
-// - A conflict or restored service pauses it until the user acts; resume()
+// - A conflict or restored service (server_generation_changed / resnapshot_required) pauses it until the user acts; resume()
 //   (called after a manual sync) restarts it.
-const PAUSING = new Set(['conflict', 'restored_service'])
+const PAUSING = new Set(['conflict', 'restored_service', 'server_generation_changed', 'resnapshot_required'])
 
 export class AutoSync {
   constructor ({ run, enabled, intervalMs = 120000, debounceMs = 15000, startDelayMs = 10000, maxBackoffMs = 1800000, setTimer = setTimeout, clearTimer = clearTimeout }) {
@@ -23,6 +23,8 @@ export class AutoSync {
   poke () {
     if (this.stopped || this.paused) return
     if (this.running) { this.again = true; return }
+    // While runs are failing, keep the back-off timer: edits during an outage must not cause rapid retries.
+    if (this.failures > 0) return
     this.schedule(this.debounceMs)
   }
 

@@ -17,7 +17,7 @@ export function installMediaSync (models, allowed, channels, events) {
     let current; try { current = get() } catch { errorCode = 'local_sync_error'; return { code: 'local_sync_error' } }
     if (!current) return { code: 'not_enrolled' }
     if (busy) return { code: 'client_busy' }; busy = true
-    try { const result = await current.sync(); errorCode = undefined; return result } catch (error) { errorCode = error instanceof SyncError ? error.code : 'sync_failed'; return { code: errorCode } } finally { busy = false }
+    try { const result = await current.sync(); errorCode = result.code === 'offline' ? 'offline' : undefined; return result } catch (error) { errorCode = error instanceof SyncError ? error.code : 'sync_failed'; return { code: errorCode } } finally { busy = false }
   }
   const auto = new AutoSync({ run: autoRun, enabled: () => { try { return get()?.autoSyncEnabled() ?? false } catch { return false } } })
   const requireVault = () => { if (!safeStorage.isEncryptionAvailable() || (process.platform === 'linux' && safeStorage.getSelectedStorageBackend() === 'basic_text')) fail('os_secret_store_unavailable') }
@@ -62,7 +62,7 @@ export function installMediaSync (models, allowed, channels, events) {
   ipcMain.handle('dd-media-sync', async (event, action, input) => {
     if (!allowed(event.senderFrame?.url ?? '') || event.senderFrame !== event.sender.mainFrame) return { code: 'unauthorized' }
     if (action === 'status') return { ...status(), ...(errorCode ? { code: errorCode } : {}) }
-    if (busy) return { code: 'client_busy' }; busy = true
+    if (busy) return { ...status(), code: 'client_busy' }; busy = true
     try {
       if (action === 'import') {
         requireVault(); if (existsSync(secretPath()) || existsSync(dbPath())) fail('disconnect_before_enrollment')

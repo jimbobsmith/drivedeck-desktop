@@ -236,3 +236,11 @@ test('auto sync can be switched off per enrollment and defaults on', async t => 
   assert.equal(app.setAutoSync(false).autoSync, false); assert.equal(app.autoSyncEnabled(), false);
   assert.equal(app.setAutoSync(true).autoSync, true);
 });
+test('auto sync keeps its back-off when local changes arrive and pauses on the real restore error codes', async () => {
+  const s = scheduler(['offline']); s.auto.start(); await s.fire();
+  const backoff = s.live().at(-1); assert.equal(backoff.ms, 200); s.auto.poke();
+  assert.equal(s.live().length, 1); assert.equal(s.live().at(-1), backoff); // not replaced by the 10 ms debounce
+  for (const code of ['server_generation_changed', 'resnapshot_required']) {
+    const r = scheduler([code]); r.auto.start(); await r.fire(); assert.equal(r.live().length, 0); r.auto.poke(); assert.equal(r.live().length, 0);
+  }
+});
