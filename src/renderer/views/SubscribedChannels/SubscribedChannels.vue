@@ -202,9 +202,11 @@ function updateThumbnail(channel) {
     setTimeout(() => {
       getLocalChannel(channel.id).then(response => {
         if (!response.alert) {
+          const header = parseLocalChannelHeader(response, true)
           store.dispatch('updateSubscriptionDetails', {
-            channelThumbnailUrl: thumbnailURL(parseLocalChannelHeader(response).thumbnailUrl),
-            channelName: channel.name,
+            channelThumbnailUrl: thumbnailURL(header.thumbnailUrl),
+            // Channels that arrived through media sync only have their ID as a name.
+            channelName: channel.name === channel.id && header.name ? header.name : channel.name,
             channelId: channel.id
           })
         }
@@ -215,7 +217,7 @@ function updateThumbnail(channel) {
       invidiousGetChannelInfo(channel.id).then(response => {
         store.dispatch('updateSubscriptionDetails', {
           channelThumbnailUrl: thumbnailURL(response.authorThumbnails[0].url),
-          channelName: channel.name,
+          channelName: channel.name === channel.id && response.author ? response.author : channel.name,
           channelId: channel.id
         })
       })
@@ -272,6 +274,20 @@ watch(activeSubscriptionList, () => {
 // region created
 
 getSubscription()
+
+// Channels that arrived through media sync have only an ID as their name and no picture. Fill in a few
+// at a time (updateThumbnail spaces its requests out); the rest follow on later visits.
+const hydrationRequested = new Set()
+function hydrateSyncedChannels() {
+  for (const channel of subscribedChannels.value) {
+    if (hydrationRequested.size >= 25) { break }
+    if ((channel.name === channel.id || !channel.thumbnail) && !hydrationRequested.has(channel.id)) {
+      hydrationRequested.add(channel.id)
+      updateThumbnail(channel)
+    }
+  }
+}
+hydrateSyncedChannels()
 
 const oldQuery = route.query.searchQueryText ?? ''
 if (oldQuery !== null && oldQuery !== '') {

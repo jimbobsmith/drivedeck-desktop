@@ -4,6 +4,7 @@ import { existsSync, readFileSync, writeFileSync, renameSync, unlinkSync, statSy
 import { join } from 'node:path'
 import { AppSync } from './app-sync.mjs'
 import { AutoSync } from './auto-sync.mjs'
+import { hydrateHistory } from './hydrate.mjs'
 import { unprotect, validateConfig } from './enrollment.mjs'
 import { connectWithCode } from './connect.mjs'
 import { fail, SyncError } from './protocol.mjs'
@@ -17,7 +18,7 @@ export function installMediaSync (models, allowed, channels, events) {
     let current; try { current = get() } catch { errorCode = 'local_sync_error'; return { code: 'local_sync_error' } }
     if (!current) return { code: 'not_enrolled' }
     if (busy) return { code: 'client_busy' }; busy = true
-    try { const result = await current.sync(); errorCode = result.code === 'offline' ? 'offline' : undefined; return result } catch (error) { errorCode = error instanceof SyncError ? error.code : 'sync_failed'; return { code: errorCode } } finally { busy = false }
+    try { const result = await current.sync(); errorCode = result.code === 'offline' ? 'offline' : undefined; if (result.code !== 'offline') hydrate(); return result } catch (error) { errorCode = error instanceof SyncError ? error.code : 'sync_failed'; return { code: errorCode } } finally { busy = false }
   }
   const auto = new AutoSync({ run: autoRun, enabled: () => { try { return get()?.autoSyncEnabled() ?? false } catch { return false } } })
   const requireVault = () => { if (!safeStorage.isEncryptionAvailable() || (process.platform === 'linux' && safeStorage.getSelectedStorageBackend() === 'basic_text')) fail('os_secret_store_unavailable') }
@@ -29,6 +30,18 @@ export function installMediaSync (models, allowed, channels, events) {
       w.webContents.send(channels.SYNC_PLAYLISTS, { event: events.GENERAL.OVERWRITE, data: playlists })
       w.webContents.send(channels.SYNC_PROFILES, { event: events.GENERAL.OVERWRITE, data: profiles })
     }
+  }
+  // Titles for items that arrived as bare IDs. Skipped when the user chose Invidious, so YouTube is not contacted directly.
+  let hydrating = false
+  const hydrate = async () => {
+    if (hydrating) return; hydrating = true
+    try {
+      const settings = await models.settings.find().catch(() => [])
+      if (settings.find(row => row._id === 'backendPreference')?.value === 'invidious') return
+      const current = get(); if (!current) return
+      const updated = await hydrateHistory(models, { limit: 20 })
+      if (updated) await current.gate(() => changed())
+    } catch { /* Cosmetic only; the next sync tries again. */ } finally { hydrating = false }
   }
   function get () {
     if (instance || !existsSync(secretPath())) return instance
@@ -87,7 +100,7 @@ export function installMediaSync (models, allowed, channels, events) {
       if (action === 'auto-sync-on' || action === 'auto-sync-off') { const current = get(); if (!current) fail('not_enrolled'); const result = await current.gate(() => current.setAutoSync(action === 'auto-sync-on')); if (action === 'auto-sync-on') auto.resume(0); return result }
       if (!['sync', 'keep-local', 'use-remote'].includes(action)) fail('invalid_action')
       const current = get(); if (!current) fail('not_enrolled')
-      errorCode = undefined; const result = await current.sync(action === 'sync' ? undefined : action); auto.resume(); return result
+      errorCode = undefined; const result = await current.sync(action === 'sync' ? undefined : action); auto.resume(); if (result.code !== 'offline') hydrate(); return result
     } catch (error) { return { ...status(), code: error instanceof SyncError ? error.code : 'sync_failed' } } finally { busy = false }
   })
   const importHandler = wrap(async (event, action) => {

@@ -244,3 +244,37 @@ test('auto sync keeps its back-off when local changes arrive and pauses on the r
     const r = scheduler([code]); r.auto.start(); await r.fire(); assert.equal(r.live().length, 0); r.auto.poke(); assert.equal(r.live().length, 0);
   }
 });
+
+// Title hydration for items that arrived as bare IDs (no protocol change, no sync-service traffic).
+const {hydrateHistory, isPlaceholder, fetchOEmbed} = await import('../../src/main/media-sync/hydrate.mjs');
+const oembed = (title, author = 'Chan') => async url => {
+  assert.match(String(url), /^https:\/\/www\.youtube\.com\/oembed\?format=json&url=/);
+  return {ok: true, text: async () => JSON.stringify({title, author_name: author})};
+};
+test('hydration replaces only placeholder titles and never overwrites a local edit', async () => {
+  await models.history.deleteAll();
+  const base = {author: '', authorId: '', published: 0, description: '', viewCount: 0, lengthSeconds: 0, timeWatched: 0, isLive: false, type: 'video'};
+  await models.history.upsert({...base, videoId: 'aBcDeFgH123', title: 'Synced video: aBcDeFgH123'});
+  await models.history.upsert({...base, videoId: 'bBcDeFgH123', title: 'Synced resume: bBcDeFgH123'});
+  await models.history.upsert({...base, videoId: 'cBcDeFgH123', title: 'My real title', author: 'Mine'});
+  assert.equal(isPlaceholder({videoId: 'aBcDeFgH123', title: 'Synced video: aBcDeFgH123'}), true);
+  assert.equal(isPlaceholder({videoId: 'cBcDeFgH123', title: 'My real title'}), false);
+  let calls = 0; const sleeps = [];
+  const updated = await hydrateHistory(models, {fetchFn: async (...a) => { calls += 1; return oembed('Real title\u0007', 'The Channel')(...a); }, delayMs: 1, sleep: async ms => { sleeps.push(ms); }});
+  assert.equal(updated, 2); assert.equal(calls, 2); assert.equal(sleeps.length, 2);
+  const rows = Object.fromEntries((await models.history.find()).map(r => [r.videoId, r]));
+  assert.equal(rows.aBcDeFgH123.title, 'Real title'); assert.equal(rows.aBcDeFgH123.author, 'The Channel');
+  assert.equal(rows.cBcDeFgH123.title, 'My real title'); assert.equal(rows.cBcDeFgH123.author, 'Mine');
+  assert.equal(await hydrateHistory(models, {fetchFn: oembed('x'), sleep: async () => {}}), 0);
+});
+test('hydration is bounded, tolerates failures and rejects oversized or invalid answers', async () => {
+  await models.history.deleteAll();
+  const ids = ['aaaaaaaaaa1', 'aaaaaaaaaa2', 'aaaaaaaaaa3'];
+  for (const id of ids) await models.history.upsert({videoId: id, title: 'Synced video: ' + id, author: '', authorId: '', published: 0, description: '', viewCount: 0, lengthSeconds: 0, timeWatched: 0, isLive: false, type: 'video'});
+  assert.equal(await hydrateHistory(models, {fetchFn: async () => { throw new Error('offline'); }, sleep: async () => {}}), 0);
+  assert.equal(await hydrateHistory(models, {fetchFn: oembed('One'), limit: 2, sleep: async () => {}}), 2);
+  assert.equal((await models.history.find()).filter(isPlaceholder).length, 1);
+  assert.equal(await fetchOEmbed('aaaaaaaaaa3', async () => ({ok: false})), null);
+  assert.equal(await fetchOEmbed('aaaaaaaaaa3', async () => ({ok: true, text: async () => 'x'.repeat(20000)})), null);
+  assert.equal(await fetchOEmbed('aaaaaaaaaa3', async () => ({ok: true, text: async () => JSON.stringify({title: '  '})})), null);
+});
