@@ -62,7 +62,7 @@ export default {
     }
   },
   linux: {
-    category: 'Network',
+    category: 'AudioVideo;Video;Player;Feed;Network',
     icon: '_icons/icon.svg',
     target: ['AppImage', 'deb'],
   },
@@ -88,6 +88,33 @@ export default {
   toolsets: {
     appimage: '1.0.3'
   },
+
+  // NOTE: this exists purely for local development builds, we will not provide support for flatpaks built this way!
+  // This is here if unofficial builds need to be made
+  // The arguments and versions below are examples only and may become outdated
+  // The source of truth for the current Flatpak configuration is the Flathub repository
+  /*
+  flatpak: {
+    // install flatpak builder
+    // install electron app from flathub. Ex: flatpak install flathub org.electronjs.Electron2.BaseApp/x86_64/25.08
+    finishArgs: [
+      '--device=dri',
+      '--share=ipc',
+      '--socket=wayland',
+      '--socket=fallback-x11',
+      '--socket=pulseaudio',
+      '--share=network',
+      '--own-name=org.mpris.MediaPlayer2.chromium.*',
+      '--own-name=org.mpris.MediaPlayer2.freetube',
+      '--talk-name=org.freedesktop.PowerManagement',
+      '--talk-name=org.freedesktop.ScreenSaver',
+      '--talk-name=org.gnome.SessionManager',
+      '--talk-name=org.gnome.SettingsDaemon'
+    ],
+    runtimeVersion: '25.08',
+    baseVersion: '25.08',
+  },
+  */
   mac: {
     category: 'public.app-category.utilities',
     icon: '_icons/iconMac.icns',
