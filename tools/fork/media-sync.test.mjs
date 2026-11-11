@@ -196,3 +196,51 @@ test('profile projection journal recovery retains a local rename and preserves e
  assert.throws(()=>validatePayload({...p,name:'x'.repeat(161)}));assert.throws(()=>validatePayload({...membership(p),id:'bad'}));assert.throws(()=>validatePayload({...p,subscriptions:[]}));
  for(const name of ['\uFEFF','\uD800','\uDC00']) assert.throws(()=>validatePayload({...p,name}));
 });
+
+// Automatic sync scheduling (no network): timers are faked and run() is scripted.
+const {AutoSync} = await import('../../src/main/media-sync/auto-sync.mjs');
+function scheduler(codes, enabled = () => true) {
+  const timers = []; let calls = 0;
+  const auto = new AutoSync({run: async () => { calls += 1; const next = codes.shift(); if (next instanceof Error) throw next; return {code: next}; }, enabled, intervalMs: 100, debounceMs: 10, startDelayMs: 5, maxBackoffMs: 1000,
+    setTimer: (fn, ms) => { const t = {fn, ms, unref() {}}; timers.push(t); return t; }, clearTimer: t => { t.cleared = true; }});
+  const live = () => timers.filter(t => !t.cleared && !t.fired);
+  const fire = async () => { const t = live().at(-1); t.fired = true; await t.fn(); };
+  return {auto, timers, live, fire, calls: () => calls};
+}
+test('auto sync runs after the start delay, then every interval', async () => {
+  const s = scheduler(['synced', 'synced']); s.auto.start();
+  assert.equal(s.live().at(-1).ms, 5); await s.fire(); assert.equal(s.calls(), 1); assert.equal(s.live().at(-1).ms, 100);
+  await s.fire(); assert.equal(s.calls(), 2);
+});
+test('auto sync debounces local changes and backs off when offline, capped', async () => {
+  const s = scheduler(['offline', 'offline', 'offline', 'offline', 'offline', 'offline', 'synced']); s.auto.start(); await s.fire();
+  const waits = [s.live().at(-1).ms]; for (let i = 0; i < 4; i++) { await s.fire(); waits.push(s.live().at(-1).ms); }
+  assert.deepEqual(waits, [200, 400, 800, 1000, 1000]);
+  await s.fire(); await s.fire(); assert.equal(s.live().at(-1).ms, 100); // success resets the back-off
+  s.auto.poke(); assert.equal(s.live().at(-1).ms, 10); assert.equal(s.live().length, 1);
+});
+test('auto sync pauses on conflict or restored service until the user acts', async () => {
+  for (const code of ['conflict', 'restored_service']) {
+    const s = scheduler([code, 'synced']); s.auto.start(); await s.fire();
+    assert.equal(s.live().length, 0); s.auto.poke(); assert.equal(s.live().length, 0);
+    s.auto.resume(); assert.equal(s.live().length, 1); await s.fire(); assert.equal(s.calls(), 2);
+  }
+});
+test('auto sync skips runs while disabled, treats errors as back-off and stops cleanly', async () => {
+  let on = false; const s = scheduler([new Error('boom'), 'synced'], () => on); s.auto.start(); await s.fire();
+  assert.equal(s.calls(), 0); assert.equal(s.live().at(-1).ms, 100); on = true; await s.fire(); assert.equal(s.live().at(-1).ms, 200);
+  s.auto.stop(); assert.equal(s.live().length, 0); s.auto.poke(); assert.equal(s.live().length, 0);
+});
+test('auto sync can be switched off per enrollment and defaults on', async t => {
+  const {app} = await fixture(t); assert.equal(app.status().autoSync, true); assert.equal(app.status().lastSyncAt, null);
+  assert.equal(app.setAutoSync(false).autoSync, false); assert.equal(app.autoSyncEnabled(), false);
+  assert.equal(app.setAutoSync(true).autoSync, true);
+});
+test('auto sync keeps its back-off when local changes arrive and pauses on the real restore error codes', async () => {
+  const s = scheduler(['offline']); s.auto.start(); await s.fire();
+  const backoff = s.live().at(-1); assert.equal(backoff.ms, 200); s.auto.poke();
+  assert.equal(s.live().length, 1); assert.equal(s.live().at(-1), backoff); // not replaced by the 10 ms debounce
+  for (const code of ['server_generation_changed', 'resnapshot_required']) {
+    const r = scheduler([code]); r.auto.start(); await r.fire(); assert.equal(r.live().length, 0); r.auto.poke(); assert.equal(r.live().length, 0);
+  }
+});
