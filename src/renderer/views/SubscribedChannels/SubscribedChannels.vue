@@ -91,6 +91,7 @@ import FtSubscribeButton from '../../components/FtSubscribeButton/FtSubscribeBut
 import { invidiousGetChannelInfo, youtubeImageUrlToInvidious, invidiousImageUrlToInvidious } from '../../helpers/api/invidious'
 import { getLocalChannel, parseLocalChannelHeader } from '../../helpers/api/local'
 import { ctrlFHandler, debounce } from '../../helpers/utils'
+import { hydrationAttempted, pickChannelsToHydrate } from '../../helpers/synced-channels.mjs'
 import { useI18n } from 'vue-i18n'
 import store from '../../store/index'
 
@@ -276,15 +277,11 @@ watch(activeSubscriptionList, () => {
 getSubscription()
 
 // Channels that arrived through media sync have only an ID as their name and no picture. Fill in a few
-// at a time (updateThumbnail spaces its requests out); the rest follow on later visits.
-const hydrationRequested = new Set()
+// at a time (updateThumbnail spaces its requests out). The attempted set lives outside this component, so
+// channels whose lookup failed wait until every other candidate has had a turn.
 function hydrateSyncedChannels() {
-  for (const channel of subscribedChannels.value) {
-    if (hydrationRequested.size >= 25) { break }
-    if ((channel.name === channel.id || !channel.thumbnail) && !hydrationRequested.has(channel.id)) {
-      hydrationRequested.add(channel.id)
-      updateThumbnail(channel)
-    }
+  for (const channel of pickChannelsToHydrate(subscribedChannels.value, hydrationAttempted, 25)) {
+    updateThumbnail(channel)
   }
 }
 hydrateSyncedChannels()

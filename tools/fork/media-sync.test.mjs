@@ -247,6 +247,7 @@ test('auto sync keeps its back-off when local changes arrive and pauses on the r
 
 // Title hydration for items that arrived as bare IDs (no protocol change, no sync-service traffic).
 const {hydrateHistory, isPlaceholder, fetchOEmbed} = await import('../../src/main/media-sync/hydrate.mjs');
+const {pickChannelsToHydrate} = await import('../../src/renderer/helpers/synced-channels.mjs');
 const oembed = (title, author = 'Chan') => async url => {
   assert.match(String(url), /^https:\/\/www\.youtube\.com\/oembed\?format=json&url=/);
   return {ok: true, text: async () => JSON.stringify({title, author_name: author})};
@@ -259,6 +260,8 @@ test('hydration replaces only placeholder titles and never overwrites a local ed
   await models.history.upsert({...base, videoId: 'cBcDeFgH123', title: 'My real title', author: 'Mine'});
   assert.equal(isPlaceholder({videoId: 'aBcDeFgH123', title: 'Synced video: aBcDeFgH123'}), true);
   assert.equal(isPlaceholder({videoId: 'cBcDeFgH123', title: 'My real title'}), false);
+  assert.equal(isPlaceholder({videoId: 'aBcDeFgH123', title: 'Synced video: aBcDeFgH123 (my note)'}), false);
+  assert.equal(isPlaceholder({videoId: 'aBcDeFgH123', title: 'Synced video: zzzzzzzzzzz'}), false);
   let calls = 0; const sleeps = [];
   const updated = await hydrateHistory(models, {fetchFn: async (...a) => { calls += 1; return oembed('Real title\u0007', 'The Channel')(...a); }, delayMs: 1, sleep: async ms => { sleeps.push(ms); }});
   assert.equal(updated, 2); assert.equal(calls, 2); assert.equal(sleeps.length, 2);
@@ -277,4 +280,26 @@ test('hydration is bounded, tolerates failures and rejects oversized or invalid 
   assert.equal(await fetchOEmbed('aaaaaaaaaa3', async () => ({ok: false})), null);
   assert.equal(await fetchOEmbed('aaaaaaaaaa3', async () => ({ok: true, text: async () => 'x'.repeat(20000)})), null);
   assert.equal(await fetchOEmbed('aaaaaaaaaa3', async () => ({ok: true, text: async () => JSON.stringify({title: '  '})})), null);
+});
+
+test('hydration rotates past failing videos, serialises writes and never reads the network inside the write lock', async () => {
+  await models.history.deleteAll();
+  const ids = ['aaaaaaaaaa1', 'aaaaaaaaaa2', 'aaaaaaaaaa3'];
+  for (const id of ids) await models.history.upsert({videoId: id, title: 'Synced video: ' + id, author: '', authorId: '', published: 0, description: '', viewCount: 0, lengthSeconds: 0, timeWatched: 0, isLive: false, type: 'video'});
+  const skip = new Set(); let locked = false; let sawLockedFetch = false; let writes = 0;
+  let failId; const fetchFn = async url => { if (locked) sawLockedFetch = true; const id = /watch%3Fv%3D(\w+)/.exec(String(url))[1]; failId ??= id; if (id === failId) throw new Error('private video'); return oembed('Title')(url); };
+  const write = async fn => { locked = true; try { writes += 1; await fn(); } finally { locked = false; } };
+  assert.equal(await hydrateHistory(models, {fetchFn, limit: 1, sleep: async () => {}, skip, write}), 0); // first candidate fails
+  assert.equal(await hydrateHistory(models, {fetchFn, limit: 1, sleep: async () => {}, skip, write}), 1); // it is skipped, the next one is hydrated
+  assert.equal(await hydrateHistory(models, {fetchFn, limit: 5, sleep: async () => {}, skip, write}), 1);
+  assert.equal(writes, 2); assert.equal(sawLockedFetch, false);
+  assert.equal((await models.history.find()).filter(isPlaceholder).length, 1); // the unavailable video remains eligible
+});
+test('synced channel lookups rotate past failures and respect the budget', () => {
+  const attempted = new Set(); const channels = ['a', 'b', 'c', 'd'].map(id => ({id, name: id, thumbnail: ''}));
+  channels.push({id: 'e', name: 'Named', thumbnail: 'x'});
+  assert.deepEqual(pickChannelsToHydrate(channels, attempted, 2).map(c => c.id), ['a', 'b']);
+  assert.deepEqual(pickChannelsToHydrate(channels, attempted, 2).map(c => c.id), ['c', 'd']);
+  assert.deepEqual(pickChannelsToHydrate(channels, attempted, 2).map(c => c.id), ['a', 'b']); // everyone had a turn: start over
+  assert.deepEqual(pickChannelsToHydrate([channels[4]], new Set(), 5), []);
 });

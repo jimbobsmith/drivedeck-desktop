@@ -1,5 +1,5 @@
 import { LibraryImporter, parseFiles } from '../library-import/native.mjs'
-import { app, BrowserWindow, dialog, ipcMain, safeStorage } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, safeStorage, session } from 'electron'
 import { existsSync, readFileSync, writeFileSync, renameSync, unlinkSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { AppSync } from './app-sync.mjs'
@@ -36,10 +36,17 @@ export function installMediaSync (models, allowed, channels, events) {
   const hydrate = async () => {
     if (hydrating) return; hydrating = true
     try {
-      const settings = await models.settings.find().catch(() => [])
+      // No catch on the settings read: if the backend preference cannot be read, skip rather than contact YouTube.
+      const settings = await models.settings.find()
       if (settings.find(row => row._id === 'backendPreference')?.value === 'invidious') return
       const current = get(); if (!current) return
-      const updated = await hydrateHistory(models, { limit: 20 })
+      const updated = await hydrateHistory(models, {
+        limit: 20,
+        // The app's own session, so the proxy configured in settings applies to these requests too.
+        fetchFn: (url, init) => session.defaultSession.fetch(url, init),
+        // Each re-read and write takes the same locks as other history mutations and sync projection.
+        write: fn => gate(() => current.gate(fn))
+      })
       if (updated) await current.gate(() => changed())
     } catch { /* Cosmetic only; the next sync tries again. */ } finally { hydrating = false }
   }
