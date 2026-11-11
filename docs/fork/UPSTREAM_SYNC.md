@@ -24,7 +24,8 @@ urgent YouTube fix, or empty for the newest release.
 Merging the PR still needs maintainer authority and a real playback check: CI cannot prove that YouTube
 plays. Keep the updated pin file in the merge so the next run knows where it stands.
 
-One-time setup: add a fine-grained token (this repository, Contents, Pull requests and Issues
-read/write) as the repository secret `UPSTREAM_SYNC_TOKEN`, enable Actions to create pull requests
-(Settings -> Actions -> General), and if the repository is a GitHub fork enable scheduled workflows in
-the Actions tab.
+One-time setup: add a fine-grained token as the repository secret `UPSTREAM_SYNC_TOKEN` (this repository;
+Contents, Pull requests, Issues and Workflows, all read/write; Workflows is needed because a merge can
+bring in upstream workflow files and GitHub rejects such a push without it), enable Actions to create pull
+requests (Settings -> Actions -> General), and if the repository is a GitHub fork enable scheduled workflows
+in the Actions tab.
