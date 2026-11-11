@@ -52,7 +52,8 @@
     "lint:media-sync": "eslint --config eslint.config.mjs \"src/main/media-sync/*.mjs\" \"src/main/library-import/*.mjs\"",
     "test:desktop-updates": "node --test tools/fork/desktop-updates.test.mjs",
     "lint:desktop-updates": "eslint --config eslint.config.mjs src/main/desktop-*.mjs src/main/install-desktop-updates.mjs src/renderer/helpers/desktop-update-checks.mjs",
-    "test:library-import": "node --test tools/fork/library-import.test.mjs"
+    "test:library-import": "node --test tools/fork/library-import.test.mjs",
+    "test:timezone-cookie": "node --test tools/fork/timezone-cookie.test.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.0",

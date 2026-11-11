@@ -30,6 +30,7 @@ import contextMenu from 'electron-context-menu'
 import packageDetails from '../../package.json'
 import { handleOpenInExternalPlayer } from './externalPlayer'
 import { generatePoToken } from './poTokenGenerator'
+import { appendTimeZoneCookie } from './timezone-cookie.mjs'
 import { isFreeTubeUrl } from './utils'
 
 const brotliDecompressAsync = promisify(brotliDecompress)
@@ -605,7 +606,7 @@ function runApp() {
         requestHeaders['Sec-Fetch-Site'] = 'none'
         requestHeaders['Sec-Fetch-User'] = '?1'
         requestHeaders.Cookie = requestHeaders.Cookie
-          ? requestHeaders.Cookie + `;PREF=tz=${Intl.DateTimeFormat().resolvedOptions().timeZone.replace('/', '.')}`
+          ? appendTimeZoneCookie(requestHeaders.Cookie, Intl.DateTimeFormat().resolvedOptions().timeZone)
           : ''
       } else if (url === 'https://www.youtube.com/sw.js_data' || url.startsWith('https://www.youtube.com/api/timedtext')) {
         requestHeaders.Referer = 'https://www.youtube.com/sw.js'
