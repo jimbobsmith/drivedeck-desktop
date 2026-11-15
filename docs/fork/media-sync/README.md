@@ -95,3 +95,7 @@ Playlists, Watch Later and latest per-video watch history are an explicit opt-in
 ## Automatic sync (issue: automatic two-way sync)
 
 `src/main/media-sync/auto-sync.mjs` schedules `AppSync.sync()` in the main process: once shortly after start, then every two minutes, and 15 seconds after a local change is captured. Offline or failed runs back off (doubling, capped at 30 minutes). A conflict or restored service pauses it until you act (resolve conflicts or choose Sync now). Settings shows a single **Pause automatic sync** / **Resume automatic sync** button (only the valid one) and the last sync time. The setting is per enrollment and defaults to on. It never plays media and never runs without an enrollment.
+
+## Titles for synced items
+
+Synced records carry only IDs, so a video that arrives from another device first appears as `Synced video: <id>` and a channel shows its ID. Nothing about this changes the sync protocol or sends anything to the sync service. After each completed sync, `src/main/media-sync/hydrate.mjs` fills in up to 20 such history titles (and the channel name) from YouTube's public oEmbed endpoint, from the main process, only while the backend preference is not Invidious. Only rows that still hold their placeholder title are written, so a local edit is never overwritten. Channels with only an ID as name, or no picture, are filled in (up to 25 per visit) when the Subscribed Channels page opens, using the existing local/Invidious channel lookup. Failures are ignored and retried on a later sync or visit.
