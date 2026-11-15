@@ -4,6 +4,7 @@ import { parseLooseJSON } from 'bgutils-js/utils'
 
 import { SEARCH_CHAR_LIMIT } from '../../../constants'
 import { PlayerCache } from './PlayerCache'
+import { createTimeZonePrefCookie } from '../timezone-cookie.mjs'
 import {
   CHANNEL_HANDLE_REGEX,
   calculatePublishedDate,
@@ -400,6 +401,8 @@ export async function getLocalSearchContinuation(continuationData) {
  * @param {string} kind
  */
 async function getHTMLPage(url, kind) {
+  const timeZonePrefCookie = createTimeZonePrefCookie(Intl.DateTimeFormat().resolvedOptions().timeZone)
+
   // This returns session/tracking cookies but they get removed in onHeadersReceived in the main process before they are saved by Electron
   const htmlResponse = await fetch(url,
     {
@@ -409,10 +412,8 @@ async function getHTMLPage(url, kind) {
         ...(
           // The "Cookie" header is forbidden by the fetch spec, so we set it as X-Cookie here
           // and then convert it to the Cookie header in the main process
-          process.env.IS_ELECTRON
-            ? {
-                'X-Cookie': `PREF=tz=${Intl.DateTimeFormat().resolvedOptions().timeZone.replace('/', '.')}`
-              }
+          process.env.IS_ELECTRON && timeZonePrefCookie
+            ? { 'X-Cookie': timeZonePrefCookie }
             : {}
         )
       }
