@@ -1,0 +1,22 @@
+{
+  "baseBranch": "main",
+  "upstream": {
+    "name": "FreeTube",
+    "url": "https://github.com/FreeTubeApp/FreeTube.git",
+    "branch": "development",
+    "tagPattern": "^v(\\d+)\\.(\\d+)\\.(\\d+)(?:-beta)?$"
+  },
+  "keepOurs": [
+    ".github/workflows/**",
+    "_icons/**",
+    "README.md"
+  ],
+  "lockfile": {
+    "path": "pnpm-lock.yaml",
+    "command": "pnpm install --lockfile-only --ignore-scripts"
+  },
+  "pin": {
+    "tag": "v0.26.0-beta",
+    "commit": "b23886b04d09fd0ee82f088a0d4075deb1785c3f"
+  }
+}
