@@ -2,7 +2,7 @@
   "name": "dd-freetube",
   "productName": "DD FreeTube",
   "description": "A private YouTube client",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "license": "AGPL-3.0-or-later",
   "main": "./dist/main.js",
   "private": true,
