@@ -81,6 +81,18 @@
         :disabled="busy"
         @click="run('sync')"
       />
+      <FtButton
+        v-if="status.autoSync"
+        :label="$t('MediaSync.PauseAuto')"
+        :disabled="busy"
+        @click="run('auto-sync-off')"
+      />
+      <FtButton
+        v-else
+        :label="$t('MediaSync.ResumeAuto')"
+        :disabled="busy"
+        @click="run('auto-sync-on')"
+      />
       <template v-if="status.conflicts">
         <p>{{ $t('MediaSync.Conflict') }}</p>
         <FtButton
@@ -104,7 +116,7 @@
   </FtSettingsSection>
 </template>
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FtSettingsSection from './FtSettingsSection/FtSettingsSection.vue'
 import FtButton from './FtButton/FtButton.vue'
@@ -117,7 +129,11 @@ const label = ref('DD FreeTube')
 const busy = ref(false)
 const statusText = computed(() => {
   const messages = { invalid_connect_code: t('MediaSync.CodeRejected'), invalid_code: t('MediaSync.CodeInvalid'), invalid_service_address: t('MediaSync.AddressInvalid'), verified_transport_required: t('MediaSync.AddressInvalid'), invalid_device_label: t('MediaSync.DeviceNameInvalid'), rate_limited: t('MediaSync.TooManyAttempts'), device_quota: t('MediaSync.DeviceQuota'), profiles_upgrade_required: t('MediaSync.ProfilesUpgrade'), unsupported_profiles_version: t('MediaSync.ProfilesUpgrade'), profile_not_portable: t('MediaSync.ProfilesLimit'), library_upgrade_required: t('MediaSync.LibraryUpgrade'), playlist_not_portable: t('MediaSync.LibraryLimit'), invalid_playlist_name: t('MediaSync.LibraryLimit'), disconnected: t('MediaSync.Disconnected'), ready: t('MediaSync.Ready'), server_generation_changed: t('MediaSync.Restored'), synced: t('MediaSync.Synced'), pending: t('MediaSync.Pending'), conflict: t('MediaSync.Conflict'), offline: t('MediaSync.Offline'), restored_service: t('MediaSync.Restored') }
-  return messages[status.value.code] ?? t('MediaSync.Failed')
+  const base = messages[status.value.code] ?? t('MediaSync.Failed')
+  if (!status.value.enabled) return base
+  const auto = status.value.autoSync ? t('MediaSync.AutoOn') : t('MediaSync.AutoOff')
+  const last = status.value.lastSyncAt ? ' ' + t('MediaSync.LastSynced', { time: new Date(status.value.lastSyncAt).toLocaleString() }) : ''
+  return `${base}${last} ${auto}`
 })
 async function run(action) {
   if (busy.value) return
@@ -129,5 +145,8 @@ async function run(action) {
     if (action === 'connect' && status.value.enabled) { code.value = ''; address.value = '' }
   } catch { status.value = { ...status.value, code: 'failed' } } finally { passphrase.value = ''; busy.value = false }
 }
-onMounted(() => run('status'))
+// Automatic sync runs in the background, so refresh the local status (no network) while this page is open.
+let refresh
+onMounted(() => { run('status'); refresh = setInterval(async () => { if (!busy.value) { try { status.value = await window.ftElectron.mediaSync('status') } catch { /* keep the last status */ } } }, 15000) })
+onBeforeUnmount(() => clearInterval(refresh))
 </script>
