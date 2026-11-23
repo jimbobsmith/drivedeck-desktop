@@ -66,6 +66,7 @@ import { useI18n } from 'vue-i18n'
 
 import MediaSyncSettings from '../../components/MediaSyncSettings.vue'
 import DesktopUpdates from '../../components/DesktopUpdates.vue'
+import ProtonSwitchSettings from '../../components/ProtonSwitchSettings.vue'
 import GeneralSettings from '../../components/GeneralSettings/GeneralSettings.vue'
 import ThemeSettings from '../../components/ThemeSettings.vue'
 import PlayerSettings from '../../components/PlayerSettings/PlayerSettings.vue'
@@ -102,6 +103,7 @@ const settingsComponentsData = computed(() => {
   return [
     ...(USING_ELECTRON ? [{ type: 'desktop-updates', title: t('DDUpdates.Title'), icon: ['fas', 'download'], component: DesktopUpdates }] : []),
     ...(USING_ELECTRON ? [{ type: 'media-sync', title: t('MediaSync.Title'), icon: ['fas', 'arrows-rotate'], component: MediaSyncSettings }] : []),
+    ...(USING_ELECTRON ? [{ type: 'proton-switch', title: t('ProtonSwitch.Title'), icon: ['fas', 'shield'], component: ProtonSwitchSettings }] : []),
     {
       type: 'theme',
       title: t('Settings.Theme Settings.Theme Settings'),

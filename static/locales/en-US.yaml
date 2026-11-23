@@ -1347,3 +1347,42 @@ LibraryImport:
   Progress: Saved progress
   Unchanged: Existing unchanged items
   Unsupported: Unsupported entries omitted
+ProtonSwitch:
+  Title: Proton VPN switching
+  Description: When YouTube blocks the address this computer plays from, DD FreeTube can ask the Proton VPN app on this computer to switch to another favorite server, wait until the new connection is up, and continue the video where it stopped. The Proton VPN app chooses the server.
+  Mode: On a YouTube block
+  ModeAutomatic: Switch automatically
+  ModeAsk: Ask me first
+  ModeOff: Do nothing
+  StatusChecking: Looking for the Proton VPN app…
+  StatusReady: The Proton VPN app is running.
+  StatusConnected: The Proton VPN app is connected to {server}.
+  StatusDisconnected: The Proton VPN app is running but not connected.
+  StatusUnavailable: The Proton VPN app is not running on this computer, so DD FreeTube cannot change the address.
+  StatusUnsupported: Switching Proton VPN servers is not available on this system.
+  StatusSwitching: The Proton VPN app is switching servers.
+  StatusSwitched: The Proton VPN app switched to {server}.
+  StatusFailed: 'The last switch did not happen: {message}'
+  StatusNoAnswer: The Proton VPN app did not answer the last switch within 10 minutes.
+  StatusBusy: The Proton VPN app is busy with another request.
+  SwitchNow: Switch server now
+  Checking: Checking for the Proton VPN app…
+  Ask: YouTube blocked this video stream from the current VPN address.
+  AskQuestion: Switch to another favorite Proton VPN server and continue the video?
+  Switching: The Proton VPN app is switching to another favorite server. The video continues when the new connection is up.
+  CheckingNetwork: Connected to {server}. Checking the connection…
+  CheckingNetworkNoServer: Connected to a new server. Checking the connection…
+  Replaying: Connected to {server}. Continuing the video…
+  ReplayingNoServer: Connected to a new server. Continuing the video…
+  Failed: 'The Proton VPN app could not switch: {message}'
+  NoReason: no reason was given.
+  NoAnswer: The Proton VPN app did not answer within 10 minutes. The switch may still finish.
+  Busy: The Proton VPN app is busy with another request.
+  Unavailable: The Proton VPN app is not running on this computer, so DD FreeTube cannot change the address.
+  PausedVideo: Automatic switching stopped for this video after {count} switches did not fix it.
+  Paused: Automatic switching is paused after {count} switches in 15 minutes.
+  SwitchAndContinue: Switch and continue
+  NotNow: Not now
+  SwitchAgain: Switch server
+  ReloadVideo: Reload video
+  CheckAgain: Check again

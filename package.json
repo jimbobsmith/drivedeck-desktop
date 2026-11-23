@@ -50,7 +50,10 @@
     "test:desktop-updates": "node --test tools/fork/desktop-updates.test.mjs",
     "lint:desktop-updates": "eslint --config eslint.config.mjs src/main/desktop-*.mjs src/main/install-desktop-updates.mjs src/renderer/helpers/desktop-update-checks.mjs",
     "test:library-import": "node --test tools/fork/library-import.test.mjs",
-    "test:timezone-cookie": "node --test tools/fork/timezone-cookie.test.mjs"
+    "test:timezone-cookie": "node --test tools/fork/timezone-cookie.test.mjs",
+    "test:proton-switch": "node --test tools/fork/proton-switch.test.mjs",
+    "e2e:proton-switch": "node tools/fork/proton-switch-e2e.cjs",
+    "lint:proton-switch": "eslint --config eslint.config.mjs src/main/proton-switch.mjs src/main/install-proton-switch.mjs src/renderer/helpers/proton-block.mjs tools/fork/proton-mock.mjs tools/fork/proton-switch.test.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",

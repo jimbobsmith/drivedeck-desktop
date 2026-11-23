@@ -35,6 +35,8 @@ jobs:
       - run: pnpm run lint:desktop-updates
       - run: pnpm run test:media-sync
       - run: pnpm run test:desktop-updates
+      - run: pnpm run lint:proton-switch
+      - run: pnpm run test:proton-switch
       - run: node tools/fork/collect-production-notices.cjs --check
       - name: Linux packaging tools
         if: runner.os == 'Linux'

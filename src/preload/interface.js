@@ -27,6 +27,20 @@ export default {
   libraryImport: (action) => ipcRenderer.invoke('dd-library-import', action),
   mediaSync: (action, input) => ipcRenderer.invoke('dd-media-sync', action, input),
   /**
+   * Ask the Proton VPN app on this computer for a new exit address.
+   * @param {'status' | 'switch'} action
+   */
+  protonSwitch: action => ipcRenderer.invoke('dd-proton-switch', action),
+  /**
+   * @param {(state: object) => void} handler
+   * @returns {() => void} stops listening
+   */
+  onProtonSwitchState: (handler) => {
+    const listener = (_, state) => handler(state)
+    ipcRenderer.on('dd-proton-switch-state', listener)
+    return () => ipcRenderer.off('dd-proton-switch-state', listener)
+  },
+  /**
    * @returns {Promise<string>}
    */
   getSystemLocale: () => {
