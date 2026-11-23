@@ -303,3 +303,28 @@ test('synced channel lookups rotate past failures and respect the budget', () =>
   assert.deepEqual(pickChannelsToHydrate(channels, attempted, 2).map(c => c.id), ['a', 'b']); // everyone had a turn: start over
   assert.deepEqual(pickChannelsToHydrate([channels[4]], new Set(), 5), []);
 });
+
+test('a resume conflict resolves itself: the checkpoint made here is re-sent on the newer remote revision', async t => {
+  const {app, c} = await fixture(t), local = resume(700000), key = recordKey(c.keys, local), other = recordKey(c.keys, sub);
+  app.client.state.local[key] = {payload: local, operation: 'put', epoch: 0}; app.client.state.remote[key] = {payload: resume(1200000), operation: 'put', epoch: 0, revision: 2};
+  app.client.state.pending = [{intentId: randomUUID(), payload: local, operation: 'put', epoch: 0, baseRevision: 1, predecessor: null, wire: {}}]; app.client.state.conflicts[key] = {revision: 2, code: 'revision_conflict'};
+  app.client.state.local[other] = {payload: sub, operation: 'remove', epoch: 0}; app.client.state.remote[other] = {payload: sub, operation: 'put', epoch: 0, revision: 3}; app.client.state.conflicts[other] = {revision: 3, code: 'revision_conflict'};
+  assert.equal(app.resolveResumeConflicts(), 1);
+  assert.deepEqual(Object.keys(app.client.state.conflicts), [other]); // other kinds still wait for the user
+  const entry = app.client.state.pending.find(p => p.payload.kind === 'resume'); assert.equal(entry.baseRevision, 2); assert.equal(entry.payload.positionMs, 700000); assert.equal(entry.wire, null);
+});
+test('a resume conflict waits when the newer remote revision has not been pulled yet', async t => {
+  const {app, c} = await fixture(t), local = resume(5000), key = recordKey(c.keys, local);
+  app.client.state.local[key] = {payload: local, operation: 'put', epoch: 0}; app.client.state.conflicts[key] = {revision: 4, code: 'revision_conflict'};
+  assert.equal(app.resolveResumeConflicts(), 0); assert.ok(app.client.state.conflicts[key]);
+  app.client.state.remote[key] = {payload: resume(9000), operation: 'put', epoch: 0, revision: 3};
+  assert.equal(app.resolveResumeConflicts(), 0); assert.ok(app.client.state.conflicts[key]);
+});
+test('returning to the window pulls soon, but not while paused, failing, running or right after a run', async () => {
+  const s = scheduler(['synced', 'offline']); s.auto.start(); await s.fire(); // lastRunAt is now
+  s.auto.nudge(2, 30000); assert.equal(s.live().at(-1).ms, 100); // too soon after the last run: the interval timer stays
+  s.auto.nudge(2, 30000, Date.now() + 31000); assert.equal(s.live().at(-1).ms, 2); assert.equal(s.live().length, 1);
+  await s.fire(); assert.equal(s.auto.failures, 1); const backoff = s.live().at(-1).ms;
+  s.auto.nudge(2, 0, Date.now() + 60000); assert.equal(s.live().at(-1).ms, backoff); // failing: keep the back-off
+  const p = scheduler(['conflict']); p.auto.start(); await p.fire(); p.auto.nudge(2, 0, Date.now() + 60000); assert.equal(p.live().length, 0);
+});

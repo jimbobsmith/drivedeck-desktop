@@ -61,6 +61,7 @@ import { useI18n } from 'vue-i18n'
 
 const MANIFEST_TYPE_DASH = 'application/dash+xml'
 const MANIFEST_TYPE_HLS = 'application/x-mpegurl'
+const PERIODIC_PROGRESS_SAVE_MS = 2 * 60 * 1000
 const UNAVAILABLE_VIDEO_THUMBNAILS = {
   light: 'https://www.youtube.com/img/desktop/unavailable/unavailable_video.png',
   dark: 'https://www.youtube.com/img/desktop/unavailable/unavailable_video_dark_theme.png'
@@ -1222,6 +1223,19 @@ export default defineComponent({
     /**
      * @param {number} currentSeconds
      */
+    handlePlayerTimeupdate: function (currentSeconds) {
+      this.updateCurrentChapter(currentSeconds)
+      // While playing, also save the position every two minutes, so it is not lost if the
+      // computer is left with the video open and another device continues it.
+      const now = Date.now()
+      if (this.lastPeriodicProgressSave === undefined) {
+        this.lastPeriodicProgressSave = now
+      } else if (now - this.lastPeriodicProgressSave >= PERIODIC_PROGRESS_SAVE_MS) {
+        this.lastPeriodicProgressSave = now
+        this.handleWatchProgressAutoSave()
+      }
+    },
+
     updateCurrentChapter: function (currentSeconds) {
       const chapters = this.videoChapters
 
