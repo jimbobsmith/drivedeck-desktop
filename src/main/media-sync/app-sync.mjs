@@ -109,11 +109,24 @@ export class AppSync {
       try { await c.pull() } finally { c.save = save }
       await this.gate(async () => {
         await this.recover()
-        if (choice) { for (const key of Object.keys(c.state.conflicts)) c.resolve(key, choice); this.journal(); c.save(); await this.recover() }
+        if (choice) { for (const key of Object.keys(c.state.conflicts)) c.resolve(key, choice); this.journal(); c.save(); await this.recover() } else if (this.resolveResumeConflicts()) { this.journal(); c.save(); await this.recover() }
       })
       if ((await c.flush()).offline) return { ...this.status(), code: 'offline' }
       c.state.lastSyncComplete = true; c.state.lastSyncAt = Date.now(); c.save(); return this.status()
     } catch (error) { if (!error.code || error.name === 'TimeoutError') return { ...this.status(), code: 'offline' }; throw error } finally { this.syncing = false; this.syncBase = null }
+  }
+
+  // A resume conflict means two devices played the same video between syncs. The checkpoint made here
+  // is re-sent on top of the newer remote revision, so the device used last wins and automatic sync
+  // never stops for a playback position. Other kinds still wait for the user's choice.
+  resolveResumeConflicts () {
+    const c = this.client; let resolved = 0
+    for (const [key, conflict] of Object.entries(c.state.conflicts)) {
+      const remote = c.state.remote[key]
+      if (c.state.local[key]?.payload.kind !== 'resume' || !remote || remote.revision < conflict.revision) continue
+      c.resolve(key, 'keep-local'); resolved += 1
+    }
+    return resolved
   }
 
   journal () {

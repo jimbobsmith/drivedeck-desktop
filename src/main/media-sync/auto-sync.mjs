@@ -28,6 +28,14 @@ export class AutoSync {
     this.schedule(this.debounceMs)
   }
 
+  // The window came back to the front: pull soon so a video watched on another device can be continued here.
+  // Skipped while paused, failing or already running, and when the last run started under `minGapMs` ago.
+  nudge (ms = 2000, minGapMs = 30000, now = Date.now()) {
+    if (this.stopped || this.paused || this.running || this.failures > 0) return
+    if (this.lastRunAt && now - this.lastRunAt < minGapMs) return
+    this.schedule(ms)
+  }
+
   // The user acted (manual sync, conflict resolution, toggle): leave the paused state and try again.
   resume (ms = this.debounceMs) { if (this.stopped) return; this.paused = false; this.failures = 0; this.schedule(ms) }
 
@@ -35,7 +43,7 @@ export class AutoSync {
     if (this.stopped) return
     if (!this.enabled()) return this.schedule(this.intervalMs)
     if (this.paused) return
-    this.running = true; this.again = false
+    this.running = true; this.again = false; this.lastRunAt = Date.now()
     let code
     try { code = (await this.run())?.code } catch { code = 'sync_failed' }
     this.running = false

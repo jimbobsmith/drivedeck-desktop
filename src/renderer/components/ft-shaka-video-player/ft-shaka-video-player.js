@@ -182,6 +182,7 @@ export default defineComponent({
     'error',
     'loaded',
     'ended',
+    'pause',
     'timeupdate',
     'toggle-autoplay',
     'toggle-theatre-mode',
@@ -1220,6 +1221,9 @@ export default defineComponent({
 
     function handlePause() {
       stopPowerSaveBlocker()
+
+      // Lets the watch page save the position, so another device can continue from here.
+      emit('pause')
 
       if ('mediaSession' in navigator) {
         navigator.mediaSession.playbackState = 'paused'
