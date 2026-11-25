@@ -141,6 +141,8 @@ export function installMediaSync (models, allowed, channels, events) {
     return importHandler(event, action)
   })
   app.whenReady().then(() => { try { if (get()) auto.start() } catch { errorCode = 'local_sync_error' } })
+  // Returning to the app pulls soon, so the latest history and resume positions from other devices are here.
+  app.on('browser-window-focus', () => { try { if (get()?.autoSyncEnabled()) auto.nudge() } catch { /* status shows the error */ } })
   app.on('will-quit', () => auto.stop())
   app.on('will-quit', () => importer?.close())
   app.on('will-quit', () => instance?.close())
