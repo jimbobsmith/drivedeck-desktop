@@ -13,6 +13,7 @@ import WatchVideoLiveChat from '../../components/WatchVideoLiveChat/WatchVideoLi
 import WatchVideoPlaylist from '../../components/WatchVideoPlaylist/WatchVideoPlaylist.vue'
 import WatchVideoRecommendations from '../../components/WatchVideoRecommendations/WatchVideoRecommendations.vue'
 import FtAgeRestricted from '../../components/FtAgeRestricted/FtAgeRestricted.vue'
+import ProtonSwitchPanel from '../../components/ProtonSwitchPanel.vue'
 import { calculateColorLuminance } from '../../helpers/colors'
 import {
   buildChaptersVttFile,
@@ -44,6 +45,10 @@ import {
 import { sortCaptions } from '../../helpers/player/utils'
 import { MANIFEST_TYPE_SABR } from '../../helpers/player/SabrManifestParser'
 import { useI18n } from 'vue-i18n'
+import { blockFromPlayability, blockFromStreamError, decide, SwitchBudget } from '../../helpers/proton-block.mjs'
+
+// Automatic Proton VPN switches made from this window, across videos.
+const protonSwitchBudget = new SwitchBudget()
 
 /**
  * @typedef {{
@@ -79,7 +84,8 @@ export default defineComponent({
     'watch-video-live-chat': WatchVideoLiveChat,
     'watch-video-playlist': WatchVideoPlaylist,
     'watch-video-recommendations': WatchVideoRecommendations,
-    'ft-age-restricted': FtAgeRestricted
+    'ft-age-restricted': FtAgeRestricted,
+    ProtonSwitchPanel
   },
   beforeRouteLeave: async function (to, from, next) {
     this.handleRouteChange()
@@ -177,6 +183,9 @@ export default defineComponent({
       // error handling/messages
       /** @type {string|null} */
       errorMessage: null,
+      /** What the Proton VPN switch for a blocked stream is doing, or null. */
+      protonSwitch: null,
+      protonSwitchRun: 0,
       /** @type {string[]|null} */
       customErrorIcon: null,
       videoGenreIsMusic: false,
@@ -216,6 +225,9 @@ export default defineComponent({
     },
     proxyVideos: function () {
       return this.$store.getters.getProxyVideos
+    },
+    protonSwitchMode: function () {
+      return this.$store.getters.getProtonSwitchMode
     },
     defaultAutoplayInterruptionIntervalHours: function () {
       return this.$store.getters.getDefaultAutoplayInterruptionIntervalHours
@@ -361,6 +373,12 @@ export default defineComponent({
   },
   mounted: function () {
     this.onMountedDependOnLocalStateLoading()
+    this.stopProtonSwitchListener = window.ftElectron?.onProtonSwitchState?.(this.onProtonSwitchState)
+  },
+  beforeUnmount: function () {
+    // A switch that finishes after this page is gone must not replay anything.
+    this.protonSwitchRun++
+    this.stopProtonSwitchListener?.()
   },
   methods: {
     async reloadView() {
@@ -434,6 +452,8 @@ export default defineComponent({
       this.adEndTimeUnixMs = 0
       this.errorMessage = null
       this.customErrorIcon = null
+      this.protonSwitch = null
+      this.protonSwitchRun++
       this.videoGenreIsMusic = false
       this.streamingDataExpiryDate = null
       this.updateTitle()
@@ -725,7 +745,17 @@ export default defineComponent({
             }
           }
 
+          const block = blockFromPlayability(playabilityStatus)
+          if (block && await this.handleYoutubeBlock(block, 0)) {
+            // Switching or asking: show the block here, not another backend.
+            this.errorMessage = errorText
+            this.isLoading = false
+            this.updateTitle()
+            return
+          }
+
           if (this.backendFallback) {
+            this.protonSwitch = null
             throw new Error(errorText)
           } else {
             this.errorMessage = errorText
@@ -1586,6 +1616,8 @@ export default defineComponent({
       // the error is logged to the console inside the player so we don't have to do it here
 
       const { Code } = shaka.util.Error
+      // Read before the error hides the player, so a replay continues here.
+      const resumeAt = this.getTimestamp()
 
       if (error.code === Code.HTTP_ERROR) {
         if (error.data[1]?.message === 'Failed to fetch' && !navigator.onLine) {
@@ -1599,6 +1631,7 @@ export default defineComponent({
             this.handleWatchProgressAutoSaveWhenProgressEnabled()
 
             this.errorMessage = '[BAD_HTTP_STATUS: 429] Ratelimited'
+            this.handleStreamBlock(429, resumeAt)
             return
           case 403:
             this.handleWatchProgressAutoSaveWhenProgressEnabled()
@@ -1614,6 +1647,7 @@ export default defineComponent({
             } else {
               this.errorMessage = '[BAD_HTTP_STATUS: 403] Potential causes: IP block or streaming URL deciphering failed'
             }
+            this.handleStreamBlock(403, resumeAt)
             return
         }
       } else if (error.code === Code.VIDEO_ERROR) {
@@ -1999,6 +2033,143 @@ export default defineComponent({
           }
         }
       }
+    },
+
+    handleStreamBlock: function (httpStatus, resumeAt) {
+      // Only called once an expired watch session has been ruled out.
+      const kind = blockFromStreamError({ httpStatus, expired: false, streamsFromThisComputer: !this.proxyVideos })
+      if (kind) {
+        this.handleYoutubeBlock(kind, resumeAt)
+      }
+    },
+
+    /**
+     * YouTube refused this computer's address. Depending on the setting, ask
+     * the Proton VPN app for a new one now, or ask the user first.
+     * @param {string} kind
+     * @param {number} resumeAt seconds to continue from, 0 for the saved position
+     * @returns {Promise<boolean>} true when the block stays on screen (switching
+     *   or asking), false when the page should go on as before
+     */
+    handleYoutubeBlock: async function (kind, resumeAt) {
+      if (!process.env.IS_ELECTRON || this.protonSwitchMode === 'off') {
+        return false
+      }
+
+      const run = this.protonSwitchRun
+      const videoId = this.videoId
+      this.protonSwitch = { phase: 'checking', kind, resumeAt }
+
+      let proton
+      try {
+        proton = await window.ftElectron.protonSwitch('status')
+      } catch {
+        proton = { code: 'unavailable' }
+      }
+      if (run !== this.protonSwitchRun) {
+        return false
+      }
+
+      const budget = protonSwitchBudget.check(videoId)
+      const next = decide({ mode: this.protonSwitchMode, protonCode: proton.code, budget })
+      switch (next) {
+        case 'none':
+          this.protonSwitch = null
+          return false
+        case 'switch':
+          this.startProtonSwitch({ automatic: proton.code !== 'switching' })
+          return true
+        case 'ask':
+          this.protonSwitch = { phase: 'ask', kind, resumeAt }
+          return true
+        case 'paused':
+          this.protonSwitch = { phase: budget.reason === 'video' ? 'paused-video' : 'paused', count: budget.count, kind, resumeAt }
+          return true
+        default:
+          // unavailable or busy: say so, and let the page fall back as usual
+          this.protonSwitch = { phase: next, kind, resumeAt }
+          return false
+      }
+    },
+
+    startProtonSwitch: async function ({ automatic = false } = {}) {
+      const run = this.protonSwitchRun
+      const kind = this.protonSwitch?.kind
+      const resumeAt = this.protonSwitch?.resumeAt ?? 0
+      if (automatic) {
+        protonSwitchBudget.record(this.videoId)
+      }
+      this.protonSwitch = { phase: 'switching', kind, resumeAt }
+
+      let result
+      try {
+        result = await window.ftElectron.protonSwitch('switch')
+      } catch (error) {
+        result = { code: 'failed', message: error?.message ?? String(error) }
+      }
+      if (run !== this.protonSwitchRun) {
+        // The user moved on while the switch ran.
+        return
+      }
+
+      switch (result.code) {
+        case 'switched': {
+          this.protonSwitch = { phase: 'replaying', server: result.server, kind, resumeAt }
+          showToast(result.server
+            ? this.t('ProtonSwitch.Replaying', { server: result.server })
+            : this.t('ProtonSwitch.ReplayingNoServer'))
+          await this.replayAfterSwitch(resumeAt)
+          break
+        }
+        case 'unsupported':
+        case 'unauthorized':
+          this.protonSwitch = null
+          break
+        default:
+          this.protonSwitch = { phase: result.code, message: result.message, kind, resumeAt }
+      }
+    },
+
+    onProtonSwitchState: function (state) {
+      // Show the switch's progress while this page waits on it.
+      if (state?.code !== 'switching' || !['switching', 'network'].includes(this.protonSwitch?.phase)) {
+        return
+      }
+      this.protonSwitch = {
+        ...this.protonSwitch,
+        phase: state.step === 'network' ? 'network' : 'switching',
+        server: state.server
+      }
+    },
+
+    replayAfterSwitch: async function (resumeAt) {
+      if (resumeAt > 0 && resumeAt !== this.oneTimeTimestamp) {
+        try {
+          // The route watcher reloads the video from there.
+          await this.$router.replace({
+            path: this.$route.path,
+            query: { ...this.$route.query, oneTimeTimestamp: resumeAt },
+          })
+          return
+        } catch (failure) {
+          if (!isNavigationFailure(failure, NavigationFailureType.duplicated)) {
+            throw failure
+          }
+        }
+      }
+      await this.reloadView()
+    },
+
+    onProtonSwitchDismissed: function () {
+      this.protonSwitch = null
+    },
+
+    onProtonSwitchRecheck: function () {
+      this.handleYoutubeBlock(this.protonSwitch?.kind, this.protonSwitch?.resumeAt ?? 0)
+    },
+
+    onProtonSwitchReload: function () {
+      this.replayAfterSwitch(this.protonSwitch?.resumeAt ?? 0)
     },
 
     onManualReloadRequested: throttle(async function () {

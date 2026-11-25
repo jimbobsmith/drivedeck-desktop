@@ -1,6 +1,7 @@
 import './desktop-identity.mjs'
 import { installMediaSync } from './media-sync/electron.mjs'
 import { installDesktopUpdates } from './install-desktop-updates.mjs'
+import { installProtonSwitch } from './install-proton-switch.mjs'
 import {
   app, BrowserWindow, dialog, Menu, ipcMain,
   powerSaveBlocker, screen, session, shell,
@@ -399,6 +400,7 @@ function runApp() {
 
   app.on('ready', async (_, __) => {
     installDesktopUpdates(isFreeTubeUrl)
+    installProtonSwitch(isFreeTubeUrl)
     if (process.platform === 'darwin') {
       const dockMenu = Menu.buildFromTemplate([
         {

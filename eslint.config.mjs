@@ -446,7 +446,7 @@ export default defineConfig([
     }
   },
   {
-    files: ['src/main/library-import/*.mjs', 'src/main/media-sync/*.mjs', 'src/main/desktop-*.mjs', 'src/main/install-desktop-updates.mjs', 'src/renderer/helpers/desktop-update-checks.mjs'],
+    files: ['src/main/library-import/*.mjs', 'src/main/media-sync/*.mjs', 'src/main/desktop-*.mjs', 'src/main/install-desktop-updates.mjs', 'src/renderer/helpers/desktop-update-checks.mjs', 'src/main/proton-switch.mjs', 'src/main/install-proton-switch.mjs', 'src/renderer/helpers/proton-block.mjs', 'tools/fork/proton-*.mjs'],
     languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   }
 ])

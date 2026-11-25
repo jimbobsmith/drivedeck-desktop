@@ -314,6 +314,8 @@ const state = {
   quickBookmarkTargetPlaylistId: 'favorites',
   generalAutoLoadMorePaginatedItemsEnabled: false,
   hideToTrayOnMinimize: false,
+  // DD: what to do when YouTube blocks this computer's address (automatic | ask | off)
+  protonSwitchMode: 'automatic',
 
   // The settings below have side effects
   currentLocale: 'system',
@@ -447,6 +449,8 @@ export const NON_TRANSFERABLE_SETTINGS = new Set([
   'hideToTrayOnMinimize',
   'screenshotAskPath',
   'screenshotFolderPath',
+  // DD: depends on the Proton VPN app on this computer
+  'protonSwitchMode',
 
   /* Depends on process.env.SUPPORTS_LOCAL_API */
   'backendFallback',

@@ -88,6 +88,12 @@
         inline-size: 100%;
       }
 
+      // DD: room for the Proton VPN switch status and its buttons, even when
+      // the thumbnail did not load.
+      &:has(.protonSwitch) {
+        min-block-size: 340px;
+      }
+
       .errorContainer {
         position: absolute;
         inset: 30px;

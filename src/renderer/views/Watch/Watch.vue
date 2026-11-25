@@ -113,11 +113,21 @@
                 aria-hidden="true"
                 class="errorIcon"
               />
-              <p
-                class="errorMessage"
-              >
-                {{ errorMessage }}
-              </p>
+              <div>
+                <p
+                  class="errorMessage"
+                >
+                  {{ errorMessage }}
+                </p>
+                <ProtonSwitchPanel
+                  v-if="protonSwitch"
+                  :state="protonSwitch"
+                  @switch="startProtonSwitch()"
+                  @dismiss="onProtonSwitchDismissed"
+                  @reload="onProtonSwitchReload"
+                  @recheck="onProtonSwitchRecheck"
+                />
+              </div>
             </div>
           </div>
         </div>
